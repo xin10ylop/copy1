@@ -63,6 +63,7 @@ import os
 import re
 import sqlite3
 import struct
+import subprocess
 import sys
 import threading
 import time
@@ -802,6 +803,57 @@ def summary(table: dict, old: dict, why: dict, top: int) -> str:
     return "\n".join(lines)
 
 
+# ------------------------------------------------------------------------------------ copy seed
+COPY_SEED_PER_SIGNER = 8  # crates/rugsnipe/src/copybuys.rs PER_SIGNER
+
+
+def copy_signers_seed(bought: dict[str, dict], launches: dict[str, dict]) -> dict[str, list[int]]:
+    """The copied wallet's landed launch buys (its first buy of the mint in the create slot or the
+    next) per create signer: ``{signer: [buy slot, ...]}`` oldest first, the last
+    ``COPY_SEED_PER_SIGNER``, as ``rugsnipe-hot`` keeps them (``copy_signers.json``)."""
+    per: dict[str, list[int]] = collections.defaultdict(list)
+    for m, d in bought.items():
+        f = launches.get(m)
+        if not f:
+            continue
+        b0 = d["buys"][0]
+        if 0 <= b0["slot"] - f["cs"] <= 1:
+            per[f["signer"]].append(b0["slot"])
+    return {s: sorted(set(v))[-COPY_SEED_PER_SIGNER:] for s, v in sorted(per.items())}
+
+
+def hot_unit_active() -> bool:
+    try:
+        r = subprocess.run(["systemctl", "is-active", "rugsnipe-hot"], capture_output=True, text=True, timeout=10)
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return r.stdout.strip() == "active"
+
+
+def write_copy_signers_seed(a, bought: dict[str, dict], launches: dict[str, dict], log) -> None:
+    seed = copy_signers_seed(bought, launches)
+    n_buys = sum(len(v) for v in seed.values())
+    if hot_unit_active() and not a.seed_force:
+        log(f"copy seed NOT written: rugsnipe-hot is active (it keeps its own counts; stop it first, or --seed-force): "
+            f"{len(seed)} signers, {n_buys} launch buys in the window")
+        return
+    text = json.dumps(seed, separators=(",", ":")) + "\n"
+    d = os.path.dirname(os.path.abspath(a.copy_signers_seed))
+    if not os.path.isdir(d):
+        log(f"copy seed NOT written: {d} is not a directory")
+        return
+    write_atomic(a.copy_signers_seed, text, 0o640, None)
+    if os.geteuid() == 0 and a.seed_owner:
+        import pwd  # noqa: PLC0415
+        import grp  # noqa: PLC0415
+        try:
+            os.chown(a.copy_signers_seed, pwd.getpwnam(a.seed_owner).pw_uid, grp.getgrnam(a.seed_owner).gr_gid)
+        except KeyError:
+            log(f"copy seed: no user/group {a.seed_owner!r}: left root-owned (rugsnipe-hot can still read and replace it)")
+    log(f"copy seed: {len(seed)} signers, {n_buys} of its launch buys (create + 0/1) in the window -> {a.copy_signers_seed} "
+        f"(>= {2} buys on {sum(1 for v in seed.values() if len(v) >= 2)} signers)")
+
+
 # ------------------------------------------------------------------------------------ main
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -833,6 +885,15 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--report", help="also write the per-round-trip rows and launch facts here (JSON)")
     ap.add_argument("--top", type=int, default=20)
     ap.add_argument("--dry-run", action="store_true", help="print the table to stdout; write nothing")
+    ap.add_argument("--copy-signers-seed", metavar="PATH",
+                    help="2026-10-28: also write the copied wallet's landed launch buys (create + 0/1) per create signer in the "
+                         "window as {signer: [buy slot, ...]} (oldest first, the last 8), the file rugsnipe-hot's copy counter "
+                         "(entry.copy_signer_min_buys, crates/rugsnipe/src/copybuys.rs) loads at start: copy_signers.json "
+                         "beside state.db. Written even with --dry-run. Only for a start after downtime, with rugsnipe-hot "
+                         "STOPPED (a running hot unit saves its own counts over it at shutdown); refused while it runs unless "
+                         "--seed-force")
+    ap.add_argument("--seed-owner", default="rugsnipe", help="owner (user and group) of the seed file when run as root (default rugsnipe)")
+    ap.add_argument("--seed-force", action="store_true", help="write the seed even if rugsnipe-hot is active")
     a = ap.parse_args(argv)
     log = lambda *x: print(*x, file=sys.stderr, flush=True)  # noqa: E731
 
@@ -960,6 +1021,8 @@ def main(argv: list[str] | None = None) -> int:
     if a.report:
         with open(a.report, "w") as f:
             json.dump({"round_trips": rts, "launches": launches, "fresh": fresh, "why": why}, f)
+    if a.copy_signers_seed:
+        write_copy_signers_seed(a, bought, launches, log)
     text = json.dumps(table, indent=1) + "\n"
     if a.dry_run:
         sys.stdout.write(text)

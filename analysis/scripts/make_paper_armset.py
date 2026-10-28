@@ -188,6 +188,11 @@ def main() -> int:
     ap.add_argument("--probe-stage", choices=["a", "b"], default="a",
                     help="with --probe-allowed: a = 0.02 SOL measurement, b = 0.25 SOL (docs/04 section 7)")
     ap.add_argument("--regime", default="paper", help="ArmSet regime (rugsnipe-hot --regime must match)")
+    ap.add_argument("--size-sol", type=float, default=0.0,
+                    help="2026-10-28: the operator's size in SOL (the stake ceiling the hot loop narrows from: the "
+                         "risk cap and entry.stake_by_tier only lower it). 0 = the stage default (probe a 0.02, b 0.25, "
+                         "class 0.5). The copy of him traded 0.5 SOL at stage b: --probe-stage b --size-sol 0.5 (or 1.0 "
+                         "for a bigger stake), with [risk] and [probe] b max_probe_lamports at least that")
     ap.add_argument("--valid-hours", type=int, default=6,
                     help="valid_until = created_at + N hours (default 6; probe stage A: 264 = 11 days, with "
                          "[risk] armset_max_age_s = 950_400 in the probe config)")
@@ -225,6 +230,10 @@ def main() -> int:
         armset["probe_stage"] = a.probe_stage
         ops[0]["state"] = "probe"
         ops[0]["size_lamports"] = PROBE_SIZE[a.probe_stage]
+    if a.size_sol > 0:
+        if not 0.001 <= a.size_sol <= 10.0:
+            raise SystemExit(f"--size-sol {a.size_sol}: must be within 0.001 and 10 SOL")
+        ops[0]["size_lamports"] = int(round(a.size_sol * LAMPORTS))
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_text(json.dumps(armset, indent=1, sort_keys=True) + "\n")
     print(f"{a.out}: {len(ops)} operator(s), {len(watch)} watch key(s), {len(rules)} funding rule(s), "

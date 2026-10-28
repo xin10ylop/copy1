@@ -1,0 +1,193 @@
+# rugsnipe COPY-HIM configuration (2026-10-28): the hot bot as a copy of operator 1 ("him",
+# AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2) and nothing else. docs/17 section 9 built it, the
+# S6 page (03-strategies/S6-copy-him.md) is its record, 07-restart/README.md is the restart plan.
+#
+#   sudo install -m 0640 -o root -g rugsnipe /opt/rugsnipe/src/config/copy-him.example.toml /etc/rugsnipe/rugsnipe.toml
+#
+# Derived from config/probe-a.example.toml (the file the live bot grew out of). Every line that
+# matters for the copy carries a "copy-him:" comment. You MUST edit three values before the first
+# start, as for probe-a:
+#   [secrets] armset_pubkey  the ArmSet signing pubkey (docs/08 section 4)
+#   [secrets] cold_wallet    a pubkey you control off the box
+#   [feeds]   grpc.url       your Triton endpoint (the x-token goes in api-keys.toml as GRPC_TOKEN)
+# This file holds NO secrets: key values live in /etc/rugsnipe/keys/api-keys.toml (root 0400).
+#
+# What it does: nothing of its own (rule_buys = false). When his landed launch buy (create + 0 or
+# + 1) shows on the gRPC stream with a tip of 2M lamports or more (or a size of 2 SOL or more), on
+# a create signer he has bought twice in the last 24 h and that the operator table lists, it buys
+# 0.5 SOL behind him, bound at his fill + 5%, and sells one slot before his usual sell for that
+# signer (the table's hold - 1). Measured live Oct 26-27: 162 copies, 125 filled, 33 refused at
+# the bound, net -0.0479 SOL while he made +8.91 (05-live/check-sh-2026-10-27.txt). The 5-day
+# backtest made +8.02 SOL (docs/17 section 9); 07-restart/README.md says what changed since.
+[box]
+id = "fra1"                                        # copy-him: the box's name (any; check.sh and the journal print it)
+role = "hot"
+singleton = true
+[mode]
+mode = "probe"                                     # copy-him: "probe" is the real-money mode this build allows (live is refused, docs/08 section 0); stage b below sizes it
+regime_freeze_slots = [[459_640_000, 459_869_000]] # Alpenglow: buys forced to paper (past)
+max_age_slots = 2
+[secrets]                                          # systemd credential NAMES, never key material
+hot_keypair = "hot-keypair"
+probe_keypair = "probe-keypair"
+api_keys = "api-keys"
+armset_pubkey = "PASTE-ARMSET-SIGNING-PUBKEY"      # placeholder; config validate refuses it until you paste the signing pubkey
+cold_wallet = "PASTE-COLD-WALLET-PUBKEY"          # placeholder; config validate refuses it until you paste a pubkey you control
+[risk]
+max_snipe_lamports = 1_000_000_000                 # copy-him: ceilings; [probe] b narrows the stake to 0.5 SOL (raise both for a bigger stake, and sign the ArmSet with --size-sol)
+max_probe_lamports = 1_000_000_000
+max_probes_per_day = 300                           # copy-him: his key buys were about 160 a day live (162 copies in 21 h); the backtest's 60 a day
+max_open_positions = 4                             # ceiling; stage b: 2 (the backtest never had more than 2 copies open at once, docs/17 section 9)
+max_daily_loss_lamports = 1_000_000_000            # copy-him: the daily stop, marked to market (open positions at their sell quote). It bound live on Oct 27 through the stuck coin, not through his copies
+max_consec_losses_per_op = 1_000_000               # NOT a stop: the class arm is one operator (docs/08 section 9 step 3)
+max_buys_per_op_per_day = 300
+max_buys_per_hour = 40                             # copy-him: his key buys come in bursts (6 within a minute at 04:00 Beirut on Oct 27); 12 an hour would drop them
+spread_buys_per_hour = false                       # copy-him: no spreading: a copy is now or never
+max_bid_lamports = 25_000_000
+max_sell_spend_lamports = 20_000_000
+max_entry_vsol_lamports = 115_000_000_000          # copy-him: NOT 40 SOL: 48% of his profit is on curves above 40 vSOL (docs/17 section 1); a copy follows him there
+max_hot_balance_lamports = 5_000_000_000
+min_hot_balance_lamports = 100_000_000             # a buy needs this + the stake + the bid in the wallet
+kill_file = "/run/rugsnipe/KILL"
+armset_max_age_s = 1_296_000                       # 15 days, one ArmSet for the run (sign it with --valid-hours 360)
+decode_miss_kill_ratio = 0.01
+send_error_kill_ratio = 0.20
+max_clock_offset_ms = 5
+send_error_window = 50
+unexplained_drop_lamports = 50_000_000
+max_disk_used_pct = 90
+kill_clock_offset_ms = 50
+max_slot_drift = 8
+[feeds]
+logsws = { enabled = false, url = "wss://api.mainnet-beta.solana.com", stale_ms = 10_000 }
+relay = { enabled = false, socket = "/run/rugsnipe/pp.sock" }
+# copy-him: the one feed the copy needs: his executed trades (user = follow_wallet) and every pump trade of a fresh
+# launch (bundle_run = true), post-execution, from Yellowstone gRPC. YOUR-ENDPOINT = the Triton endpoint name from the
+# portal (the token is NOT here: api-keys.toml GRPC_TOKEN = "...")
+grpc = { enabled = true, url = "https://YOUR-ENDPOINT.rpcpool.com", x_token = "GRPC_TOKEN", stale_ms = 4_000, bundle_run = true }
+shreds = { enabled = false, bind = "0.0.0.0:7733", sources = ["dz_edge", "helius"] }
+probe_live_require = "post_exec"
+[senders]                                          # one variant per sender on the intent's single durable nonce; at most one lands
+quarantine_min = 10
+paper = { enabled = true }
+rpcsend = { enabled = false, url = "https://api.mainnet-beta.solana.com", sells_only = true }
+helius = { enabled = true, url = "http://fra-sender.helius-rpc.com/fast", key = "HELIUS_KEY" }         # 0.001 SOL min tip; 50 req/s with a key
+helius_swqos = { enabled = false, url = "http://fra-sender.helius-rpc.com/fast" }
+nozomi = { enabled = true, url = "http://fra2.nozomi.temporal.xyz", key = "NOZOMI_KEY", min_tip = 1_000_000 }
+astralane = { enabled = true, url = "http://fr.gateway.astralane.io/irisb", key = "ASTRALANE_KEY", min_tip = 1_000_000 }
+blockrazor = { enabled = true, url = "http://frankfurt.solana.blockrazor.xyz:443/sendTransaction", key = "BLOCKRAZOR_KEY" }
+jito = { enabled = true, region = "frankfurt", url = "http://127.0.0.1:8081", max_rps = 1 }      # through the local TLS relay (deploy/nginx/jito-relay.conf); without the relay set enabled = false
+nextblock = { enabled = false, key = "NEXTBLOCK_KEY" }
+tpu = { enabled = false, leaders_ahead = 2 }
+[rpc_budget]
+hot = 4
+guard = 4
+keeper = 8
+collector = 12
+backfill = 4
+per_method = 4
+per_host = 10
+[tx]
+format = "legacy"
+cu_limit = 88_000                                  # 88,000 for a wallet that has never bought on pump (its volume accumulator is created on the first buy); 65,000 is enough once `rugsnipe-ctl sim --wallet PUBKEY --legacy` passes
+lads_bytes = 12_124_160
+nonce_pool = 32
+sell_nonce_pool = 8
+burn_after_slots = 3
+partial_fill = false
+[bid]
+quantile = 0.75
+# copy-him: the copy's bid. Live A/B (check.sh TIP TEST, Oct 26-27): 3.0M landed 156 positions behind him and netted
+# -0.0003 a copy; 8.0M landed 149 behind (7 closer) and netted -0.0062 a copy, 0.005 SOL of it the tip. A tip only orders
+# us among the transactions that reach the leader with ours; the ~90-150 positions are the pipeline (docs/17 section 9,
+# "A bigger tip": 90 -> 45 positions is worth +1.8M a copy, no more). So the bid goes DOWN, not up.
+lamports = 3_000_000                               # copy-him: the live arm that worked; see ab_by_tier for the test of a lower one
+split = { jito_agave = [0.7, 0.3], bam = [1.0, 0.0], harmonic = [1.0, 0.0], other = [1.0, 0.0] }
+min_priority_lamports = 10_000
+failed_attempt_lamports_max = 1_000_000
+failed_attempt_max_by_class = { jito_agave = 9_000_000, bam = 9_000_000, harmonic = 9_000_000, other = 9_000_000 }
+# copy-him: the bid A/B for copies (tier 0): the mints whose first byte is odd bid this instead of `lamports`; check.sh's
+# TIP TEST reads it. Keep the lower bid only if it lands no farther behind him (d_avg) AND nets more per copy.
+ab_by_tier = [1_500_000, 1_500_000, 1_500_000]   # three entries, all > 0 (validation); copies are tier 0, so one value is what counts
+[probe]
+stage = "b"                                        # copy-him: stage b = the caps below; the ArmSet must name probe_stage = "b" (make_paper_armset.py --probe-stage b --size-sol 0.5)
+a = { max_probe_lamports = 20_000_000, max_probes_per_day = 300, max_open_positions = 1, max_daily_loss_lamports = 1_000_000_000 }
+b = { max_probe_lamports = 500_000_000, max_probes_per_day = 300, max_open_positions = 2, max_daily_loss_lamports = 1_000_000_000 }   # copy-him: 0.5 SOL a copy, 2 open, 1 SOL daily stop
+kill = { min_landed = 100, min_attempts = 400, max_median_premium = 0.03, landing_attempts = 200 }
+[entry]
+# ---- the copy (docs/17 section 9, "Built: entry.copy"; 03-strategies/S6-copy-him.md "The rule")
+rule_buys = false                                  # copy-him: the rule decides nothing; every create is kept for a copy; the caps and the daily stop serve the copies alone
+copy = "on"                                        # copy-him: buy behind follow_wallet's landed launch buys ("log" = journal only, no buy)
+follow_wallet = "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2"   # him
+copy_min_sol = 0.0                                 # any size ...
+copy_min_tip_lamports = 2_000_000                  # ... with a tip of 2M or more (his tips step 1.0, 1.5, 1.8, 2.4, 3.6, 4.8, 7.2, 12M ...; 1.5-2M is his weak bucket): +8.02 SOL over Oct 21-25 against +5.64 at 4M
+copy_big_sol = 2.0                                 # or a buy of 2 SOL or more whatever the tip (his rare big low-tip bets; +1.42 on 6 copies in the backtest, -0.51 on 9 live: thin either way)
+copy_max_premium = 0.05                            # his fill + 5%; above it the buy is refused on chain (pump 6042) for the fee only. 10% / 15% / none lost -1.05 / -1.79 / -2.07 over 5 days (docs/19 section 9)
+copy_late_slots = 2                                # sent until create + 2
+copy_listed_only = true                            # the signer must be in operators_file (that table also gives the hold the copy sells one slot before)
+copy_signer_min_buys = 2                           # and he must have bought the signer's launches twice in copy_signer_window_h, counted live (0 = off). Live Oct 26-27 check.sh printed "< 0 times": verify the running config with `bash ~/check.sh` after the start
+copy_signer_window_h = 24
+copy_more = []                                     # copy-him: nobody else. The other wallets (S7) lost or made cents; a wallet-4 coin that could not be sold stopped his copies on Oct 27
+operators_file = "/etc/rugsnipe/operators.json"    # rebuilt every 4 h by rugsnipe-operators.timer from his last 24 h on chain (--source rpc); seed it before the first start (07-restart/README.md)
+operators_only = false
+stake_by_tier = [500_000_000, 500_000_000, 500_000_000]   # copy-him: 0.5 SOL a copy (copies are tier 0). It only narrows: the ArmSet's size and [probe] b are the ceilings
+stake_fits_balance = true                          # a buy above the free balance is made at the free balance (down to stake_min_sol) instead of refused
+stake_min_sol = 0.15
+# ---- the rule's own gates: idle with rule_buys = false, listed so the file validates like the live one did
+require_bundle = true
+dev_buy_sol = []
+dev_buy_tol_sol = 0.005
+leader_regions = []                                # copy-him: a copy reacts to his landed buy wherever the leader is (far leaders: +0.84 on 29 copies under NA leaders, docs/17 section 10)
+leader_regions_file = "/var/lib/rugsnipe/data/leader_regions.json"
+dumper_skip = "off"                                # copy-him: served the rule's buys only (docs/17 section 9, "Changes")
+dumper_skip_hosts = []
+follow = "off"                                     # copy-him: off (the rule's follow layer)
+follow_min_attempts = 2
+follow_min_rate = 0.5
+follow_min_dev_sol = 0.25
+tweet_gate = "off"                                 # copy-him: off (the rule's tweet layer)
+tweet_feed = "off"
+hidden_dev_buy = "grpc"                            # copy-him: trade rapidlaunch creates on the executed trades (the copy's trigger is his executed buy anyway)
+bundle_wait_us = 300
+bundle_wait_ms = 2
+max_premium = 0.05                                 # the rule's bound (idle)
+bundle_lamports = 4_000_000_000
+filter = "any"
+filter_model = ""
+filter_mode = "log"
+[exit.default]                                     # copy-him: ONE exit: sell 100% at create + hold (a copy: the table's hold - 1). Everything reactive is off (docs/09 "Exit clocks": every reactive exit cut the winners)
+tp = []
+tp_basis = "value"
+fire_on = "trade"
+insider_sell = "off"
+bundle_sell_min_lamports = 0
+no_activity_ms = 0
+phantom_sl = { after_ms = 0, drop = 0.0 }
+max_hold_slots = 0
+max_hold_ms = 0
+tp_slip_bps = 2500
+trail = { activate = 0.0, retrace_bps = 0 }
+consolidation_pct = 0
+big_buy_lamports = [0, 0]
+sell_retry = { every_slots = 2, max_tries = 15, tip_mult = 2.0 }   # a sell that fails is re-sent every 2 slots with the tip doubled, 15 times at most, within max_sell_spend_lamports
+hold_to_create_slots = 9                           # copy-him: the fallback for a position without a table hold (the rule's flat +9); a copy of a listed signer sells at its hold - 1
+sell_tip_lamports = 500_000                        # copy-him: his sells cost about 0.5M priority + 1M tip (docs/12 section 2); ours were cut from 2M to 0.5M (docs/14 section 5)
+dump_tip_lamports = 500_000
+[guard]
+takeover_after_ms = 5_000
+drop_from_peak_bps = 3000
+grace_s = 60
+[watch]
+default_ttl_s = 1800
+remove_if_no_launch_s = 3600
+last_transfer_min_frac = 0.9
+[obs]
+metrics_listen = ["127.0.0.1:9464"]
+rslog_dir = "/var/lib/rugsnipe/rslog"
+alert = { telegram = "TG_TOKEN", chat = "TG_CHAT", deadman = "", hourly = true, commands = false }   # Telegram is the only alert path: put TG_TOKEN and TG_CHAT in api-keys.toml
+[ab]                                               # copy-him: no randomized control arm (skip_p 0) and no size jitter: every key buy of his is copied at the same stake
+skip_p = 0.0
+small_arm = [0.2, 0.35]
+small_lamports = 50_000_000
+size_jitter = 0.0
+[collector]

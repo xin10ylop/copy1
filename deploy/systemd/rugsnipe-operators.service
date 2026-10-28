@@ -30,7 +30,12 @@ User=root
 Group=root
 WorkingDirectory=/var/lib/rugsnipe
 Environment=PYTHONUNBUFFERED=1
-ExecStart=/usr/bin/python3 -I /opt/rugsnipe/src/analysis/scripts/strategy/operators_refresh.py --api-keys /etc/rugsnipe/keys/api-keys.toml --source rpc --hours 24 --out /etc/rugsnipe/operators.json --state /var/lib/rugsnipe/state.db --min-n 2 --drop-dumpers --mode 0640 --group rugsnipe
+# 2026-10-28: --copy-signers-seed also writes his launch buys per signer of the same 24 h (the copy counter of
+# entry.copy_signer_min_buys, loaded by rugsnipe-hot at start as copy_signers.json beside state.db), so a start after
+# downtime does not count from empty (a count started empty keeps 99 of 226 copies over 5 days, docs/17 section 9).
+# It is written only while rugsnipe-hot is NOT active (a running hot unit keeps its own counts and saves them at
+# shutdown); during a normal 4-hourly refresh the line is a no-op and the journal says so.
+ExecStart=/usr/bin/python3 -I /opt/rugsnipe/src/analysis/scripts/strategy/operators_refresh.py --api-keys /etc/rugsnipe/keys/api-keys.toml --source rpc --hours 24 --out /etc/rugsnipe/operators.json --state /var/lib/rugsnipe/state.db --min-n 2 --drop-dumpers --mode 0640 --group rugsnipe --copy-signers-seed /var/lib/rugsnipe/copy_signers.json
 # exit clocks (docs/09 "Exit clocks"): signers whose hold rests on < 5 of the wallet's round trips get their own
 # sell clock's hold where it beat the wallet's in both halves of their last 48 h of launches; a failure ('-')
 # leaves the wallet's holds and still restarts
@@ -40,12 +45,12 @@ TimeoutStartSec=45min
 Nice=10
 UMask=0027
 
-# root only to read the 0700 keys and chown the table; everything but /etc/rugsnipe is read-only
-# (state.db is opened read-only and no file is ever created under /var/lib/rugsnipe)
+# root only to read the 0700 keys and chown the table; everything but /etc/rugsnipe and /var/lib/rugsnipe is read-only
+# (state.db is opened read-only; the only file written under /var/lib/rugsnipe is copy_signers.json, above)
 CapabilityBoundingSet=CAP_CHOWN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_FOWNER
 NoNewPrivileges=yes
 ProtectSystem=strict
-ReadWritePaths=/etc/rugsnipe
+ReadWritePaths=/etc/rugsnipe /var/lib/rugsnipe
 ProtectHome=yes
 PrivateTmp=yes
 PrivateDevices=yes

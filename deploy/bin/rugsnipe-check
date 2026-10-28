@@ -424,7 +424,18 @@ if [ "$SHORT" = 1 ]; then
   [ -n "$cw_" ] && echo "   copyw (this process): $(wv wallets) other wallet(s) (entry.copy_more): their launch buys $(wv seen)  not copied: under min_sol $(wv small)  ->  copied $(wv buy) (journaled only $(wv log), coin already ours $(wv passed))"
   echo "   sends (this process): $(q "$(g 'probe attempts [0-9]+ landed [0-9]+ failed [0-9]+ dropped [0-9]+' | sed 's/probe //')")"
   echo "== results since the start (after tips and fees; failed = our buys that landed failed)"
-  printf '%s\n' "$SQL" | sq -header -column "$DB"
+  res=$(printf '%s\n' "$SQL" | sq -header -column "$DB"); printf '%s\n' "$res"
+  # 2026-10-28: net_sol counts closed trades only. 2RR6sfbi (05-live/stuck-coin-2RR6sfbi.md) sat open for five hours
+  # while check.sh said -0.76 and the wallet had lost 1.41: the open positions' cost and the rest (failed sells' fees,
+  # nonce rent, stray tokens) are printed next to it, so the wallet line is explained, not guessed.
+  net=$(awk '$1 == "since" && $2 == "start" { print $NF }' <<<"$res")
+  oc=$(sq "$DB" "select coalesce(sum(cost), 0) || ' ' || count(*) from positions where state != 'closed'" 2>/dev/null)
+  echo "   open positions, not in net_sol: $(awk '{ printf "%d at cost %.4f SOL", $2, $1 / 1e9 }' <<<"${oc:-0 0}")"
+  if [ -n "$wallet" ] && [ -n "$w_start" ] && [ -n "$net" ]; then
+    awk -v a="$w_start" -v b="$wallet" -v n="$net" -v o="${oc%% *}" 'BEGIN { d = (b - a) / 1e9; r = d - n + o / 1e9;
+      printf "   wallet change %+.4f SOL = closed net %+.4f + open positions at cost %+.4f + the rest %+.4f (failed sells\x27 fees, nonce rent, stray tokens)\n", d, n, -o / 1e9, r;
+      if (r < -0.02) printf "   WARNING: %.4f SOL left the wallet outside closed trades and open positions: a sell that keeps failing (journal CRITICAL), or a manual move\n", -r }'
+  fi
   # every launch buy of the copied wallets since the start, one row each (their own trades read from the chain once)
   if [ -n "$ERA" ]; then
     if [ -n "${CHECK_TRADES+x}" ]; then TA=($CHECK_TRADES); else TA=(--state "$DB" --tz "$LT"); fi
