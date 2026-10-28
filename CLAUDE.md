@@ -79,9 +79,9 @@ bash data/datasets/unpack.sh dec        # one archive
 
 1. Nothing runs. A restart is him alone at 1.0 SOL, bid 1.5M with a 1.0M A/B, 1.0M sell tips, Frankfurt: the runbook
    is `07-restart/README.md` §6. Expected on a mix of days like Oct 16-28 about +1 SOL a day, about zero on his weak days.
-2. The operator-count question is settled by the code review: the box ran `copy_signer_min_buys = 0` (check.sh read
-   the file correctly); with the table on it cost about nothing. The owner's paste of the backup's config (§6.0 of the
-   runbook) confirms it.
+2. The operator-rule question is settled by the owner's paste of the backup's config (Oct 28): the box ran
+   `copy_signer_min_buys = 0` and `copy_listed_only = false`, no rule at all (worth −1.71 over 5 days against the
+   rule, copy_relook C6). The restart config has both on.
 3. The copy's gap is unchanged and re-tested: every way to take the refused copies and the skipped low-tip buys loses
    out of sample (copy_relook C5). Landing closer: Triton Preconfs are the one untested feed (box study §5).
 4. Task #45 and #68 from the original session (his exact selection logic; a new copy-target search) were never finished.

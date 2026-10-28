@@ -191,7 +191,7 @@ review, the live decomposition.
 | **his priority-fee bids** (new, from the chain) | not seen by the tip key | a key on tip + priority >= 2M adds 130 copies over 5 days: −0.83 [−1.41], 4 of 5 days negative; the whole key +6.94 against +7.77, Oct 24-25 −0.44 against +0.21; 3M / 4M / 6M thresholds worse (c9) | **tip key stays** |
 | **the exit H - 1** | H - 1 | by bucket (tip >= 8M: H-1 +3.88 best; 2-8M: H-1 +2.47 best); the per-bucket picks make -0.17 on Oct 24-25 against +0.21 for H-1 everywhere (c2). Live: copies sold at create + 9 (H = 10 signers) -1.67 on 60, at + 5 (H = 6) +0.70 on 52, one window | **H - 1 everywhere**; watch the H = 10 group in the next window |
 | **sell timing** | 0.5M sell tips | 16 of 100 live sells with a fixed target landed a slot or more late; every sell one slot late costs -2.70 over 5 days, so the measured 16% costs -0.43 (c3) | keep 0.5M; count late sells in the next window before paying more |
-| **the operator rule** | the box ran `copy_signer_min_buys = 0` (the config, read correctly by check.sh), with `copy_listed_only` on | with the table kept, the count is worth -0.06 over 5 days (by day -0.48 +0.44 -0.11 +0.05 +0.05); against no rule and no table, +1.71 (c6). The window was 13 h in wall time, not 24 (code review Q1.3) | **2 in 24 h, as documented**, with the window fixed: it is the table that matters |
+| **the operator rule** | **off entirely**: the box ran `copy_signer_min_buys = 0` AND `copy_listed_only = false` (the owner's paste of the backup's config, Oct 28; the code review had inferred the table on). An unlisted signer's copy then sold at the flat create + 9 instead of his hold − 1 | no count and no table is worth −1.71 over 5 days against the rule (+6.19 [+3.27] against +7.90 [+4.98]; without 8ZN71X +0.44 against +2.15), though Oct 24-25 alone reads +0.80 [+0.02] against +0.34 [−0.45] (c6). Unlisted copies at a flat exit lost −2.25 on 313 in docs/17 §9. The window was 13 h in wall time, not 24 (code review Q1.3) | **both on: listed only, 2 in 24 h**, with the window fixed |
 | **circuit breakers** | none | pause after 3 losses / 2 dumps in 30 min / a copies-only day stop / an operator out 3 h after a dump: 0 to +0.40 over 5 days, -0.13 to -0.65 live (each pause forgoes HQT8xbhA +0.71 right after the dumps) (c4) | **none** |
 | **H under 4 signers** | copied, sold at +2 or at his own slot | H = 3 sells at +2, at or before our fill; H = 1 at his dump (code review Q4.3); none in this window | **skipped** (`skip_short_hold`, built) |
 | **the daily stop** | 1 SOL, every copied wallet together | marked to market every second; one unsellable position carries into the next UTC day (Q6.1) | 1 SOL, **him alone in his own wallet** |
@@ -287,10 +287,18 @@ sudo ls -la /root/fra1/etc/rugsnipe/ /root/fra1/etc/rugsnipe/keys/ /root/fra1/va
 sudo grep -nE '^(mode|stage|rule_buys|copy|follow|max_buys_per_hour|spread|max_probe|max_snipe|max_daily|stake|lamports|split|ab_by_tier|by_tier|sell_tip|dump_tip|hold_to|max_premium|operators_file|tweet|dumper|leader_regions|min_hot|cu_limit)' /root/fra1/etc/rugsnipe/rugsnipe.toml
 sudo python3 -I -c 'import json;d=json.load(open("/root/fra1/var/lib/rugsnipe/copy_signers.json"));print(len(d),"signers",sum(len(v) for v in d.values()),"of his buys kept")' 2>&1 | tail -1
 ```
-What it should print: the key files `probe-keypair.json` and `api-keys.toml` listed (0400); the config lines, among
-them `copy_signer_min_buys = 0` (the code review expects 0: it settles the S6 page's open question) and the `split`
-line (expected tip-only); the copy counter's signer count, or "No such file". **Paste the output back.** It holds no
-secret: the config names credentials, it never holds them. Also: which provider's invoice fra1 was on (§5).
+**Done, Oct 28 (the owner's paste).** The backup holds `probe-keypair.json`, `api-keys.toml`, `shred-auth.json`
+(fra1 ran the shredstream proxy), `long-wallet.json`, `pnl-telegram`, `probe-pubkey.txt`, `operators.json` (Oct 27
+07:50), `copy_signers.json` (5,978 bytes, Oct 27 09:51), `armsets/`, `state.db`, and 36 dated copies of the config. The
+live config: `mode = "probe"`, stage b, `max_probe_lamports = 500_000_000` and `stake_by_tier` 0.5 SOL,
+`max_buys_per_hour = 100` with `spread_buys_per_hour = true`, `max_probes_per_day = 1000` (stage b narrows to 300),
+`[risk] max_daily_loss` 2 SOL after the kill (stage b's 1 SOL bound), bid `lamports = 6_000_000` with `by_tier` 3M and
+`ab_by_tier` 8M for copies, the tip-only `split`, `cu_limit = 88_000`, `follow = "off"`, `tweet_gate` and `tweet_feed`
+off, `dumper_skip = "off"`, `leader_regions = ["eu"]`, `max_premium = 0.05`, `copy = "on"`, `copy_min_sol = 0.0`,
+`copy_min_tip_lamports = 2_000_000`, `copy_max_premium = 0.05`, `copy_late_slots = 2`, **`copy_listed_only = false`**,
+**`copy_signer_min_buys = 0`**, `copy_big_sol = 2.0`, `rule_buys = false`, `hold_to_create_slots = 9`, sell and dump
+tips 0.5M, and three `copy_more` wallets at the end. So the operator rule was off in both halves (§3), an unlisted
+signer's copy sold at the flat + 9, and the stake, bid and tips were as inferred. Still open: which provider fra1 was on.
 
 ### 6.1 Rent the box and accept it
 

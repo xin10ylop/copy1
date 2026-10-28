@@ -211,10 +211,10 @@ from the backtest's +8.02 SOL over 5 days, most of which came on one day (Oct 23
 
 ## Open questions (as of Oct 28; the review is [07-restart](../07-restart/README.md))
 
-- **Operator rule live?** Settled by the code review: the box ran `copy_signer_min_buys = 0` (check.sh reads the config
-  file the service loads, and a missing key would print 2). With `copy_listed_only` on, the count is worth −0.06 over
-  the 5 days (copy_relook C6). The owner's paste of the backup's config confirms it (07-restart §6.0). The window was
-  also about 13 h, not 24 (a 400 ms slot constant; fixed).
+- **Operator rule live?** Settled by the owner's paste of the backup's config (Oct 28): the box ran
+  `copy_signer_min_buys = 0` **and** `copy_listed_only = false`, so no operator rule at all, and an unlisted signer's
+  copy sold at the flat create + 9. The backtest values the rule at +1.71 over the 5 days against none (copy_relook C6).
+  The window was also about 13 h, not 24 (a 400 ms slot constant; fixed). The restart config has both on.
 - **Unkill or not.** The review's answer: a restart as a measured small test, him alone in his own wallet, 0.5 SOL,
   bid 1.5M with a 1.0M A/B at 1.0 SOL a copy (07-restart §6). Expected on a mix of days like Oct 16-28 about +1 SOL a
   day, about zero on his weak days.
