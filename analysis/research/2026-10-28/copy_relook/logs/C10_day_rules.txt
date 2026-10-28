@@ -1,0 +1,90 @@
+
+== 5-day backtest at the restart's settings: 1.0 SOL, 1.5M bid: 298 copies, net +17.20; by day 10-21 +3.23 10-22 +2.28 10-23 +10.88 10-24 +0.77 10-25 +0.03
+   rule                         skips  forgone  -> total  by day                          one landing per copy: median [5%..95%] of the change
+   (a) day target +0.50           203  +11.342    +5.855  +3.71 +0.69 +0.88 +0.54 +0.03   -11.416 [-14.581 .. -10.724]
+   (a) day target +1.00           161   +9.711    +7.486  +3.71 +1.28 +1.01 +1.46 +0.03   -9.724 [-10.376 .. -9.037]
+   (a) day target +1.50           122   +9.244    +7.953  +3.71 +1.82 +1.62 +0.77 +0.03   -9.427 [-9.713 .. -8.566]
+   (a) day target +2.00           118   +8.418    +8.779  +3.71 +2.20 +2.07 +0.77 +0.03   -8.381 [-8.548 .. -8.243]
+   (a) day target +3.00            52   +7.359    +9.838  +3.71 +2.28 +3.05 +0.77 +0.03   -7.344 [-7.425 .. -6.036]
+   (b) trailing stop -0.50         57   +0.605   +16.592  +3.13 +1.69 +10.88 +0.86 +0.03   -0.465 [-1.111 .. -0.362]
+   (b) trailing stop -1.00          9   +0.614   +16.582  +3.23 +2.28 +10.88 +0.16 +0.03   -0.189 [-1.194 .. -0.136]
+   (b) trailing stop -1.50          7   +0.943   +16.254  +3.23 +2.28 +10.88 -0.17 +0.03   -0.651 [-0.947 .. +0.000]
+
+== 5-day backtest at the live settings: 0.5 SOL, 3M bid: 298 copies, net +7.77; by day 10-21 +1.50 10-22 +0.91 10-23 +5.16 10-24 +0.25 10-25 -0.04
+   rule                         skips  forgone  -> total  by day                          one landing per copy: median [5%..95%] of the change
+   (a) day target +0.25           203   +5.101    +2.670  +1.77 +0.27 +0.41 +0.25 -0.04   -4.859 [-5.415 .. -4.409]
+   (a) day target +0.50           156   +4.192    +3.579  +1.77 +0.56 +0.63 +0.66 -0.04   -4.243 [-4.633 .. -3.896]
+   (a) day target +0.75           119   +4.033    +3.738  +1.77 +0.81 +0.94 +0.25 -0.04   -4.136 [-4.380 .. -3.817]
+   (a) day target +1.00           115   +3.782    +3.989  +1.77 +1.00 +1.01 +0.25 -0.04   -3.770 [-3.914 .. -3.632]
+   (a) day target +1.50            49   +2.869    +4.902  +1.77 +0.91 +2.02 +0.25 -0.04   -2.864 [-2.894 .. -2.851]
+   (b) trailing stop -0.25         73   +0.487    +7.284  +1.47 +0.71 +5.16 -0.01 -0.04   -0.415 [-0.713 .. -0.343]
+   (b) trailing stop -0.50         29   +0.691    +7.081  +1.50 +0.50 +5.16 -0.03 -0.04   -0.064 [-0.684 .. -0.038]
+   (b) trailing stop -0.75          7   +0.450    +7.321  +1.50 +0.91 +5.16 -0.20 -0.04   -0.275 [-0.295 .. +0.000]
+
+== live, check.sh him table (Oct 26 13:00 - Oct 27 07:50 UTC), real OUR NET at 0.5: 158 copies, net -0.05; by day 10-26 +0.37 10-27 -0.42
+   rule                         skips  forgone  -> total  by day        one landing per copy: median [5%..95%] of the change
+   (a) day target +0.25           103   +0.087    -0.135  +0.29 -0.42   -0.087 [-0.087 .. -0.087]
+   (a) day target +0.50            84   -0.427    +0.379  +0.80 -0.42   +0.427 [+0.427 .. +0.427]
+   (a) day target +0.75            84   -0.427    +0.379  +0.80 -0.42   +0.427 [+0.427 .. +0.427]
+   (a) day target +1.00            35   -0.699    +0.651  +1.07 -0.42   +0.699 [+0.699 .. +0.699]
+   (a) day target +1.50             0   +0.000    -0.048  +0.37 -0.42   +0.000 [+0.000 .. +0.000]
+   (b) trailing stop -0.25         99   -0.349    +0.301  +0.48 -0.18   +0.349 [+0.349 .. +0.349]
+   (b) trailing stop -0.50         41   -0.160    +0.112  +0.66 -0.55   +0.160 [+0.160 .. +0.160]
+   (b) trailing stop -0.75         38   +0.345    -0.393  +0.39 -0.78   -0.345 [-0.345 .. -0.345]
+
+== (c) the copies by hour of the day (restart settings, 1.0 SOL): UTC hour (Beirut = +2), n copies, net, by day; his landed launch buys that hour (all keys, 5 days)
+   00 UTC (02 Beirut)  copies  10  net  +0.56  +0.00 +0.21 +0.35 -0.01 +0.00   his buys  76
+   01 UTC (03 Beirut)  copies  12  net  +0.51  +0.05 -0.05 +0.53 +0.06 -0.08   his buys  75
+   02 UTC (04 Beirut)  copies  22  net  +0.47  +0.00 +0.02 -0.00 +0.48 -0.03   his buys  78
+   03 UTC (05 Beirut)  copies  11  net  +0.27  +0.00 +0.01 +0.20 -0.00 +0.07   his buys  57
+   04 UTC (06 Beirut)  copies  15  net  +0.48  +0.00 +0.10 +0.33 -0.00 +0.04   his buys  61
+   05 UTC (07 Beirut)  copies  12  net  -0.01  -0.19 -0.01 +0.21 -0.03 +0.00   his buys  70
+   06 UTC (08 Beirut)  copies   4  net  +0.39  +0.00 +0.00 +0.44 -0.03 -0.03   his buys  35
+   07 UTC (09 Beirut)  copies   3  net  +0.02  +0.01 +0.00 +0.01 +0.00 +0.00   his buys  26
+   08 UTC (10 Beirut)  copies   8  net  +0.34  -0.00 +0.12 +0.00 -0.00 +0.22   his buys  32
+   09 UTC (11 Beirut)  copies   2  net  -0.40  +0.00 -0.01 +0.00 -0.39 +0.00   his buys  25
+   10 UTC (12 Beirut)  copies   6  net  -0.19  -0.05 -0.01 +0.00 +0.00 -0.13   his buys  45
+   11 UTC (13 Beirut)  copies   8  net  +1.05  -0.00 +0.92 +0.14 -0.01 +0.00   his buys  46
+   12 UTC (14 Beirut)  copies   8  net  -0.31  -0.00 +0.08 -0.40 +0.01 +0.00   his buys  74
+   13 UTC (15 Beirut)  copies  13  net  +0.70  +0.00 +0.79 -0.01 -0.03 -0.05   his buys  90
+   14 UTC (16 Beirut)  copies  11  net  +0.31  +0.04 -0.02 +0.29 +0.00 -0.00   his buys  70
+   15 UTC (17 Beirut)  copies  13  net  +1.42  +0.00 -0.02 +0.96 +0.48 +0.01   his buys 104
+   16 UTC (18 Beirut)  copies  24  net  +2.28  -0.00 -0.09 +1.47 +0.91 +0.00   his buys 152
+   17 UTC (19 Beirut)  copies  12  net  -0.91  -0.01 -0.29 -0.02 -0.59 +0.00   his buys  83
+   18 UTC (20 Beirut)  copies  11  net  +0.42  +0.56 -0.08 -0.08 +0.02 +0.00   his buys  64
+   19 UTC (21 Beirut)  copies  11  net  +0.08  +0.03 -0.09 +0.25 -0.10 +0.00   his buys  72
+   20 UTC (22 Beirut)  copies  24  net  -0.41  -0.00 +0.10 +0.43 -0.94 +0.00   his buys  82
+   21 UTC (23 Beirut)  copies  14  net  +3.06  -0.02 +0.49 +1.80 +0.78 +0.00   his buys  92
+   22 UTC (00 Beirut)  copies  23  net  +2.56  +2.68 -0.01 -0.17 +0.06 +0.00   his buys 101
+   23 UTC (01 Beirut)  copies  21  net  +4.55  +0.13 +0.15 +4.16 +0.11 +0.00   his buys  74
+
+== (c) by 4-hour block (UTC): P1 (Oct 21-23) and P2 (Oct 24-25), each also without its best 2 copies
+   00-03 UTC (02-05 Beirut)  n  55  P1  +1.31 [ +0.47] on  35   P2  +0.51 [ -0.17] on  20
+   04-07 UTC (06-09 Beirut)  n  34  P1  +0.91 [ +0.19] on  20   P2  -0.04 [ -0.18] on  14
+   08-11 UTC (10-13 Beirut)  n  24  P1  +1.09 [ +0.18] on  17   P2  -0.30 [ -0.52] on   7
+   12-15 UTC (14-17 Beirut)  n  45  P1  +1.70 [ +0.80] on  29   P2  +0.42 [ -0.06] on  16
+   16-19 UTC (18-21 Beirut)  n  58  P1  +1.64 [ -0.23] on  43   P2  +0.22 [ -0.80] on  15
+   20-23 UTC (22-01 Beirut)  n  82  P1  +9.74 [ +3.80] on  65   P2  +0.00 [ -1.16] on  17
+   blocks losing on P1: [] -> skipping them on P2 changes P2 by +0.00 on 0 copies [w/o their best 2: +0.00]
+   the 2 worst P1 blocks: ['04-07', '08-11'] -> skipping them on P2 changes P2 by +0.34 on 21 copies
+
+== (c) live copies by Beirut hour: n, our net (0.5 SOL), his net on the same coins
+   00 Beirut (22 UTC)  copies   6  ours -0.010  his  +0.57
+   01 Beirut (23 UTC)  copies  15  ours -0.670  his  -1.77
+   02 Beirut (00 UTC)  copies   2  ours -0.053  his  -0.13
+   03 Beirut (01 UTC)  copies  20  ours -0.616  his  -2.23
+   04 Beirut (02 UTC)  copies   4  ours -0.049  his  +0.45
+   05 Beirut (03 UTC)  copies   7  ours +0.340  his  +0.44
+   06 Beirut (04 UTC)  copies   7  ours -0.006  his  +1.64
+   07 Beirut (05 UTC)  copies   2  ours +0.024  his  +0.16
+   08 Beirut (06 UTC)  copies   2  ours -0.047  his  -0.01
+   09 Beirut (07 UTC)  copies   2  ours -0.013  his  +0.23
+   15 Beirut (13 UTC)  copies   7  ours +0.243  his  +0.99
+   16 Beirut (14 UTC)  copies   8  ours -0.086  his  +0.09
+   17 Beirut (15 UTC)  copies   9  ours +0.284  his  +0.55
+   18 Beirut (16 UTC)  copies   6  ours +0.346  his  +0.67
+   19 Beirut (17 UTC)  copies  14  ours -0.059  his  +0.51
+   20 Beirut (18 UTC)  copies  14  ours -0.128  his  +0.77
+   21 Beirut (19 UTC)  copies  14  ours -0.133  his  +1.32
+   22 Beirut (20 UTC)  copies  14  ours +0.577  his  +2.30
+   23 Beirut (21 UTC)  copies   5  ours +0.008  his  +0.13

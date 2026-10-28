@@ -216,9 +216,53 @@ agrees on direction: his create + 1 copies lose on P2 (-0.22) and the create + 0
 - **Are the added copies the refused ones? No, they are a different set.** A coin is in one key or the other, so the added bucket shares no coin with the tip key's 76 copies that had a refused landing. Its refusal rate is about the same: 19% of landings, against 22%.
 - **Verdict:** keep the tip key. The priority-paid bids are profitable for him (he lands them first) but not for a copy 90+ positions behind.
 
+### C10. Day rules: a profit target, a trailing stop, hours of the day (asked Oct 28 evening)
+
+`c10_day_rules.py`, `logs/C10_day_rules.txt`. The copies walked in buy order; a rule knows only the copies whose exit
+came before the next buy (as C4). The 5-day 2M set at the restart's settings (1.0 SOL, the 1.5M bid) makes +17.20
+(+3.23, +2.28, +10.88, +0.77, +0.03 by day); at the live settings (0.5, 3M) +7.77.
+
+**(a) Stop the day at a profit target.** Every target loses, because the edge is in the tail of the good days.
+
+| target (1.0 SOL) | copies skipped | forgone | 5 days become | one landing per copy, median [5-95%] |
+|---|---|---|---|---|
+| +0.5 | 203 | +11.34 | +5.86 | -11.42 [-14.58 .. -10.72] |
+| +1.0 | 161 | +9.71 | +7.49 | -9.72 [-10.38 .. -9.04] |
+| +1.5 | 122 | +9.24 | +7.95 | -9.43 |
+| +2.0 | 118 | +8.42 | +8.78 | -8.38 |
+| +3.0 | 52 | +7.36 | +9.84 | -7.34 |
+
+At 0.5 SOL / 3M the +0.5 target forgoes +4.19 of +7.77. Oct 23 alone made +10.88 at 1.0 SOL, +4.16 of it in the 23
+UTC hour; a +1 target keeps +1.01 of it. **Live** (check.sh's him table, 158 copies, -0.05: Oct 26 +0.37, Oct 27
+-0.42) a +0.5 or +1.0 target would have added +0.43 / +0.70, because Oct 26 peaked at +1.07 and gave it back. That is
+one day with no good tail; the 5 days say the tail is the whole result.
+
+**(b) A trailing day stop** (stop the day once its realized P&L falls X below its peak): -0.19 at X = 1.0 (9 skips)
+and -0.47 at X = 0.5 (57 skips) over 5 days; live +0.35 at 0.25 and +0.16 at 0.5. Within noise either way; not built
+(the bot has the loss stop from zero, `max_daily_loss_lamports`, which C4 (c) already scored).
+
+**(c) Hours.** By 4-hour UTC block (Beirut = +2), P1 / P2, without the best 2 in brackets:
+
+| UTC block (Beirut) | n | P1 Oct 21-23 | P2 Oct 24-25 |
+|---|---|---|---|
+| 00-03 (02-05) | 55 | +1.31 [+0.47] | +0.51 [-0.17] |
+| 04-07 (06-09) | 34 | +0.91 [+0.19] | -0.04 [-0.18] |
+| 08-11 (10-13) | 24 | +1.09 [+0.18] | -0.30 [-0.52] |
+| 12-15 (14-17) | 45 | +1.70 [+0.80] | +0.42 [-0.06] |
+| 16-19 (18-21) | 58 | +1.64 [-0.23] | +0.22 [-0.80] |
+| 20-23 (22-01) | 82 | +9.74 [+3.80] | +0.00 [-1.16] |
+
+No block loses on P1, so there is no hour rule to pick; the block that made P1 (20-23 UTC, +9.74) made +0.00 on P2.
+Skipping the 2 weakest P1 blocks (04-11 UTC) changes P2 by +0.34 on 21 copies: noise. His own buys run all day:
+25-46 an hour at 07-11 UTC (09-13 Beirut), 70-152 an hour at 12-23 UTC. Live by Beirut hour, our net and his on the
+same coins move together (01 and 03 Beirut: ours -0.67 / -0.62, his -1.77 / -2.23): the bad hours were his bad hours,
+not a time of day.
+
+**Verdict:** no profit target, no trailing stop, no trading hours. The one day rule stays the loss stop.
+
 ## What the owner should take from this
 
 1. **The live result was not a broken backtest.** Rebuilt with the live costs, landing, sell latency and bids, the model's Oct 24-25 gives the same per-fill result as live (curve +0.0067, net -0.0004). The model is, if anything, low per fill on him (-0.0058). The +8.02 came from Oct 21-23 and a few coins (8ZN71X; without the best 2, P2 is -0.52).
 2. **The stake multiplies the curve. It does not fix it.** Costs are fixed per fill, so a bigger stake helps when the curve is positive. Without the best 2, Oct 24-25 is negative at every stake, from -0.42 at 0.25 to -1.17 at 1.5. No conviction ladder holds out of sample.
 3. **Drop the 8M bid.** It cost +1.16 over 5 days for about +0.1 of curve. Keep 3.0M, or A/B 1.5M.
-4. **Nothing else passes:** exits by bucket, breakers, refused retries, low-tip copies, the operator count, and a key on tip + priority (C9: the 130 coins it adds lose -0.83). The live losses clustered in two bursts and in the 4-8M tips, where the 5-day copy was already about zero.
+4. **Nothing else passes:** exits by bucket, breakers, refused retries, low-tip copies, the operator count, a key on tip + priority (C9: the 130 coins it adds lose -0.83), and the day rules (C10: a +1 SOL day target forgoes +9.7 of +17.2 over 5 days at 1.0 SOL; no hour of the day holds out of sample). The live losses clustered in two bursts and in the 4-8M tips, where the 5-day copy was already about zero.

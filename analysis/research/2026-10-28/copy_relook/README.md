@@ -39,6 +39,7 @@ bash run_all.sh /home/user/copy1 OUT      # about 30 s; every script below, logs
 | `c7_buckets.py` | C7 the copy by his tip and size bucket; the live buckets against a bootstrap of the 5-day ones |
 | `c8_bid.py` | C8 fixed cost by bid; what 3M and 8M bought live; the value of a landing distance |
 | `c9_bidkey.py` | C9 the key on tip + priority (his priority = the walk's fee - 5,000) at 2/3/4/6M against the tip key; the added bucket by day; overlap with the refused coins |
+| `c10_day_rules.py` | C10 (asked Oct 28 evening) a daily profit target, a trailing day stop, and hours of the day, on the copies' own timeline (as c4) at the restart's settings (1.0 SOL, 1.5M) and the live ones (0.5, 3M), each copy's mean and 300 one-landing draws; the live him table walked the same way; his buys by hour. `logs/C10_day_rules.txt` |
 
 ## Costs and the model
 
