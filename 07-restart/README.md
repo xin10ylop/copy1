@@ -354,7 +354,34 @@ Keep `HELIUS_KEY`, `NOZOMI_KEY`, `ASTRALANE_KEY`, `BLOCKRAZOR_KEY`, `TG_TOKEN`, 
 (emptied Oct 27, its token accounts closed). **The Triton token was pasted in a chat on Oct 28: rotate it in the
 portal once the box is stable, then update these lines.**
 
-### 6.4 The ArmSet (on Ohio, where the signing key is), stage b at 1.0 SOL
+### 6.3-alt Without Ohio (the owner's choice, Oct 28 evening: "no ohio box or anything")
+
+Ohio only ever supplied three things: the old probe wallet's key, the API-keys file, and the ArmSet signing key. All
+three can be made or typed on the new box instead; nothing else in this runbook touches Ohio.
+
+- **A new wallet** (the old one is empty anyway). On the box, after 6.2:
+  ```bash
+  sudo install -d -m 0700 /etc/rugsnipe/keys
+  o=$(sudo /opt/rugsnipe/bin/rugsnipe-ctl armset keygen --out /etc/rugsnipe/keys/probe-keypair.json) && printf '%s\n' "$o" | sudo tee /etc/rugsnipe/probe-pubkey.txt
+  sudo chmod 0400 /etc/rugsnipe/keys/probe-keypair.json
+  ```
+  What it should print: `wrote /etc/rugsnipe/keys/probe-keypair.json (0600)` and `pubkey <address>`. That address is
+  the wallet to fund in 6.6 (not `4g49xGbg...`). Paste the address, never the file.
+- **The API keys, typed** (`sudo nano /etc/rugsnipe/keys/api-keys.toml`, then `sudo chmod 0400` on it): the five
+  Triton lines of 6.3 and `HELIUS_KEY`, `NOZOMI_KEY`, `ASTRALANE_KEY`, `BLOCKRAZOR_KEY` from each provider's dashboard.
+  A sender whose key you do not have gets `enabled = false` in `[senders]` (Jito through the relay needs no key). The
+  config validate of 6.5 and the dry run of 6.8 name anything still missing.
+- **The ArmSet signing key on the box**, which docs/08 §4 keeps off the hot box so a stolen box cannot sign itself a
+  bigger stake. On a single box that separation is gone; the box holds the wallet key anyway, which is the bigger
+  prize, so for this test it is accepted. Then 6.4 runs on the box itself:
+  ```bash
+  sudo /opt/rugsnipe/bin/rugsnipe-ctl armset keygen --out /etc/rugsnipe/keys/armset-signing.key && sudo chmod 0400 /etc/rugsnipe/keys/armset-signing.key
+  ```
+  and its printed pubkey is `[secrets] armset_pubkey` in 6.5. The `make_paper_armset.py` and `armset sign` lines of 6.4
+  are unchanged, run in `~/rugsnipe` on the box, and the signed files go to `/var/lib/rugsnipe/armsets/` with the same
+  `install` line (no scp).
+
+### 6.4 The ArmSet (on Ohio, where the signing key is; on the box itself without Ohio, 6.3-alt), stage b at 1.0 SOL
 
 ```bash
 cd ~/rugsnipe && git fetch -q origin claude/affectionate-allen-nrv6o7 && git checkout -q claude/affectionate-allen-nrv6o7 && git pull -q
