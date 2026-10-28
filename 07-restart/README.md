@@ -21,6 +21,12 @@
 >   sit in the priority fee, which the tip key does not see: the 130 coins a tip + priority key adds lose −0.83 SOL
 >   over 5 days). The refused copies and the skipped buys stay refused and skipped: every way to take them tested
 >   negative, again.
+> - **Not through TradeWiz.** The owner asked whether the TradeWiz Telegram bot would execute better than our box: no.
+>   It charges 1% a side (0.010 SOL a fill, more than the whole curve edge of +0.0067 a fill the live copy earned), its
+>   own speed board shows its copies 1-4 slots behind the target where we land in his slot 69% of the time, it cannot
+>   key on his tip or operators, it can only sell after his sell (the −23.4 SOL case) or on a seconds timer, and it
+>   holds the signing key (drained on Sep 30, 2026: about 20,900 wallets, 3,523 SOL)
+>   ([tradewiz-vs-own-box](../06-infrastructure/tradewiz-vs-own-box-2026-10-28.md)).
 > - **If the copy restarts**, it restarts as a measured small test, him alone, 0.5 SOL, bid 3.0M with a 1.5M A/B,
 >   in Frankfurt (TeraSwitch FRA2 first, Cherry FRA EPYC 9355 at €599/mo if not in stock), on the Triton feed with
 >   Riptide raced against the standard endpoint. Expected result at the backtest's last two days: about zero. The
@@ -237,6 +243,32 @@ From [`06-infrastructure/box-and-feed-2026-10-28.md`](../06-infrastructure/box-a
   regions, no adapter in the code yet, on request only. A one-day log of his transactions' lead is the test.
 - **Shred prices moved**: Triton FRA/AMS raw shreds are $1,500/mo or $0.59 per 15 min today (the repo had $0.18 / from
   $900).
+
+**TradeWiz instead of a box?** (the owner's question of Oct 28;
+[`06-infrastructure/tradewiz-vs-own-box-2026-10-28.md`](../06-infrastructure/tradewiz-vs-own-box-2026-10-28.md), every
+claim marked VERIFIED / SOURCED / UNVERIFIED; nothing was signed up for or sent):
+- **What it is**: a Telegram bot (copy trading, sniper, limit orders, auto-sell) that creates and holds the wallet's
+  key. 1% on every buy and every sell (confirmed on chain), plus the priority fee and tip, plus 0.002 SOL rent per new
+  token account. It can buy pump.fun coins at create + 0/1 at a fixed 0.5 SOL with slippage off the target's fill.
+- **What it cannot do**: key on his tip or on the coin's signer (so none of our rules); sell one slot before his sell.
+  Its exits are "copy sell" (after his sell: −23.4 SOL over 5 days on all his buys, docs/17 §9), a seconds timer (lands
+  at about create + 7 to + 12, past his 6-slot sells; flat + 9 made +3.91 against +5.64 for H − 1), TP/SL, trailing,
+  dev-sell. Its own blog says a first-block sniper cannot be copied: "there's no settings fix. Switch wallets."
+- **Speed**: no region, provider or feed is disclosed. Its homepage speed board, checked on chain (36 Solscan links,
+  a 2024 Raydium demo at 0.0005 SOL), shows its copies 1-4 slots after the target (median 2), none in the target's
+  slot; we land in his slot 69% of the time. Its sends today ride a durable nonce through Helius Sender, Jito,
+  NextBlock, Falcon and soyas: the same rented relays he and we use. On his coins today one TradeWiz wallet bought
+  near 3 launches and lost on all three; nobody copies him through it.
+- **Cost per 0.5 SOL round trip**: about 0.015-0.017 SOL at our bids (0.022 at its "pump.fun speed" preset) against
+  our 0.0046. The 1% alone is 0.010 a fill, more than the +0.0067 a fill the live copy earned on the curve: the 125
+  live fills would have netted about −1.30 SOL instead of −0.048, and the 5-day backtest +5.45 instead of +7.77, with
+  our landing and our exit, which it does not have.
+- **Risk**: anonymous team, no audit found; a private-key exposure through its key-export feature on Sep 30, 2026
+  drained about 20,900 wallets (3,523 SOL plus rent and tokens, Bitquery's count); offline until Oct 13. The link the
+  owner gave (tradewizbot.pro) calls itself "Website 2" and routes to a different bot handle than the GitBook docs
+  name; tradewiz.live is a separate impostor. Not confirmed as the official site.
+- **Verdict**: no. It would land later, pay about three times our fixed cost, lose the exit that makes the copy break
+  even, and hold the key.
 
 ## 6. Runbook: from the Ohio backup to the first copy
 

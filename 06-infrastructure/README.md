@@ -23,7 +23,9 @@ about 5-10% of its profit (copy2 `03-strategy-A-long-copy/going-live.md`).
 recorded here. For a restart: TeraSwitch FRA2 bare metal first (0 ms extra to every sender), else Cherry Servers
 Frankfurt (Equinix FR13, 0.32-0.42 ms from the TeraSwitch building on Oct 28, 1-2 block positions; EPYC 9355 at €599/mo
 or €1.026/h in stock). Never Ohio for the hot path. The feed: Triton Dragon's Mouth with Riptide raced against the
-standard endpoint, Deshred on; Preconfs are the one untested lead. The day-one acceptance checklist is in the study's §6.
+standard endpoint, Deshred on; Preconfs are the one untested lead. The day-one acceptance checklist is in the study's §6. A Telegram
+copy bot instead of a box (TradeWiz, the owner's question): no, [`tradewiz-vs-own-box-2026-10-28.md`](tradewiz-vs-own-box-2026-10-28.md):
+1% a side, 1-4 slots behind the target by its own speed board, no exit before his sell, and it holds the key.
 
 ## 2. The code (`crates/`, Rust workspace)
 
