@@ -15,7 +15,7 @@
 # What it does: nothing of its own (rule_buys = false). When his landed launch buy (create + 0 or
 # + 1) shows on the gRPC stream with a tip of 2M lamports or more (or a size of 2 SOL or more), on
 # a create signer he has bought twice in the last 24 h and that the operator table lists, it buys
-# 0.5 SOL behind him, bound at his fill + 5%, and sells one slot before his usual sell for that
+# 1.0 SOL behind him, bound at his fill + 5%, and sells one slot before his usual sell for that
 # signer (the table's hold - 1). Measured live Oct 26-27: 162 copies, 125 filled, 33 refused at
 # the bound, net -0.0479 SOL while he made +8.91 (05-live/check-sh-2026-10-27.txt). The 5-day
 # backtest made +8.02 SOL (docs/17 section 9); 07-restart/README.md says what changed since.
@@ -38,7 +38,7 @@ max_snipe_lamports = 1_000_000_000                 # copy-him: ceilings; [probe]
 max_probe_lamports = 1_000_000_000
 max_probes_per_day = 300                           # copy-him: his key buys were about 160 a day live (162 copies in 21 h); the backtest's 60 a day
 max_open_positions = 4                             # ceiling; stage b: 2 (the backtest never had more than 2 copies open at once, docs/17 section 9)
-max_daily_loss_lamports = 1_000_000_000            # copy-him: the daily stop, marked to market (open positions at their sell quote). It bound live on Oct 27 through the stuck coin, not through his copies
+max_daily_loss_lamports = 1_500_000_000            # copy-him: the daily stop at a 1.0 SOL stake, marked to market (open positions at their sell quote). It bound live on Oct 27 through the stuck coin, not through his copies
 max_consec_losses_per_op = 1_000_000               # NOT a stop: the class arm is one operator (docs/08 section 9 step 3)
 max_buys_per_op_per_day = 300
 max_buys_per_hour = 40                             # copy-him: his key buys come in bursts (6 within a minute at 04:00 Beirut on Oct 27); 12 an hour would drop them
@@ -100,8 +100,9 @@ quantile = 0.75
 # copy-him: the copy's bid. Live A/B (check.sh TIP TEST, Oct 26-27): 3.0M landed 156 positions behind him and netted
 # -0.0003 a copy; 8.0M landed 149 behind (7 closer) and netted -0.0062 a copy, 0.005 SOL of it the tip. A tip only orders
 # us among the transactions that reach the leader with ours; the ~90-150 positions are the pipeline (docs/17 section 9,
-# "A bigger tip": 90 -> 45 positions is worth +1.8M a copy, no more). So the bid goes DOWN, not up.
-lamports = 3_000_000                               # copy-him: the live arm that worked; see ab_by_tier for the test of a lower one
+# "A bigger tip": 90 -> 45 positions is worth +1.8M a copy, no more). So the bid goes DOWN, not up: 1.5M against 1.0M.
+# The TIP TEST's rule decides after a week: keep the lower bid only if d_avg is no worse and net per copy is higher.
+lamports = 1_500_000                               # copy-him: the bid is a fixed cost a fill (bid + 0.0016); 3.0M landed the same as 8.0M, so the test goes down: 1.5M against 1.0M (the relays' floor)
 # copy-him: the bid is the TIP on every leader class, the priority fee stays at its 10,000 floor: a refused copy (26% of
 # them live) then costs 15,000 lamports, not the bid. That is how the live box ran (every refused copy cost exactly
 # 0.000015; 07-restart/code-review-2026-10-28.md Q3). On the leaders that order by priority fee (BAM, Harmonic, about 73%
@@ -113,11 +114,11 @@ failed_attempt_lamports_max = 1_000_000
 failed_attempt_max_by_class = { jito_agave = 9_000_000, bam = 9_000_000, harmonic = 9_000_000, other = 9_000_000 }
 # copy-him: the bid A/B for copies (tier 0): the mints whose first byte is odd bid this instead of `lamports`; check.sh's
 # TIP TEST reads it. Keep the lower bid only if it lands no farther behind him (d_avg) AND nets more per copy.
-ab_by_tier = [1_500_000, 1_500_000, 1_500_000]   # three entries, all > 0 (validation); copies are tier 0, so one value is what counts
+ab_by_tier = [1_000_000, 1_000_000, 1_000_000]   # three entries, all > 0 (validation); copies are tier 0, so one value is what counts
 [probe]
 stage = "b"                                        # copy-him: stage b = the caps below; the ArmSet must name probe_stage = "b" (make_paper_armset.py --probe-stage b --size-sol 0.5)
 a = { max_probe_lamports = 20_000_000, max_probes_per_day = 300, max_open_positions = 1, max_daily_loss_lamports = 1_000_000_000 }
-b = { max_probe_lamports = 500_000_000, max_probes_per_day = 300, max_open_positions = 2, max_daily_loss_lamports = 1_000_000_000 }   # copy-him: 0.5 SOL a copy, 2 open, 1 SOL daily stop
+b = { max_probe_lamports = 1_000_000_000, max_probes_per_day = 300, max_open_positions = 2, max_daily_loss_lamports = 1_500_000_000 }   # copy-him: 1.0 SOL a copy, 2 open, 1.5 SOL daily stop (0.5 SOL: 500_000_000 and 1_000_000_000, with an ArmSet signed --size-sol 0.5)
 kill = { min_landed = 100, min_attempts = 400, max_median_premium = 0.03, landing_attempts = 200 }
 [entry]
 # ---- the copy (docs/17 section 9, "Built: entry.copy"; 03-strategies/S6-copy-him.md "The rule")
@@ -135,7 +136,7 @@ copy_signer_window_h = 24                          # 2026-10-28: now really 24 h
 copy_more = []                                     # copy-him: nobody else. The other wallets (S7) lost or made cents; a wallet-4 coin that could not be sold stopped his copies on Oct 27
 operators_file = "/etc/rugsnipe/operators.json"    # rebuilt every 4 h by rugsnipe-operators.timer from his last 24 h on chain (--source rpc); seed it before the first start (07-restart/README.md)
 operators_only = false
-stake_by_tier = [500_000_000, 500_000_000, 500_000_000]   # copy-him: 0.5 SOL a copy (copies are tier 0). It only narrows: the ArmSet's size and [probe] b are the ceilings
+stake_by_tier = [1_000_000_000, 1_000_000_000, 1_000_000_000]   # copy-him: 1.0 SOL a copy (copies are tier 0). The fixed cost a fill is the same at every stake, so the stake is what scales the copy's share of his move: +16.85 against +7.77 SOL over 5 days at 1.0 against 0.5 (copy_relook B; Oct 24-25 +0.71 against +0.21, and twice the loss on a rug night). It only narrows: the ArmSet's size (--size-sol 1.0) and [probe] b are the ceilings
 stake_fits_balance = true                          # a buy above the free balance is made at the free balance (down to stake_min_sol) instead of refused
 stake_min_sol = 0.35                               # copy-him: below this the buy is refused instead of fitted: the fixed cost a fill (bid + 0.0016) is 1.3% of 0.35 SOL and 3% of 0.15
 # ---- the rule's own gates: idle with rule_buys = false, listed so the file validates like the live one did
@@ -179,8 +180,8 @@ big_buy_lamports = [0, 0]
 # minutes), again and again while the position is open, with a CRITICAL journal line each time; it was a dead end before
 sell_retry = { every_slots = 2, max_tries = 15, tip_mult = 2.0, rearm_after_slots = 2_700 }
 hold_to_create_slots = 9                           # copy-him: the fallback for a position without a table hold (the rule's flat +9); a copy of a listed signer sells at its hold - 1
-sell_tip_lamports = 500_000                        # copy-him: his sells cost about 0.5M priority + 1M tip (docs/12 section 2); ours were cut from 2M to 0.5M (docs/14 section 5)
-dump_tip_lamports = 500_000
+sell_tip_lamports = 1_000_000                      # copy-him: 16% of live sells landed a slot or more late (−0.43 SOL per 5 days, copy_relook C3); his sells pay a 1.0M tip + 0.5M priority or 1.5M (onchain §1). 1.0M costs 0.0005 a fill more than the 0.5M that ran live
+dump_tip_lamports = 1_000_000
 [guard]
 takeover_after_ms = 5_000
 drop_from_peak_bps = 3000

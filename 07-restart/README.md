@@ -27,7 +27,11 @@
 >   key on his tip or operators, it can only sell after his sell (the −23.4 SOL case) or on a seconds timer, and it
 >   holds the signing key (drained on Sep 30, 2026: about 20,900 wallets, 3,523 SOL)
 >   ([tradewiz-vs-own-box](../06-infrastructure/tradewiz-vs-own-box-2026-10-28.md)).
-> - **If the copy restarts**, it restarts as a measured small test, him alone, 0.5 SOL, bid 3.0M with a 1.5M A/B,
+> - **If the copy restarts**, it restarts him alone at **1.0 SOL a copy, bid 1.5M with a 1.0M A/B, 1.0M sell tips**:
+>   the fixed cost a fill is the same at every stake, so the stake is what scales the copy's share of his move
+>   (+16.85 against +7.77 SOL over 5 days; Oct 24-25 +0.71 against +0.21; a rug night like Oct 27 costs about −3.5
+>   instead of −1.8). The owner's call of Oct 28: profit, not a measurement. Expected on a mix of days like Oct 16-28:
+>   about +1 SOL a day; on his weak days about zero. It runs
 >   in Frankfurt (TeraSwitch FRA2 first, Cherry FRA EPYC 9355 at €599/mo if not in stock), on the Triton feed with
 >   Riptide raced against the standard endpoint. Expected result at the backtest's last two days: about zero. The
 >   restart buys information, not income, unless his good days come back (his Oct 21-23 made the copy +7.75).
@@ -177,8 +181,8 @@ review, the live decomposition.
 
 | decision | as it ran live | re-explored | verdict for the restart |
 |---|---|---|---|
-| **the bid** | 3.0M / 8.0M A/B, tip-only on every leader class | 8M at its own landing: +6.29 over 5 days against +7.30 for 3M (1.16 more cost, ~0.1 more curve). 1.0-1.5M would add +0.3 to +0.4 if it lands as 3M does; untested for copies (c8) | **3.0M, A/B 1.5M**; keep the lower bid only if d_avg is no worse and net per copy is higher. Tip-only split stays (a refused copy costs 15k lamports, not the bid) |
-| **the stake** | 0.5 SOL (122 of 125) | costs are fixed a fill, so the stake multiplies the curve: 3M net +3.32 / +7.77 / +16.85 / +26.17 at 0.25 / 0.5 / 1.0 / 1.5 over 5 days. But Oct 24-25 without the best 2: -0.42 / -0.58 / -0.88 / -1.17. The curve model flatters big stakes (others' tokens held fixed; SOL fixed gives +15.33 at 1.0) | **0.5 SOL.** Raise it only after a week whose curve is positive without its best 2 |
+| **the bid** | 3.0M / 8.0M A/B, tip-only on every leader class | 8M at its own landing: +6.29 over 5 days against +7.30 for 3M (1.16 more cost, ~0.1 more curve). 1.0-1.5M would add +0.3 to +0.4 if it lands as 3M does; untested for copies (c8) | **1.5M, A/B 1.0M** (the relays' floor); keep the lower bid only if d_avg is no worse and net per copy is higher. Tip-only split stays (a refused copy costs 15k lamports, not the bid) |
+| **the stake** | 0.5 SOL (122 of 125) | costs are fixed a fill, so the stake multiplies the curve: 3M net +3.32 / +7.77 / +16.85 / +26.17 at 0.25 / 0.5 / 1.0 / 1.5 over 5 days. But Oct 24-25 without the best 2: -0.42 / -0.58 / -0.88 / -1.17. The curve model flatters big stakes (others' tokens held fixed; SOL fixed gives +15.33 at 1.0) | **1.0 SOL** (the owner's call: the one lever that scales the share; the loss on a rug night doubles with it) |
 | **stake by his conviction** | flat | tip ladder 0.5/1.0/1.5: +17.28 over 5 days [+13.54], Oct 24-25 +0.73 [**-1.69**], capital 2.5 SOL, worst drawdown -2.66; every ladder rescales Oct 21-23's winners (c1) | **no ladder** |
 | **his tip floor 2M** | 2M | by bucket over 5 days: 2-4M +2.31 [+0.41], 4-8M +0.16 [-0.75], 8M+ +3.88 [+2.71] (c7) | **2M stays** (4-8M is about zero both ways; nothing to key on) |
 | **his 2 SOL+ buys at any tip** (`copy_big_sol`) | on | +1.42 on 6 over 5 days, all Oct 23 [-0.05], Oct 24-25 -0.01; live -0.47 on 6 | **off** until a week of journaled data says otherwise |
@@ -199,7 +203,7 @@ review, the live decomposition.
 
 | change | file | why |
 |---|---|---|
-| **him-only config template** | `config/copy-him.example.toml` | the live file was probe-a plus edits nobody has. This one carries every key of the copy with its reason, validated with `rugsnipe-ctl config validate` against a signed stage-b ArmSet (only the two credential refusals remain, as for probe-a). Bid 3.0M with a 1.5M A/B, tip-only split, `copy_big_sol` off, 0.5 SOL, `stake_min_sol` 0.35, the re-arm below |
+| **him-only config template** | `config/copy-him.example.toml` | the live file was probe-a plus edits nobody has. This one carries every key of the copy with its reason, validated with `rugsnipe-ctl config validate` against a signed stage-b ArmSet (only the two credential refusals remain, as for probe-a). Bid 1.5M with a 1.0M A/B, tip-only split, `copy_big_sol` off, 1.0 SOL, 1.0M sell tips, a 1.5 SOL daily stop, `stake_min_sol` 0.35, the re-arm below |
 | **a graduated coin whose sell had given up is sold on the pool** | `crates/rugsnipe-exit/src/decide.rs` (`on_complete`, `rearm`), test `completion_behind_a_given_up_order_sells_on_the_pool` | the Oct 27 fix (`af681ad`) re-sent only orders still alive; the lane's report of the completed curve can come after the 4 tries of a 2M dump tip (about 8 slots), and then nothing was ever sold (code review Q5.1, reproduced). Now the order is placed again from scratch on the pool, with a fresh budget |
 | **a sell that gives up is no longer a dead end** | `decide.rs`, `policy.rs` (`sell_retry.rearm_after_slots`, default 2,700 slots, about 10 min), `types.rs` (`Alert::SellRearmed`), test `a_given_up_order_is_placed_again_after_the_interval` | after `max_tries` or the spend cap the position sat unsold until a restart (Q4.4). Now it is placed again every `rearm_after_slots` while open, at the base dump tip, and the hot loop journals `CRITICAL sell ... gave up` and `... placed again` (before, the alert was an rslog record only) |
 | **a sell sent without the exits lease is taken back** | `crates/rugsnipe/src/hot.rs` (`sell`, `!owned`) | it counted as sent, burned its tries, and the hot loop never sold once the lease came back (Q8.1); now it is `unsent`: due again next slot, no try, no tip |
@@ -341,12 +345,12 @@ Keep `HELIUS_KEY`, `NOZOMI_KEY`, `ASTRALANE_KEY`, `BLOCKRAZOR_KEY`, `TG_TOKEN`, 
 (emptied Oct 27, its token accounts closed). **The Triton token was pasted in a chat on Oct 28: rotate it in the
 portal once the box is stable, then update these lines.**
 
-### 6.4 The ArmSet (on Ohio, where the signing key is), stage b at 0.5 SOL
+### 6.4 The ArmSet (on Ohio, where the signing key is), stage b at 1.0 SOL
 
 ```bash
 cd ~/rugsnipe && git fetch -q origin claude/affectionate-allen-nrv6o7 && git checkout -q claude/affectionate-allen-nrv6o7 && git pull -q
 sudo rm -rf /tmp/armset-copy-b
-python3 -I analysis/scripts/make_paper_armset.py --kind class --ver 201 --probe-allowed --probe-stage b --size-sol 0.5 --valid-hours 360 --out /tmp/copy-b.json
+python3 -I analysis/scripts/make_paper_armset.py --kind class --ver 201 --probe-allowed --probe-stage b --size-sol 1.0 --valid-hours 360 --out /tmp/copy-b.json
 sudo /opt/rugsnipe/bin/rugsnipe-ctl armset sign --key /etc/rugsnipe/keys/armset-signing.key --in /tmp/copy-b.json --out-dir /tmp/armset-copy-b
 ls /tmp/armset-copy-b/
 ```
@@ -369,8 +373,8 @@ run of 6.8 is the real one). Any other REFUSED line: stop and paste it.
 
 ### 6.6 Nonces (0.042 SOL of rent for 32 buy and 8 sell accounts) and funding
 
-Send **2.5 SOL** from Phantom to `4g49xGbgHZk3QYR1o6QSfDUbHmJZFwN6iDp6Vco1skff` first (0.5 x 2 open copies, the
-0.1 floor, the nonce rent, tips, and room for the 1 SOL daily stop). Then:
+Send **5 SOL** to `4g49xGbgHZk3QYR1o6QSfDUbHmJZFwN6iDp6Vco1skff` first (1.0 x 2 open copies, the 0.1 floor, the
+nonce rent, tips, and room for the 1.5 SOL daily stop; Phantom held 3.85 on Oct 28, so this needs a top-up). Then:
 ```bash
 sudo /opt/rugsnipe/bin/rugsnipe-ctl nonce create --keypair /etc/rugsnipe/keys/probe-keypair.json --rpc-url cred:RPC_URL --count 32 --dry-run | tail -3
 sudo /opt/rugsnipe/bin/rugsnipe-ctl nonce create --keypair /etc/rugsnipe/keys/probe-keypair.json --rpc-url cred:RPC_URL --count 32 | tail -2
@@ -415,12 +419,13 @@ operator he bought < 2 times in 24 h ...` (the `< 2` must read 2). Paste the fir
 
 - `bash ~/check.sh` every few hours and `bash ~/check.sh him` once a day; paste them. The new line under "results
   since the start" explains the wallet change; its WARNING means SOL left the wallet outside trades: stop and paste.
-- **The bid**: the TIP TEST decides. Keep 1.5M only if it lands no farther behind him (d_avg) and nets more per copy
-  than 3.0M; else set `ab_by_tier = []` and run 3.0M alone.
-- **The stake stays 0.5** until a week's copies are positive on the curve without their best 2 (the §3 rule). Then
-  1.0 SOL needs a new ArmSet (`--size-sol 1.0`), `max_probe_lamports = 1_000_000_000` in `[risk]` and `[probe] b`,
-  `stake_by_tier = [1_000_000_000, ...]`, and about 4 SOL in the wallet.
-- **The daily stop** (1 SOL) now stops his copies alone. If it latches on a day he loses, that is the stop doing its
+- **The bid**: the TIP TEST decides. Keep 1.0M only if it lands no farther behind him (d_avg) and nets more per copy
+  than 1.5M; else set `ab_by_tier = []` and run 1.5M alone.
+- **The stake is 1.0 SOL.** To go to 1.5: a new ArmSet (`--size-sol 1.5`), `max_probe_lamports = 1_500_000_000` in
+  `[risk]` and `[probe] b`, `stake_by_tier = [1_500_000_000, ...]`, the daily stop at 2 SOL, about 7 SOL in the wallet,
+  and only after a week whose curve is positive without its best 2. To fall back to 0.5 on a bad week: the same keys
+  at half.
+- **The daily stop** (1.5 SOL) now stops his copies alone. If it latches on a day he loses, that is the stop doing its
   job: unkill the next day (06-infrastructure §4), do not raise it.
 - Any `CRITICAL` in the journal (`sudo journalctl -u rugsnipe-hot | grep CRITICAL`): a sell that gave up; it is
   placed again every ~10 minutes, and the coin's token account still holds the tokens. Paste the lines.

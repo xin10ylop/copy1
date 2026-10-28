@@ -77,8 +77,8 @@ bash data/datasets/unpack.sh dec        # one archive
 
 ## Open items (Oct 28, after the review in `07-restart/README.md`)
 
-1. Nothing runs. A restart is a measured small test (him alone, 0.5 SOL, bid 3.0M with a 1.5M A/B, Frankfurt): the
-   runbook is `07-restart/README.md` §6. Expected at the backtest's last two days: about zero; it buys information.
+1. Nothing runs. A restart is him alone at 1.0 SOL, bid 1.5M with a 1.0M A/B, 1.0M sell tips, Frankfurt: the runbook
+   is `07-restart/README.md` §6. Expected on a mix of days like Oct 16-28 about +1 SOL a day, about zero on his weak days.
 2. The operator-count question is settled by the code review: the box ran `copy_signer_min_buys = 0` (check.sh read
    the file correctly); with the table on it cost about nothing. The owner's paste of the backup's config (§6.0 of the
    runbook) confirms it.

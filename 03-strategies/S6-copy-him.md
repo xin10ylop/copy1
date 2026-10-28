@@ -216,7 +216,8 @@ from the backtest's +8.02 SOL over 5 days, most of which came on one day (Oct 23
   the 5 days (copy_relook C6). The owner's paste of the backup's config confirms it (07-restart §6.0). The window was
   also about 13 h, not 24 (a 400 ms slot constant; fixed).
 - **Unkill or not.** The review's answer: a restart as a measured small test, him alone in his own wallet, 0.5 SOL,
-  bid 3.0M with a 1.5M A/B (07-restart §6). Expected at the backtest's last two days: about zero.
+  bid 1.5M with a 1.0M A/B at 1.0 SOL a copy (07-restart §6). Expected on a mix of days like Oct 16-28 about +1 SOL a
+  day, about zero on his weak days.
 - **Data mismatch.** docs/19 §9 lists 9387oQyF as landed at create + 3 and refused. check.sh lists it as "not landed".
   Still open.
 - **Landing closer.** Nothing on these boxes; Cherry FRA is 1-2 positions behind the old building (box study). The one
