@@ -178,6 +178,19 @@ fn run_table(
     listed: Option<&dyn Fn(&CreateHit) -> Pubkey>,
     seed: Option<&SignerBuys>,
 ) -> (Outcome, CreateHit) {
+    run_table_hold(copy, on_template, tweak, trades, listed, seed, 6)
+}
+
+/// [`run_table`] with the listed signer's table hold (`hold_slots`).
+fn run_table_hold(
+    copy: CopyMode,
+    on_template: bool,
+    tweak: &dyn Fn(&mut Config),
+    trades: &dyn Fn(&CreateHit, Pubkey) -> Vec<TradeLite>,
+    listed: Option<&dyn Fn(&CreateHit) -> Pubkey>,
+    seed: Option<&SignerBuys>,
+    hold: u16,
+) -> (Outcome, CreateHit) {
     let (tx, meta, hit) = the_create();
     assert!(hit.intx_sol_in > 0);
     let dir = tmpdir("copy");
@@ -208,7 +221,7 @@ fn run_table(
     if let Some(f) = listed {
         hc.operators = Some(Arc::new(
             rugsnipe::operators::OperatorTable::from_json(&format!(
-                r#"{{"{}": {{"hold_slots": 6}}}}"#,
+                r#"{{"{}": {{"hold_slots": {hold}}}}}"#,
                 f(&hit)
             ))
             .unwrap(),
@@ -898,4 +911,37 @@ fn a_copy_more_wallets_own_max_premium_bounds_its_copies_only() {
         min_out(&o).expect("a fire with a bound")
     };
     assert_eq!(his(Some(0.20)), his(None));
+}
+
+/// 2026-10-28 (code review): a copy sells one slot before his table hold and
+/// lands at create + 0..2, so a signer whose hold is under 4 cannot be sold
+/// before him (H = 3 sells at +2, at or before our fill; H = 1 at his own
+/// dump). Such a signer is not copied (`skip_short_hold`, counted with the
+/// unlisted ones), whatever his tip.
+#[test]
+fn a_signer_with_a_hold_under_4_is_not_copied() {
+    let listed_only = |c: &mut Config| {
+        c.entry.copy_listed_only = true;
+        c.entry.operators_file = "/unused/operators.json".into();
+    };
+    let his_buy = |h: &CreateHit, his| vec![buy(h, his, SOL, 0, SLOT, CI + 120)];
+    let signer = |h: &CreateHit| rugsnipe::operators::create_signer(h);
+    for (hold, copied) in [(3u16, false), (1, false), (4, true), (6, true), (10, true)] {
+        let (o, _) = run_table_hold(
+            CopyMode::On,
+            false,
+            &listed_only,
+            &his_buy,
+            Some(&signer),
+            None,
+            hold,
+        );
+        if copied {
+            assert_eq!(o.fires, 1, "hold {hold}: {:?}", o.labels());
+            assert_eq!(o.copy, [1, 1, 0, 0], "hold {hold}");
+        } else {
+            assert_eq!((o.fires, o.copy), (0, [0; 4]), "hold {hold}: {:?}", o.labels());
+            assert_eq!(o.copy_his, [1, 0, 1, 0], "hold {hold}: counted as unlisted");
+        }
+    }
 }

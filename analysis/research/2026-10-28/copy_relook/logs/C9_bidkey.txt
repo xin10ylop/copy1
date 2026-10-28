@@ -1,0 +1,46 @@
+his priority fee per copy-universe buy: {'fee - 5000 = cu_price x cu_limit': 1684}
+   against the on-chain agent's rows.jsonl: 454 of his copy-universe buys in both, fee equal on 454
+his buys with the operator rule: 829; with tip < 2M and size < 2 SOL: 531, of which tip + priority >= 2M: 130
+
+== the keys (with the operator rule)
+   tip key: tip >= 2M or size >= 2 (live)         n  298 total  +7.77 [w/o best2  +4.84]  P1  +7.56 [ +4.64]  P2  +0.21 [ -0.58]  worst day -0.04  by day +1.50 +0.91 +5.16 +0.25 -0.04
+      per copy +0.0261; fills 232 (78% of copies); his net on them +32.61
+   bid key: tip + priority >= 2M or size >= 2     n  428 total  +6.94 [w/o best2  +4.01]  P1  +7.38 [ +4.45]  P2  -0.44 [ -1.23]  worst day -0.24  by day +1.41 +1.15 +4.83 -0.24 -0.20
+      per copy +0.0162; fills 337 (79% of copies); his net on them +36.34
+   bid key: tip + priority >= 3M or size >= 2     n  372 total  +6.50 [w/o best2  +3.58]  P1  +6.98 [ +4.05]  P2  -0.48 [ -1.26]  worst day -0.28  by day +1.69 +0.91 +4.38 -0.28 -0.19
+      per copy +0.0175; fills 285 (77% of copies); his net on them +35.32
+   bid key: tip + priority >= 4M or size >= 2     n  331 total  +4.57 [w/o best2  +2.64]  P1  +5.07 [ +3.14]  P2  -0.50 [ -1.29]  worst day -0.27  by day +0.13 +0.38 +4.55 -0.27 -0.23
+      per copy +0.0138; fills 245 (74% of copies); his net on them +31.03
+   bid key: tip + priority >= 6M or size >= 2     n  276 total  +4.89 [w/o best2  +2.96]  P1  +5.57 [ +3.63]  P2  -0.68 [ -1.46]  worst day -0.43  by day +0.23 +0.68 +4.66 -0.43 -0.24
+      per copy +0.0177; fills 197 (71% of copies); his net on them +30.51
+   tip key at 3M (for comparison)                 n  262 total  +7.64 [w/o best2  +4.71]  P1  +7.49 [ +4.57]  P2  +0.15 [ -0.64]  worst day -0.07  by day +1.75 +0.96 +4.78 +0.22 -0.07
+      per copy +0.0292; fills 199 (76% of copies); his net on them +31.88
+   tip key at 4M (for comparison)                 n  232 total  +5.46 [w/o best2  +3.53]  P1  +5.34 [ +3.41]  P2  +0.13 [ -0.66]  worst day -0.11  by day +0.18 +0.37 +4.79 +0.23 -0.11
+      per copy +0.0236; fills 170 (73% of copies); his net on them +27.16
+   tip key at 6M (for comparison)                 n  194 total  +5.68 [w/o best2  +3.75]  P1  +5.78 [ +3.85]  P2  -0.10 [ -0.89]  worst day -0.13  by day +0.31 +0.63 +4.84 +0.03 -0.13
+      per copy +0.0293; fills 138 (71% of copies); his net on them +26.63
+
+== what the bid key adds: bid key but not the tip key (tip < 2M, size < 2, tip + priority >= X)
+   added at 2M                                    n  130 total  -0.83 [w/o best2  -1.41]  P1  -0.18 [ -0.74]  P2  -0.65 [ -1.01]  worst day -0.49  by day -0.10 +0.24 -0.33 -0.49 -0.15
+      per copy -0.0064; fills 105 (81% of copies); his net on them +3.73
+   added at 3M                                    n  110 total  -1.14 [w/o best2  -1.71]  P1  -0.51 [ -0.91]  P2  -0.62 [ -0.99]  worst day -0.51  by day -0.06 -0.05 -0.40 -0.51 -0.12
+      per copy -0.0103; fills 86 (78% of copies); his net on them +3.43
+   added at 4M                                    n   99 total  -0.89 [w/o best2  -1.47]  P1  -0.27 [ -0.67]  P2  -0.62 [ -0.99]  worst day -0.51  by day -0.05 +0.02 -0.24 -0.51 -0.12
+      per copy -0.0090; fills 75 (75% of copies); his net on them +3.87
+   added at 6M                                    n   82 total  -0.79 [w/o best2  -1.37]  P1  -0.22 [ -0.62]  P2  -0.57 [ -0.94]  worst day -0.46  by day -0.09 +0.05 -0.18 -0.46 -0.11
+      per copy -0.0096; fills 60 (73% of copies); his net on them +3.88
+   ... and what a higher bid-key threshold drops from the tip key (tip >= 2M but tip + priority < X):
+   dropped at 3M                                  n   36 total  +0.13 [w/o best2  -0.02]  P1  +0.07 [ -0.08]  P2  +0.06 [ -0.02]  worst day -0.25  by day -0.25 -0.06 +0.37 +0.02 +0.03
+      per copy +0.0036; fills 33 (91% of copies); his net on them +0.72
+   dropped at 4M                                  n   66 total  +2.31 [w/o best2  +0.41]  P1  +2.23 [ +0.33]  P2  +0.08 [ +0.00]  worst day +0.02  by day +1.32 +0.54 +0.37 +0.02 +0.06
+      per copy +0.0350; fills 62 (93% of copies); his net on them +5.45
+   dropped at 6M                                  n  104 total  +2.09 [w/o best2  +0.14]  P1  +1.78 [ -0.12]  P2  +0.31 [ -0.07]  worst day +0.09  by day +1.19 +0.28 +0.31 +0.22 +0.09
+      per copy +0.0201; fills 94 (91% of copies); his net on them +5.98
+
+   the added bucket at 2M: tips {1.0: 130}; priority (M) {1.4: 20, 2.6: 11, 3.8: 17, 5.4: 3, 6.2: 18, 7.0: 9, 8.6: 2, 9.0: 7, 11.0: 17, 14.0: 3, 15.0: 2, 17.0: 6, 19.0: 3, 23.0: 8, 29.0: 4}; size {0.4: 10, 0.59: 41, 0.79: 8, 0.89: 34, 1.19: 23, 1.78: 14}; his buy at create+1 69 of 130
+
+== are the added copies the refused ones? (refused = a landing over his price + 5%)
+   tip-key copies: 298, refused share of landings 22%; copies with a refused landing 76, his net there +7.57
+   added copies (2M): 130, refused share 19%; overlap with the tip key's refused coins: 0 (disjoint by construction: a coin is in one key or the other)
+   tip key, his priority >= 1M: 6 copies, refused share 33%, copy +1.42, his +7.84
+   tip key, his priority < 1M: 292 copies, refused share 22%, copy +6.35, his +24.77

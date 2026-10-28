@@ -23,7 +23,8 @@ VS = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(VS)
 orf = VS.orf
 HIM_DEFAULT = "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2"
-SKIP_HIM = {"skip_small": "skip: tip/size low", "skip_unlisted": "skip: op not listed", "skip_few": "skip: op new"}
+SKIP_HIM = {"skip_small": "skip: tip/size low", "skip_unlisted": "skip: op not listed", "skip_few": "skip: op new",
+            "skip_short_hold": "skip: op hold < 4"}
 SKIP_W = {"skip_small": "skip: < min_sol"}
 # the wallets' numbers in the tables: him 1, then these (a number stays when a wallet is removed), then the other
 # copy_more wallets in the config's order

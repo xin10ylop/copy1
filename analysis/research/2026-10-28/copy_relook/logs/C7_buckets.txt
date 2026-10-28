@@ -1,0 +1,20 @@
+
+== by his tip
+   2-4M (his net +5.45)                           n   66 total  +2.31 [w/o best2  +0.41]  P1  +2.23 [ +0.33]  P2  +0.08 [ +0.00]  worst day +0.02  by day +1.32 +0.54 +0.37 +0.02 +0.06
+      live: 32 filled, net +0.458 (+0.0143 a fill; his +1.567);  5-day filled landings: +0.0325 a fill at the live cost; draws of 32: median +0.561, 5-95% -0.304 .. +3.571; share <= live 0.457
+   4-8M (his net +3.47)                           n   77 total  +0.16 [w/o best2  -0.75]  P1  -0.04 [ -0.75]  P2  +0.21 [ -0.18]  worst day -0.40  by day -0.10 -0.40 +0.46 +0.22 -0.02
+      live: 41 filled, net -1.437 (-0.0351 a fill; his -1.697);  5-day filled landings: +0.0010 a fill at the live cost; draws of 41: median -0.033, 5-95% -0.822 .. +1.155; share <= live 0.000
+   8M+ (his net +15.85)                           n  149 total  +3.88 [w/o best2  +2.71]  P1  +3.95 [ +2.77]  P2  -0.07 [ -0.85]  worst day -0.09  by day +0.29 +0.77 +2.89 +0.02 -0.09
+      live: 46 filled, net +1.402 (+0.0305 a fill; his +3.368);  5-day filled landings: +0.0322 a fill at the live cost; draws of 46: median +1.439, 5-95% -0.045 .. +3.135; share <= live 0.484
+   size key <2M (his net +7.84)                   n    6 total  +1.42 [w/o best2  -0.05]  P1  +1.43 [ -0.04]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +1.43 -0.01 +0.00
+      live: 6 filled, net -0.470 (-0.0784 a fill; his -1.203);  5-day filled landings: +0.3525 a fill at the live cost; draws of 6: median +1.833, 5-95% +0.085 .. +4.169; share <= live 0.000
+
+== by his size
+   0.7-1.1 (his net +10.08)                       n  110 total  +3.69 [w/o best2  +1.39]  P1  +3.72 [ +1.42]  P2  -0.03 [ -0.44]  worst day -0.05  by day +1.81 +0.76 +1.15 +0.02 -0.05
+      live: 41 filled, net -0.079 (-0.0019 a fill; his +1.070);  5-day filled landings: +0.0376 a fill at the live cost; draws of 41: median +1.275, 5-95% -0.177 .. +3.972; share <= live 0.065
+   1.1-2 (his net +8.11)                          n   68 total  +2.16 [w/o best2  +1.11]  P1  +2.22 [ +1.17]  P2  -0.06 [ -0.64]  worst day -0.08  by day -0.00 +0.36 +1.86 +0.02 -0.08
+      live: 26 filled, net -0.369 (-0.0142 a fill; his +1.433);  5-day filled landings: +0.0429 a fill at the live cost; draws of 26: median +1.077, 5-95% -0.204 .. +2.537; share <= live 0.031
+   2+ (his net +12.46)                            n   11 total  +2.10 [w/o best2  +0.35]  P1  +1.62 [ +0.14]  P2  +0.48 [ -0.01]  worst day -0.02  by day +0.00 -0.02 +1.64 +0.48 +0.00
+      live: 9 filled, net -0.509 (-0.0566 a fill; his -2.584);  5-day filled landings: +0.2606 a fill at the live cost; draws of 9: median +2.271, 5-95% +0.518 .. +4.604; share <= live 0.000
+   <0.7 (his net +1.95)                           n  109 total  -0.18 [w/o best2  -0.62]  P1  +0.00 [ -0.44]  P2  -0.18 [ -0.33]  worst day -0.31  by day -0.31 -0.19 +0.50 -0.27 +0.09
+      live: 49 filled, net +0.910 (+0.0186 a fill; his +2.116);  5-day filled landings: -0.0045 a fill at the live cost; draws of 49: median -0.221, 5-95% -0.958 .. +0.493; share <= live 0.994

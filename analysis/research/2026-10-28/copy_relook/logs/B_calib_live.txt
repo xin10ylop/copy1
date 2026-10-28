@@ -1,0 +1,18 @@
+filled copies of him in the paste matched to a live tape: 72; not matched: {'no live buy record': 52, 'no sell slot': 1}
+with every valuation: 50 (Beirut 10-26 15:36:15 .. 10-27 01:32:44)
+   real (check.sh curve) +0.7663   chain (tape amounts) +0.7674   model at our real entry and sell slot +0.4751   model with the backtest's landing +0.4890
+   per fill: model@real - real -0.0058   model@bt - real -0.0055   chain - real +0.0000   (fees 0.3610, real net +0.4053)
+   landed in his slot     n  40 real +0.4525 model@real +0.1699 model@bt +0.1746  (model@bt - real per fill -0.0069)
+   landed a slot later    n  10 real +0.3138 model@real +0.3052 model@bt +0.3144  (model@bt - real per fill +0.0001)
+   his buy create + 0     n  26 real +0.4009 model@real +0.3866 model@bt +0.3836  (model@bt - real per fill -0.0007)
+   his buy create + 1     n  24 real +0.3654 model@real +0.0884 model@bt +0.1055  (model@bt - real per fill -0.0108)
+   largest model@real - real gaps: GcP31yEM real +0.009 model +0.022; 68bPpJZo real +0.086 model +0.100; 2cbVHt5P real -0.027 model -0.010; 279gq88S real -0.153 model -0.035
+   smallest: 2k3SNKA7 real +0.205 model -0.030; 5JdCiqJY real +0.276 model +0.140; BGaxAS3L real +0.049 model -0.001; FXrt1Pgs real +0.020 model -0.000
+
+== sell timing (C3): where our sell landed against his first sell on the coin (filled copies with a tape)
+   before his first sell's slot              35  our net +0.2970
+   he did not sell on the tape               22  our net -0.0533
+   a slot or more after his first sell       14  our net -0.1664
+   in his sell's slot, before it              1  our net +0.0099
+   our sell slot - his first sell slot: -6:2 -5:4 -4:1 -2:6 -1:22 +0:1 +1:2 +2:4 +3:2 +6:1 +7:3 +8:1 +9:1
+   our sell slot after the create: +5:34 +6:2 +8:1 +9:29 +10:5 +11:1

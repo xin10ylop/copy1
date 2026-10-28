@@ -74,6 +74,12 @@ Without the stuck coin, the copies themselves lost about 0.8 to 0.9 SOL over the
 - `crates/rugsnipe-tx/examples/amm_sell_tx.rs`: the pool sell transaction, simulated on mainnet from our wallet with its
   real 2RR6sfbi tokens: success, 70,286 compute units, +0.0277 SOL.
 - To deploy, if the hot bot ever runs again: `cd ~/rugsnipe && git pull && sudo bash deploy/install.sh --role hot`.
+- **Oct 28 (code review, `07-restart/code-review-2026-10-28.md` Q5.1):** the fix had a gap. It re-sent only sell
+  orders still alive; when the lane's report of the completed curve came after the order had given up (4 tries at a
+  2M dump tip, about 8 slots), the venue switched and nothing was ever sold on the pool. Fixed the same day: a given-up
+  order is placed again from scratch on the pool, and any given-up sell is placed again every ~10 minutes while the
+  position is open (`sell_retry.rearm_after_slots`), with a CRITICAL journal line (docs/07 §6; tests
+  `completion_behind_a_given_up_order_sells_on_the_pool`, `a_given_up_order_is_placed_again_after_the_interval`).
 
 **Long copy (rugsnipe-long), commits `ec2463c` and `e9c403a`** (audited for the same class of failure; in the build
 that runs on Ohio):

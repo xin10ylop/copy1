@@ -1,0 +1,43 @@
+== 1. fixed cost per filled copy = bid + 0.0016 (live mean of fees - bid over 125 fills)
+   bid 1.0M: 0.0026 SOL a fill; over the 5-day set's 232 fills 0.60 SOL
+   bid 1.5M: 0.0031 SOL a fill; over the 5-day set's 232 fills 0.72 SOL
+   bid 3.0M: 0.0046 SOL a fill; over the 5-day set's 232 fills 1.07 SOL
+   bid 8.0M: 0.0096 SOL a fill; over the 5-day set's 232 fills 2.23 SOL
+
+== 2. live, our copies of him by our bid (paste bid x live tape landing)
+   bid 3.0M: 53 copies with a tape; in his slot 34 (64%), positions behind him there: median 150.5, mean 176; next slot 19, index median 24
+   bid 8.0M: 48 copies with a tape; in his slot 36 (75%), positions behind him there: median 124.0, mean 150; next slot 11, index median 169
+   check.sh TIP TEST (him, from Oct 26 18:20 Beirut): 3.0M 56 copies, in its slot 36, d_avg 156; 8.0M 79 copies, in its slot 52, d_avg 149
+
+== 3. the 5-day data: our at-create fires by our tip (landed or failed 6042 at create + 0/1)
+   our tip  0.0M:   22 landings; in the create slot 50%, positions after the create: median 131, p25 96, p75 168
+   our tip  0.1M:  113 landings; in the create slot 59%, positions after the create: median 122, p25 66, p75 172
+   our tip  1.0M:  450 landings; in the create slot 61%, positions after the create: median 91.5, p25 52, p75 156
+   our tip  1.5M:   77 landings; in the create slot 70%, positions after the create: median 98.0, p25 66, p75 162
+   our tip  3.0M:  201 landings; in the create slot 63%, positions after the create: median 80, p25 60, p75 131
+   our tip  3.4M:   74 landings; in the create slot 66%, positions after the create: median 91, p25 59, p75 167
+   our tip  6.0M:  155 landings; in the create slot 64%, positions after the create: median 83, p25 51, p75 152
+
+== 4. the 2M copy set, 0.5 SOL: value by landing distance (his slot), live 3M fixed cost
+   measured deciles [32, 45, 58, 71, 84, 101, 125, 158, 200, 322]: +7.77 SOL, 232 fills
+   D =   0: +12.25  fills   298  gain vs measured +4.48  break-even extra tip +15.0M a filled copy
+   D =   5: +10.19  fills   273  gain vs measured +2.42  break-even extra tip +8.9M a filled copy
+   D =  10:  +9.23  fills   264  gain vs measured +1.46  break-even extra tip +5.5M a filled copy
+   D =  20:  +8.56  fills   251  gain vs measured +0.79  break-even extra tip +3.1M a filled copy
+   D =  45:  +8.14  fills   240  gain vs measured +0.37  break-even extra tip +1.5M a filled copy
+   D =  90:  +7.79  fills   232  gain vs measured +0.02  break-even extra tip +0.1M a filled copy
+   D = 125:  +7.34  fills   227  gain vs measured -0.43  break-even extra tip -1.9M a filled copy
+   D = 150:  +7.56  fills   226  gain vs measured -0.22  break-even extra tip -1.0M a filled copy
+   D = 200:  +7.54  fills   224  gain vs measured -0.23  break-even extra tip -1.0M a filled copy
+   every decile 7 positions closer: +7.85 (gain +0.08, +0.35M a fill: what 7 positions are worth)
+   every decile 20 positions closer: +7.92 (gain +0.15, +0.62M a fill: what 20 positions are worth)
+
+   each bid at its landing (the live mix: his slot at the live positions, share p next slot; recon.py section 3):
+   1.0M (landing assumed = the live 3M/8M mix; not measured) n  298 total  +7.79 [w/o best2  +4.86]  P1  +7.48 [ +4.55]  P2  +0.32 [ -0.47]  worst day -0.03  by day +1.56 +0.89 +5.03 +0.35 -0.03
+   1.5M (same assumption)                         n  298 total  +7.68 [w/o best2  +4.75]  P1  +7.39 [ +4.46]  P2  +0.29 [ -0.50]  worst day -0.04  by day +1.54 +0.85 +5.00 +0.33 -0.04
+   3.0M                                           n  298 total  +7.35 [w/o best2  +4.42]  P1  +7.14 [ +4.22]  P2  +0.20 [ -0.58]  worst day -0.07  by day +1.50 +0.75 +4.89 +0.27 -0.07
+   8.0M (7 positions closer: TIP TEST d_avg 149 vs 156) n  298 total  +6.26 [w/o best2  +3.34]  P1  +6.32 [ +3.41]  P2  -0.07 [ -0.84]  worst day -0.15  by day +1.36 +0.41 +4.55 +0.08 -0.15
+
+   each live bid at the landing measured for it on the tapes (section 2; small samples):
+   3.0M: next slot 36%, his-slot D 136-152 mid    n  298 total  +7.30 [w/o best2  +4.37]  P1  +7.08 [ +4.15]  P2  +0.22 [ -0.56]  worst day -0.07  by day +1.50 +0.72 +4.86 +0.29 -0.07
+   8.0M: next slot 25%, his-slot D 112-128 mid    n  298 total  +6.29 [w/o best2  +3.38]  P1  +6.37 [ +3.45]  P2  -0.08 [ -0.85]  worst day -0.15  by day +1.36 +0.42 +4.59 +0.07 -0.15

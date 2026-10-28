@@ -975,8 +975,17 @@ const BOUGHT: usize = 32;
 const SIGNERS: usize = 1024;
 const SIGNER_BUYS: usize = crate::copybuys::PER_SIGNER;
 
-/// 400 ms slots: 9,000 an hour.
-pub const SLOTS_PER_HOUR: u64 = 9_000;
+/// Slots an hour, for `entry.copy_signer_window_h`. 2026-10-28: 16,000
+/// (about 225 ms a slot: 3,037 slots in 679 s on Oct 28, 15:00 UTC; docs/16
+/// section 8 measured 212 ms). It was 9,000 (400 ms slots), which made the
+/// 24 h window about 13 h live.
+pub const SLOTS_PER_HOUR: u64 = 16_000;
+
+/// The shortest table hold a copy is made at (`entry.copy`): a copy sells one
+/// slot before his hold, lands at create + 0..2, and a hold under this sells
+/// at or behind his own dump (2026-10-28 code review: H = 1 and 3 signers in
+/// the tables).
+pub const COPY_MIN_HOLD: u16 = 4;
 
 /// The copied wallet's last landed buys on one create signer's launches
 /// (their slots, a ring), for `entry.copy_signer_min_buys`.
@@ -1582,6 +1591,9 @@ pub struct HotLoop {
     /// His recent buys per create signer (`entry.copy_signer_min_buys`; on
     /// the heap, the oldest signer replaced when full).
     his_signers: Box<[Option<SignerSeen>]>,
+    /// The code of the last decision recorded ([`Self::decision`]): what a
+    /// copy's send ended as, for its journal line.
+    last_decision: u8,
     /// Scratch for the ALT-loaded addresses of a wire event (no allocation).
     loaded: Box<[Pubkey]>,
     last_mark_ns: u64,
@@ -1670,6 +1682,7 @@ impl HotLoop {
             bought: [0; BOUGHT],
             bought_at: 0,
             his_signers: vec![None; SIGNERS].into_boxed_slice(),
+            last_decision: 0,
             loaded: vec![Pubkey::default(); MAX_LOADED].into_boxed_slice(),
             last_mark_ns: 0,
             sell_tmpls: Vec::new(),
@@ -2000,6 +2013,7 @@ impl HotLoop {
         nonce_idx: u16,
     ) {
         self.counters.decisions += 1;
+        self.last_decision = code;
         self.stats
             .decision(if code & 0xf0 == 0x10 && would_skip != 0 {
                 code::PAPER_WOULD_SKIP
@@ -2658,12 +2672,17 @@ impl HotLoop {
         self.counters.copy_his[0] += 1;
         // his conviction (size and tip), or a big buy whatever its tip
         let big = self.cfg.copy_big > 0 && t.sol_amount >= self.cfg.copy_big;
+        let rule = self.cfg.operator_rule(&r.hit);
         let skip = if !big && (t.sol_amount < self.cfg.copy_min || t.tip < self.cfg.copy_min_tip) {
             Some((1, "skip_small"))
-        } else if self.cfg.copy_listed_only && self.cfg.operator_rule(&r.hit).is_none() {
+        } else if self.cfg.copy_listed_only && rule.is_none() {
             // his known operators only (entry.copy_listed_only): the
             // table's hold is the copy's exit
             Some((2, "skip_unlisted"))
+        } else if rule.is_some_and(|r| r.hold_slots < COPY_MIN_HOLD) {
+            // his hold on the signer is too short to sell before him
+            // (counted with the unlisted ones in the status line)
+            Some((2, "skip_short_hold"))
         } else if recent < self.cfg.copy_signer_min_buys {
             // a signer he is trading now
             Some((3, "skip_few"))
@@ -2688,6 +2707,7 @@ impl HotLoop {
             return;
         }
         self.counters.copy[1] += 1;
+        self.last_decision = code::FIRE;
         self.copy_send(
             t,
             &r,
@@ -2698,6 +2718,17 @@ impl HotLoop {
             recv_ns,
             t0,
         );
+        // 2026-10-28: a copy the gates behind the send dropped (risk caps,
+        // the kill, no nonce, a stale slot ...) was journaled `-> buy` and
+        // nothing more, so check.sh showed "copied, not sent" with no cause
+        if self.last_decision != code::FIRE {
+            let k8 = key8(&t.mint);
+            journal(format_args!(
+                "copy {} not sent: {}",
+                std::str::from_utf8(&k8).unwrap_or("?"),
+                decision_label(self.last_decision)
+            ));
+        }
     }
 
     /// `entry.copy_more` (docs/19 section 4): a landed launch buy (a recent
@@ -5143,10 +5174,29 @@ impl HotLoop {
                 self.stats.positions_open.set(self.positions() as i64);
             }
             ExitAction::Alert(al) => {
+                let (mint, rearm) = (s.pos.mint, s.pos.policy.retry_rearm_after_slots);
                 self.stats.alerts.inc();
+                let k8 = key8(&mint);
+                let mint8 = std::str::from_utf8(&k8).unwrap_or("?");
                 let (kind, v) = match al {
-                    rugsnipe_exit::Alert::SellExhausted { order_id, .. } => (0x41u8, order_id),
-                    rugsnipe_exit::Alert::SellFailing { order_id, .. } => (0x42u8, order_id),
+                    rugsnipe_exit::Alert::SellExhausted { order_id, tries } => {
+                        journal(format_args!(
+                            "CRITICAL sell {mint8} order {order_id} gave up after {tries} tries: the stake is unsold; placed again in {rearm} slots"
+                        ));
+                        (0x41u8, order_id)
+                    }
+                    rugsnipe_exit::Alert::SellFailing { order_id, tries } => {
+                        journal(format_args!(
+                            "sell {mint8} order {order_id} failing: {tries} tries"
+                        ));
+                        (0x42u8, order_id)
+                    }
+                    rugsnipe_exit::Alert::SellRearmed { order_id, tries } => {
+                        journal(format_args!(
+                            "CRITICAL sell {mint8} order {order_id} placed again from scratch after {tries} tries (still unsold)"
+                        ));
+                        (0x44u8, order_id)
+                    }
                 };
                 self.rslog.push(Rec::Risk {
                     kind,
@@ -5367,7 +5417,12 @@ impl HotLoop {
         let mut sig = [0u8; 64];
         let mut unsent = false;
         if !owned {
+            // 2026-10-28: the guard holds the exits lease, so nothing was
+            // sent: the attempt is taken back (no try, no tip) and is due
+            // again next slot, instead of counting as sent until the order
+            // gave up and the position sat unsold once the lease came back
             self.stats.sells_not_owner.inc();
+            unsent = true;
         } else if lifetime.is_none() {
             self.counters.sells_no_blockhash += 1;
             self.rslog.push(Rec::Risk {

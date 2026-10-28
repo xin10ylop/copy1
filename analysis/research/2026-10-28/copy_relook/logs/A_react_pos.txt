@@ -1,0 +1,72 @@
+
+== Oct 23+, coins the newest bot does not fire, his buy >= 0.0 SOL: 643 coins, his net +24.45 SOL
+   D =           1 positions behind, sell H-1   n  643  total   +5.966 SOL  mean +0.0093 ( +1.9%)  median  -1.8%  wins  40%
+        by day: 10-23 +5.47  10-24 -0.14  10-25 +0.64
+   D =           5 positions behind, sell H-1   n  643  total   +4.403 SOL  mean +0.0068 ( +1.4%)  median  -2.1%  wins  38%
+        by day: 10-23 +4.61  10-24 -0.72  10-25 +0.51
+   D =          20 positions behind, sell H-1   n  643  total   +3.186 SOL  mean +0.0050 ( +1.0%)  median  -2.5%  wins  35%
+        by day: 10-23 +4.05  10-24 -1.23  10-25 +0.36
+   D =          50 positions behind, sell H-1   n  643  total   +2.144 SOL  mean +0.0033 ( +0.7%)  median  -2.7%  wins  32%
+        by day: 10-23 +3.57  10-24 -1.61  10-25 +0.18
+   D =         100 positions behind, sell H-1   n  643  total   +0.272 SOL  mean +0.0004 ( +0.1%)  median  -3.0%  wins  30%
+        by day: 10-23 +2.56  10-24 -2.24  10-25 -0.05
+   D =         200 positions behind, sell H-1   n  643  total   +0.012 SOL  mean +0.0000 ( +0.0%)  median  -3.1%  wins  28%
+        by day: 10-23 +2.56  10-24 -2.27  10-25 -0.27
+   D =         400 positions behind, sell H-1   n  643  total   -0.294 SOL  mean -0.0005 ( -0.1%)  median  -3.2%  wins  28%
+        by day: 10-23 +2.44  10-24 -2.46  10-25 -0.27
+   D = end of slot positions behind, sell H-1   n  643  total   -0.320 SOL  mean -0.0005 ( -0.1%)  median  -3.2%  wins  28%
+        by day: 10-23 +2.43  10-24 -2.47  10-25 -0.28
+
+== Oct 23+, coins the newest bot does not fire, his buy >= 0.7 SOL: 249 coins, his net +24.43 SOL
+   D =           1 positions behind, sell H-1   n  249  total   +6.289 SOL  mean +0.0253 ( +5.1%)  median  -2.0%  wins  43%
+        by day: 10-23 +5.32  10-24 +1.21  10-25 -0.24
+   D =           5 positions behind, sell H-1   n  249  total   +5.210 SOL  mean +0.0209 ( +4.2%)  median  -3.0%  wins  38%
+        by day: 10-23 +4.68  10-24 +0.84  10-25 -0.31
+   D =          20 positions behind, sell H-1   n  249  total   +4.510 SOL  mean +0.0181 ( +3.6%)  median  -3.2%  wins  34%
+        by day: 10-23 +4.33  10-24 +0.54  10-25 -0.36
+   D =          50 positions behind, sell H-1   n  249  total   +4.041 SOL  mean +0.0162 ( +3.2%)  median  -3.2%  wins  32%
+        by day: 10-23 +4.08  10-24 +0.39  10-25 -0.43
+   D =         100 positions behind, sell H-1   n  249  total   +2.657 SOL  mean +0.0107 ( +2.1%)  median  -3.2%  wins  28%
+        by day: 10-23 +3.25  10-24 -0.05  10-25 -0.55
+   D =         200 positions behind, sell H-1   n  249  total   +2.558 SOL  mean +0.0103 ( +2.1%)  median  -3.2%  wins  27%
+        by day: 10-23 +3.18  10-24 -0.04  10-25 -0.58
+   D =         400 positions behind, sell H-1   n  249  total   +2.469 SOL  mean +0.0099 ( +2.0%)  median  -3.2%  wins  27%
+        by day: 10-23 +3.12  10-24 -0.08  10-25 -0.57
+   D = end of slot positions behind, sell H-1   n  249  total   +2.452 SOL  mean +0.0098 ( +2.0%)  median  -3.2%  wins  27%
+        by day: 10-23 +3.11  10-24 -0.08  10-25 -0.58
+
+== all 5 days, all his landed buys, his buy >= 0.0 SOL: 1684 coins, his net +52.87 SOL
+   D =           1 positions behind, sell H-1   n 1684  total  +11.523 SOL  mean +0.0068 ( +1.4%)  median  -1.5%  wins  41%
+        by day: 10-21 +2.13  10-22 -0.16  10-23 +8.31  10-24 +0.27  10-25 +0.97
+   D =           5 positions behind, sell H-1   n 1684  total   +6.485 SOL  mean +0.0039 ( +0.8%)  median  -1.8%  wins  37%
+        by day: 10-21 +1.04  10-22 -1.54  10-23 +6.97  10-24 -0.67  10-25 +0.68
+   D =          20 positions behind, sell H-1   n 1684  total   +2.067 SOL  mean +0.0012 ( +0.2%)  median  -2.3%  wins  33%
+        by day: 10-21 -0.58  10-22 -1.96  10-23 +6.18  10-24 -1.90  10-25 +0.33
+   D =          50 positions behind, sell H-1   n 1684  total   -0.819 SOL  mean -0.0005 ( -0.1%)  median  -2.5%  wins  30%
+        by day: 10-21 -1.41  10-22 -2.38  10-23 +5.37  10-24 -2.42  10-25 +0.02
+   D =         100 positions behind, sell H-1   n 1684  total   -4.211 SOL  mean -0.0025 ( -0.5%)  median  -2.8%  wins  28%
+        by day: 10-21 -1.82  10-22 -2.97  10-23 +4.23  10-24 -3.37  10-25 -0.28
+   D =         200 positions behind, sell H-1   n 1684  total   -5.388 SOL  mean -0.0032 ( -0.6%)  median  -2.9%  wins  27%
+        by day: 10-21 -2.27  10-22 -3.47  10-23 +4.28  10-24 -3.42  10-25 -0.51
+   D =         400 positions behind, sell H-1   n 1684  total   -5.896 SOL  mean -0.0035 ( -0.7%)  median  -3.0%  wins  26%
+        by day: 10-21 -2.45  10-22 -3.43  10-23 +4.09  10-24 -3.60  10-25 -0.51
+   D = end of slot positions behind, sell H-1   n 1684  total   -6.284 SOL  mean -0.0037 ( -0.7%)  median  -3.1%  wins  26%
+        by day: 10-21 -2.60  10-22 -3.64  10-23 +4.08  10-24 -3.60  10-25 -0.52
+
+== all 5 days, all his landed buys, his buy >= 0.7 SOL: 651 coins, his net +49.01 SOL
+   D =           1 positions behind, sell H-1   n  651  total  +10.276 SOL  mean +0.0158 ( +3.2%)  median  -1.7%  wins  43%
+        by day: 10-21 +2.21  10-22 +0.19  10-23 +6.71  10-24 +1.20  10-25 -0.03
+   D =           5 positions behind, sell H-1   n  651  total   +6.774 SOL  mean +0.0104 ( +2.1%)  median  -2.4%  wins  38%
+        by day: 10-21 +1.55  10-22 -0.92  10-23 +5.75  10-24 +0.60  10-25 -0.21
+   D =          20 positions behind, sell H-1   n  651  total   +4.160 SOL  mean +0.0064 ( +1.3%)  median  -2.7%  wins  31%
+        by day: 10-21 +0.70  10-22 -1.24  10-23 +5.30  10-24 -0.19  10-25 -0.41
+   D =          50 positions behind, sell H-1   n  651  total   +2.522 SOL  mean +0.0039 ( +0.8%)  median  -3.1%  wins  28%
+        by day: 10-21 +0.17  10-22 -1.45  10-23 +4.84  10-24 -0.46  10-25 -0.58
+   D =         100 positions behind, sell H-1   n  651  total   +0.393 SOL  mean +0.0006 ( +0.1%)  median  -3.2%  wins  25%
+        by day: 10-21 -0.13  10-22 -1.66  10-23 +3.92  10-24 -1.00  10-25 -0.73
+   D =         200 positions behind, sell H-1   n  651  total   +0.199 SOL  mean +0.0003 ( +0.1%)  median  -3.2%  wins  24%
+        by day: 10-21 -0.19  10-22 -1.79  10-23 +3.94  10-24 -0.99  10-25 -0.77
+   D =         400 positions behind, sell H-1   n  651  total   +0.232 SOL  mean +0.0004 ( +0.1%)  median  -3.2%  wins  23%
+        by day: 10-21 -0.21  10-22 -1.62  10-23 +3.83  10-24 -1.01  10-25 -0.76
+   D = end of slot positions behind, sell H-1   n  651  total   -0.004 SOL  mean -0.0000 ( -0.0%)  median  -3.2%  wins  23%
+        by day: 10-21 -0.24  10-22 -1.81  10-23 +3.82  10-24 -1.01  10-25 -0.77

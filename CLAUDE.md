@@ -12,7 +12,9 @@ holds wallet 4 (H9kuqGKN), its long copy (paper, running on the Ohio box) and it
 both repos.
 
 **Upstream:** the live code is developed in `xin10ylop/rugsnipe`, branch `claude/eloquent-mayer-264bxk`. This repo is a
-snapshot at `7184554` (Oct 28). Code meant for a box goes upstream (or the box gets pointed here); say which you did.
+snapshot at `7184554` (Oct 28) **plus the Oct 28 fixes of `07-restart/README.md` §4** (exit re-arm, graduation race,
+signer window, short-hold skip, not-sent journal, copy seed, ArmSet size flag, check.sh), which are not upstream. Code
+meant for a box goes upstream (or the box gets pointed here); say which you did. The restart runbook points the box here.
 
 ## The owner and how to work with them
 
@@ -73,13 +75,15 @@ bash data/datasets/unpack.sh dec        # one archive
   owns it (docs/17 for `entry.copy`, docs/19 for `copy_more` ...).
 - Docs here: update the curated page (`03-strategies/Sx-*.md`), add sources, keep the README status current.
 
-## Open items (Oct 28)
+## Open items (Oct 28, after the review in `07-restart/README.md`)
 
-1. Nothing runs. If the copy of him is ever restarted: deploy the graduation fix `af681ad` first, run him alone (wallets 3
-   and 5 lost; the daily stop counts every wallet), and make check.sh count open positions and failed-sell fees.
-2. Check the operator-count rule on the box's config ("operator he bought < 0 times" in check.sh suggests
-   `copy_signer_min_buys = 0`).
-3. The copy's gap: we fill his weaker coins and his better ones get refused (+4.63 of his +8.92). Every refusal fix
-   tested negative (docs/19 §9-§10). Landing closer would roughly double the backtest, but a tip doesn't buy it
-   (docs/17 §9). A new angle is needed, or let it go.
+1. Nothing runs. A restart is a measured small test (him alone, 0.5 SOL, bid 3.0M with a 1.5M A/B, Frankfurt): the
+   runbook is `07-restart/README.md` §6. Expected at the backtest's last two days: about zero; it buys information.
+2. The operator-count question is settled by the code review: the box ran `copy_signer_min_buys = 0` (check.sh read
+   the file correctly); with the table on it cost about nothing. The owner's paste of the backup's config (§6.0 of the
+   runbook) confirms it.
+3. The copy's gap is unchanged and re-tested: every way to take the refused copies and the skipped low-tip buys loses
+   out of sample (copy_relook C5). Landing closer: Triton Preconfs are the one untested feed (box study §5).
 4. Task #45 and #68 from the original session (his exact selection logic; a new copy-target search) were never finished.
+5. Owed by the next live window: the bid A/B verdict, the 4-8M tip bucket, his create + 1 buys copied in his slot, the
+   late-sell share (16% live), and whether the curve is positive without the best 2 before any bigger stake.

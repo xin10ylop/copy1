@@ -61,11 +61,23 @@ wallet ([docs/12][d12] §1). His wallet started sniping in Aug 2026: 12,554 sign
 | positions | not limited by them: he held an open position at only 7 of 741 launches | docs/16 §10 |
 | programs | all 23,929 buy transactions of the month are top-level pump buys | docs/16 §10 |
 
-## 4. One wallet, nobody linked
+## 4. One wallet, nobody linked (since Sep 4, 2026)
 
 His two guard programs are the slot window `A5c1eN7M...` and the curve state `8jzqTjED...`. Nobody else uses them,
 and every sampled signer over 39-47 h is him. Nobody co-signs. His only transfers are 0.25-0.5 SOL test sends
 ([docs/12][d12] §1). No wallet on the tapes copies him and lands close behind him ([docs/17][d17] §9, "A bigger tip").
+
+**Corrected on Oct 28** by the on-chain re-check of his whole history
+([`analysis/research/2026-10-28/onchain/report.md`](../analysis/research/2026-10-28/onchain/report.md) §3): the
+statement holds **since Sep 4, 2026**, not before. The wallet was funded in Jan 2025 (22.97 SOL through fresh
+pass-through wallets, withdrawn two days later), restarted on Aug 17, 2026 with 199 SOL from `Gj9srqLh`, launched 37
+pump coins itself (−2.93 SOL), and from Aug 25 to Sep 3 was the hub of a fleet: 232 wallets swept 3,246 SOL into it and
+3,212 SOL went out through 220 three-hop chains to wallets that pump-traded and swept back (229 of the 232 are closed
+now). He deployed both guard programs himself on Sep 6 (he is the upgrade authority; of their 80,951 signatures, 0 are
+by anyone else). The Oct 1 test sends went to 55 fresh wallets that only paid relay tip accounts and swept back. One
+linked wallet is still active, `4yN2vFSi` (his dev wallet, 2.97 SOL), which deployed an unused program on Oct 22. No
+SOL has entered or left the wallet since Oct 3. Oct 24-28 he made +31.32 SOL on 1,401 landed buys, about 30% fewer a
+day than on Oct 17-23 and half the daily profit ([07-restart](../07-restart/README.md) §1).
 
 ## 5. How he executes
 

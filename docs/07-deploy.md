@@ -233,6 +233,16 @@ the pool's vaults with the held balances, and the sell goes out as the pool's `s
 `sells_pool`; our pool sale is read from the transaction's balances). Such a position is never handed to the guard,
 which sells on the curve only. The pool sell leaves the coin's token account open (about 0.002 SOL of rent).
 
+**A sell that gives up is placed again** (2026-10-28). A sell order stops retrying after `sell_retry.max_tries` or
+the per-position spend cap (`risk.max_sell_spend_lamports`; at a 2M dump tip that is 4 tries, about 8 slots). Before,
+that was the end: the position sat unsold until a restart re-adopted it, and a curve that completed behind such an
+order was never sold on the pool. Now the order is placed again from scratch (base dump tip, a fresh try count and
+budget) `sell_retry.rearm_after_slots` later (default 2,700 slots, about 10 minutes), again and again while the
+position is open, and at once when the curve completes behind it. Each time the journal says `CRITICAL sell <mint8>
+order N gave up after K tries` and `CRITICAL sell ... placed again from scratch`; `sudo journalctl -u rugsnipe-hot |
+grep CRITICAL` finds them. A sell attempted while the guard holds the exits lease is taken back (`unsent`), not
+counted as sent.
+
 `sudo systemctl stop rugsnipe.target` also stops guard. Any open position is then **stranded**: it is bounded by
 `max_open_positions × max_snipe` (4 × 0.25 SOL) but unmanaged. Do this only when flat. Check first with
 `sqlite3 -readonly /var/lib/rugsnipe/state.db "select mint,state from positions where state!='closed'"`.

@@ -1,0 +1,116 @@
+{
+ "slot guard": {
+  "program": "A5c1eN7MzgYWAfBBbwogAkjjmoiRYP3CDGTV2Fa5x4hp",
+  "programData": "4FzdKmxTt7CtMKkKxxeW92uivEgU5EojMu9hdmfrm72j",
+  "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+  "authority": "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+  "last_deploy_slot": 444755378,
+  "programData_sigs": 1,
+  "deploys": [
+   {
+    "sig": "65ZGLYMvPgFizJ1JQ4CGRsAxqHE4qBJrbAXTDJzs1GJ2QAuAQBQ2kphugPnh4k4qcSeecZxgYexWWz5YBbo8jHVq",
+    "slot": 444755378,
+    "time": "2026-09-06 09:11:02",
+    "payer": "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+    "err": false
+   },
+   {
+    "sig": "65ZGLYMvPgFizJ1JQ4CGRsAxqHE4qBJrbAXTDJzs1GJ2QAuAQBQ2kphugPnh4k4qcSeecZxgYexWWz5YBbo8jHVq",
+    "slot": 444755378,
+    "time": "2026-09-06 09:11:02",
+    "payer": "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+    "err": false
+   }
+  ]
+ },
+ "state guard": {
+  "program": "8jzqTjEDKxxTppLGjyhUXUmDbHeUjJ5kkpGiWmC9jAez",
+  "programData": "5EzjTsBpqh3BvDY53BsXj4bgkRtAHymTcn3hz6efrZFc",
+  "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+  "authority": "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+  "last_deploy_slot": 444810024,
+  "programData_sigs": 1,
+  "deploys": [
+   {
+    "sig": "2x4k53N3AEvdVjfovLiZ9kPGUnQEtxj4WgS7z7TBfhbUopNgTLqMqFLiivGs4N6GGyr8ShDAaT8JvcxUMMiMBu2N",
+    "slot": 444810024,
+    "time": "2026-09-06 13:59:37",
+    "payer": "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+    "err": false
+   },
+   {
+    "sig": "2x4k53N3AEvdVjfovLiZ9kPGUnQEtxj4WgS7z7TBfhbUopNgTLqMqFLiivGs4N6GGyr8ShDAaT8JvcxUMMiMBu2N",
+    "slot": 444810024,
+    "time": "2026-09-06 13:59:37",
+    "payer": "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+    "err": false
+   }
+  ]
+ },
+ "DeFG8i8z's program": {
+  "program": "BYdq7NJXWHnTzzCogT6VByrPXvUQwkD5PuZQLS8JvZtw",
+  "programData": "9TQ7P1nsdn56ydCRw8GFLT5dgVUy84LbcJdPY1sWJi8P",
+  "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+  "authority": "3ct4z3q2XHEGTb4Noe3Wh5iySA8e5UZawUXkWAnkfh5J",
+  "last_deploy_slot": 461987028,
+  "programData_sigs": 186,
+  "deploys": [
+   {
+    "sig": "3jwBW4gvbrh9U1Spco8kBbQgUHAT5wVcgWFq6QVPDLUuyz6baasXpR2koJkDYTKgDnGMCrJD2fKBWs3fVz7NwvkV",
+    "slot": 430778254,
+    "time": "2026-07-04 17:19:57",
+    "payer": "3ct4z3q2XHEGTb4Noe3Wh5iySA8e5UZawUXkWAnkfh5J",
+    "err": false
+   },
+   {
+    "sig": "5ftgB27eMxsSau6d2asW1hFhB1nJX62ZT6L386jMTVcPJtNwFhjfEMPFPB2ZJ6nowXzC1onjdPYEXBqeoHAEEKXy",
+    "slot": 430781393,
+    "time": "2026-07-04 17:40:53",
+    "payer": "3ct4z3q2XHEGTb4Noe3Wh5iySA8e5UZawUXkWAnkfh5J",
+    "err": false
+   },
+   {
+    "sig": "oebkex3u3TjF9j8jfW7d3zUXnt1EwHQwtp1H75gudt1855gCe6XLkrV4Smd35FrV5yKRPN1vFdhQW3JtVPnbQid",
+    "slot": 430787123,
+    "time": "2026-07-04 18:19:39",
+    "payer": "3ct4z3q2XHEGTb4Noe3Wh5iySA8e5UZawUXkWAnkfh5J",
+    "err": false
+   },
+   {
+    "sig": "2Auh8v7dDZ2cmGbrxCZEWBthTCjFKqiW6dkGre5CVzB2ChMLve5ky3jV5joLP91mf7MYFizR1rTkVLQVrBHcp7aj",
+    "slot": 430789042,
+    "time": "2026-07-04 18:32:31",
+    "payer": "3ct4z3q2XHEGTb4Noe3Wh5iySA8e5UZawUXkWAnkfh5J",
+    "err": false
+   },
+   {
+    "sig": "poZ3JdS67cCbZc7ZFKE1jf59HC18wpYMWYp3gY9eSCRL5oBxgF8dpA7bS1PcLhxzsBVR2Dabs5unPUbBtLMRuEi",
+    "slot": 430792112,
+    "time": "2026-07-04 18:53:09",
+    "payer": "3ct4z3q2XHEGTb4Noe3Wh5iySA8e5UZawUXkWAnkfh5J",
+    "err": false
+   },
+   {
+    "sig": "5J8KzK5KZPiKnw7MH9yesCDVg3fbk6LkuLrydx6poA88SbWovPbcpWETwWWJFbWVej6pkhW477pkC7LvbKbfUhPS",
+    "slot": 461987028,
+    "time": "2026-10-27 07:32:23",
+    "payer": "DeFG8i8zoJ3hN155nmvLq266ZVxWmNgRaTz5KQVHfe2S",
+    "err": false
+   },
+   {
+    "sig": "2dmpgEg8o7e6TmLVEHwU2RBtjAT7QmgGttcEzfe2UfDGCprWHGUCDGakrb1h7sWyusPijvogfRtUpeys5WQULYiS",
+    "slot": 461969144,
+    "time": "2026-10-27 06:29:00",
+    "payer": "DeFG8i8zoJ3hN155nmvLq266ZVxWmNgRaTz5KQVHfe2S",
+    "err": false
+   },
+   {
+    "sig": "2ah469kY2ARaMcxgjq94qv5q74ZeoVgxEZ23znc3nDrn7kapePfGnzN6zmQvgAACim3H1AQ62Jj18SgZ9phKVr4o",
+    "slot": 461872744,
+    "time": "2026-10-27 00:47:35",
+    "payer": "DeFG8i8zoJ3hN155nmvLq266ZVxWmNgRaTz5KQVHfe2S",
+    "err": false
+   }
+  ]
+ }
+}

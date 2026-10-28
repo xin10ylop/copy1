@@ -1,0 +1,37 @@
+our trigger-to-landing positions, decile mids: [32, 45, 58, 71, 84, 101, 125, 158, 200, 322]
+
+== all his landed buys: 1684 coins, his net +52.87 SOL (5 days)
+   exit anticipate, 0.5 SOL                                   n 1684  total   -3.11 SOL  per copy -0.0018  by day 10-21 -1.72 10-22 -2.87 10-23 +4.70 10-24 -3.00 10-25 -0.22
+   exit follow, 0.5 SOL                                       n 1684  total  -23.36 SOL  per copy -0.0139  by day 10-21 -5.36 10-22 -6.81 10-23 -1.68 10-24 -7.25 10-25 -2.26
+   exit best of both (oracle), 0.5 SOL                        n 1684  total   +2.37 SOL  per copy +0.0014  by day 10-21 +0.26 10-22 -0.95 10-23 +5.38 10-24 -2.32 10-25 -0.00
+   exit anticipate, his size (<= 2 SOL)                       n 1684  total   +2.57 SOL  per copy +0.0015  by day 10-21 -3.24 10-22 -4.25 10-23 +14.48 10-24 -3.33 10-25 -1.09
+
+== his buy >= 0.7 SOL: 651 coins, his net +49.01 SOL (5 days)
+   exit anticipate, 0.5 SOL                                   n  651  total   +1.28 SOL  per copy +0.0020  by day 10-21 -0.00 10-22 -1.58 10-23 +4.31 10-24 -0.77 10-25 -0.67
+   exit follow, 0.5 SOL                                       n  651  total   -8.26 SOL  per copy -0.0127  by day 10-21 -1.60 10-22 -3.19 10-23 +0.69 10-24 -2.88 10-25 -1.29
+   exit best of both (oracle), 0.5 SOL                        n  651  total   +3.46 SOL  per copy +0.0053  by day 10-21 +0.54 10-22 -0.61 10-23 +4.55 10-24 -0.36 10-25 -0.67
+   exit anticipate, his size (<= 2 SOL)                       n  651  total   +8.08 SOL  per copy +0.0124  by day 10-21 -0.91 10-22 -2.85 10-23 +14.18 10-24 -0.82 10-25 -1.52
+
+== his tip >= 8M: 251 coins, his net +22.85 SOL (5 days)
+   exit anticipate, 0.5 SOL                                   n  251  total   +2.63 SOL  per copy +0.0105  by day 10-21 +0.08 10-22 -0.04 10-23 +2.79 10-24 +0.08 10-25 -0.27
+   exit follow, 0.5 SOL                                       n  251  total   -2.52 SOL  per copy -0.0100  by day 10-21 -0.54 10-22 -0.92 10-23 +0.87 10-24 -1.47 10-25 -0.46
+   exit best of both (oracle), 0.5 SOL                        n  251  total   +2.84 SOL  per copy +0.0113  by day 10-21 +0.19 10-22 -0.02 10-23 +2.86 10-24 +0.08 10-25 -0.27
+   exit anticipate, his size (<= 2 SOL)                       n  251  total   +8.16 SOL  per copy +0.0325  by day 10-21 -0.24 10-22 +0.52 10-23 +7.63 10-24 +1.00 10-25 -0.75
+
+== his tip >= 12M: 188 coins, his net +21.72 SOL (5 days)
+   exit anticipate, 0.5 SOL                                   n  188  total   +2.25 SOL  per copy +0.0120  by day 10-21 +0.15 10-22 -0.29 10-23 +2.37 10-24 +0.33 10-25 -0.31
+   exit follow, 0.5 SOL                                       n  188  total   -1.66 SOL  per copy -0.0088  by day 10-21 -0.19 10-22 -0.96 10-23 +0.85 10-24 -0.87 10-25 -0.48
+   exit best of both (oracle), 0.5 SOL                        n  188  total   +2.39 SOL  per copy +0.0127  by day 10-21 +0.26 10-22 -0.27 10-23 +2.39 10-24 +0.33 10-25 -0.31
+   exit anticipate, his size (<= 2 SOL)                       n  188  total   +8.09 SOL  per copy +0.0430  by day 10-21 +0.05 10-22 +0.26 10-23 +6.98 10-24 +1.62 10-25 -0.82
+
+== his >= 0.7 SOL buys, exit anticipate, 0.5 SOL: value by a FIXED landing distance D
+   D =   0:  +10.55 SOL over 651 copies
+   D =   1:  +10.28 SOL over 651 copies
+   D =   3:   +8.24 SOL over 651 copies
+   D =  10:   +5.22 SOL over 651 copies
+   D =  20:   +4.16 SOL over 651 copies
+   D =  40:   +2.86 SOL over 651 copies
+   D =  60:   +2.31 SOL over 651 copies
+   D =  90:   +0.90 SOL over 651 copies
+   D = 150:   +0.10 SOL over 651 copies
+   D = 240:   +0.33 SOL over 651 copies

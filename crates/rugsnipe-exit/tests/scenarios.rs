@@ -823,3 +823,136 @@ fn real_sell_by_bundle_wallet_is_a_dump() {
     assert!(o.min_sol_output > 0);
     let _ = INITIAL_VIRTUAL_TOKEN_RESERVES;
 }
+
+/// 2026-10-28 (code review of the copy path): the report that the curve
+/// completed can arrive after the curve order gave up (4 tries of a 2M dump
+/// tip reach the 20M spend cap in about 8 slots). Before, `on_complete`
+/// re-sent only orders still alive, so the venue changed and nothing was
+/// ever sold on the pool. Now the given-up order is placed again from
+/// scratch on the pool: base dump tip, try 1, a full budget.
+#[test]
+fn completion_behind_a_given_up_order_sells_on_the_pool() {
+    let p = ExitPolicy {
+        dump_tip_lamports: 2_000_000,
+        sell_tip_lamports: 2_000_000,
+        ..ExitPolicy::default()
+    };
+    let mut s = Sim::new(p);
+    s.open(30 * SOL);
+    s.ms += 200_000;
+    s.next_slot(1);
+    let first = sells(&s.tick());
+    assert_eq!(first.len(), 1);
+    // keep failing until the order gives up
+    let mut exhausted = false;
+    for _ in 0..12 {
+        s.next_slot(2);
+        for a in s.tick() {
+            if matches!(a, ExitAction::Alert(Alert::SellExhausted { .. })) {
+                exhausted = true;
+            }
+        }
+    }
+    assert!(exhausted, "the order gave up on the spend cap");
+    assert!(s.pos.pending[0].unwrap().exhausted);
+    // the lane reports the completed curve only now
+    let a = s.ev(ExitEvent::Complete { slot: s.slot });
+    assert!(a
+        .iter()
+        .any(|x| matches!(x, ExitAction::VenueChanged { venue: Venue::PumpSwap })));
+    assert!(a
+        .iter()
+        .any(|x| matches!(x, ExitAction::Alert(Alert::SellRearmed { .. }))));
+    let o = sells(&a);
+    assert_eq!(o.len(), 1, "a fresh pool sell: {a:?}");
+    assert_eq!(o[0].venue, Venue::PumpSwap);
+    assert_eq!((o[0].try_no, o[0].kind), (1, SellKind::Dump));
+    assert_eq!(o[0].tip_lamports, 2_000_000, "the base dump tip again");
+    assert_ne!(o[0].order_id, first[0].order_id, "a new order");
+    assert_eq!(o[0].tokens, s.pos.tokens, "the whole balance");
+    assert!(!s.pos.pending[0].unwrap().exhausted);
+    assert_eq!(s.pos.sell_spend, 2_000_000, "the pool's budget starts afresh");
+    // and its retries go on, on the pool
+    s.next_slot(2);
+    let r = sells(&s.tick());
+    assert_eq!(r.len(), 1);
+    assert_eq!((r[0].venue, r[0].try_no), (Venue::PumpSwap, 2));
+}
+
+/// 2026-10-28: an order that gave up is no longer a dead end. After
+/// `sell_retry.rearm_after_slots` it is placed again from scratch, and
+/// again after that, for as long as the position is open (a failing sell
+/// costs its fees in bursts, never the stake).
+#[test]
+fn a_given_up_order_is_placed_again_after_the_interval() {
+    let p = ExitPolicy {
+        max_sell_spend_lamports: u64::MAX / 4,
+        retry_max_tries: 3,
+        retry_rearm_after_slots: 50,
+        ..ExitPolicy::default()
+    };
+    let mut s = Sim::new(p);
+    s.open(30 * SOL);
+    s.ms += 200_000;
+    s.next_slot(1);
+    let first = sells(&s.tick())[0];
+    let mut gave_up_at = None;
+    for _ in 0..6 {
+        s.next_slot(2);
+        for a in s.tick() {
+            if matches!(a, ExitAction::Alert(Alert::SellExhausted { tries: 3, .. })) {
+                gave_up_at = Some(s.slot);
+            }
+        }
+    }
+    let gave_up_at = gave_up_at.expect("gave up after 3 tries");
+    // the interval counts from the last attempt (try 3, one retry period
+    // before the give-up): nothing until then
+    let last_attempt = s.pos.pending[0].unwrap().sent_slot;
+    assert!(last_attempt < gave_up_at && last_attempt + 2 >= gave_up_at);
+    let mut a = Vec::new();
+    loop {
+        s.next_slot(2);
+        a = s.tick();
+        if s.slot >= last_attempt + 50 {
+            break;
+        }
+        assert!(sells(&a).is_empty(), "quiet until the interval");
+    }
+    assert!(a
+        .iter()
+        .any(|x| matches!(x, ExitAction::Alert(Alert::SellRearmed { tries: 3, .. }))));
+    let o = sells(&a);
+    assert_eq!(o.len(), 1, "{a:?}");
+    assert_eq!((o[0].try_no, o[0].kind), (1, SellKind::Dump));
+    assert_eq!(o[0].tip_lamports, s.pos.policy.dump_tip_lamports);
+    assert_ne!(o[0].order_id, first.order_id);
+    // a second round, the same way
+    let mut again = 0;
+    for _ in 0..40 {
+        s.next_slot(2);
+        for a in s.tick() {
+            if matches!(a, ExitAction::Alert(Alert::SellRearmed { .. })) {
+                again += 1;
+            }
+        }
+    }
+    assert_eq!(again, 1, "placed again once more after the next interval");
+    // with rearm_after_slots = 0 the old dead end stays (never on a restart's config by default)
+    let mut d = Sim::new(ExitPolicy {
+        retry_max_tries: 2,
+        retry_rearm_after_slots: 0,
+        max_sell_spend_lamports: u64::MAX / 4,
+        ..ExitPolicy::default()
+    });
+    d.open(30 * SOL);
+    d.ms += 200_000;
+    d.next_slot(1);
+    d.tick();
+    let mut n = 0;
+    for _ in 0..60 {
+        d.next_slot(2);
+        n += sells(&d.tick()).len();
+    }
+    assert_eq!(n, 1, "one retry, then nothing");
+}

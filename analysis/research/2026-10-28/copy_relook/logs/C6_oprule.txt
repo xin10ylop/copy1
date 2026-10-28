@@ -1,0 +1,18 @@
+
+== all operators
+   live: >= 2 in 24 h and in the box's table      n  299 total  +7.90 [w/o best2  +4.98]  P1  +7.57 [ +4.64]  P2  +0.34 [ -0.45]  worst day -0.02  by day +1.58 +0.92 +5.07 +0.36 -0.02  (model costs +8.15)
+   no operator rule (copy_signer_min_buys = 0), table kept n  399 total  +7.96 [w/o best2  +5.03]  P1  +7.72 [ +4.80]  P2  +0.24 [ -0.55]  worst day -0.07  by day +2.05 +0.48 +5.18 +0.31 -0.07  (model costs +8.27)
+   no operator rule and no table (every key buy)  n  575 total  +6.19 [w/o best2  +3.27]  P1  +5.39 [ +2.47]  P2  +0.80 [ +0.02]  worst day -0.60  by day +1.00 -0.60 +4.99 +0.30 +0.50  (model costs +6.66)
+   >= 1 in 24 h and in the table                  n  341 total  +8.08 [w/o best2  +5.15]  P1  +7.84 [ +4.92]  P2  +0.24 [ -0.55]  worst day -0.03  by day +1.81 +0.90 +5.14 +0.27 -0.03  (model costs +8.35)
+   rule on minus off (table kept), by day: 10-21 -0.48 10-22 +0.44 10-23 -0.11 10-24 +0.05 10-25 +0.05   total -0.06
+   rule on minus every key buy, by day:    10-21 +0.58 10-22 +1.52 10-23 +0.07 10-24 +0.06 10-25 -0.52   total +1.71
+
+== without 8ZN71X
+   live: >= 2 in 24 h and in the box's table      n  261 total  +2.15 [w/o best2  +1.57]  P1  +2.46 [ +1.88]  P2  -0.31 [ -0.70]  worst day -0.33  by day -0.09 +0.98 +1.57 -0.33 +0.02  (model costs +2.36)
+   no operator rule (copy_signer_min_buys = 0), table kept n  361 total  +2.20 [w/o best2  +1.62]  P1  +2.61 [ +2.03]  P2  -0.41 [ -0.80]  worst day -0.38  by day +0.38 +0.54 +1.69 -0.38 -0.03  (model costs +2.48)
+   no operator rule and no table (every key buy)  n  537 total  +0.44 [w/o best2  -0.17]  P1  +0.28 [ -0.32]  P2  +0.15 [ -0.33]  worst day -0.67  by day -0.67 -0.55 +1.50 -0.39 +0.54  (model costs +0.87)
+   >= 1 in 24 h and in the table                  n  303 total  +2.32 [w/o best2  +1.74]  P1  +2.74 [ +2.16]  P2  -0.41 [ -0.80]  worst day -0.43  by day +0.14 +0.96 +1.64 -0.43 +0.01  (model costs +2.56)
+   rule on minus off (table kept), by day: 10-21 -0.48 10-22 +0.44 10-23 -0.11 10-24 +0.05 10-25 +0.05   total -0.06
+   rule on minus every key buy, by day:    10-21 +0.58 10-22 +1.52 10-23 +0.07 10-24 +0.06 10-25 -0.52   total +1.71
+
+The live status line printed 'operator he bought < 0 times in 24 h 0' (05-live/check-sh-2026-10-27.txt line 46): the min is 0 there.

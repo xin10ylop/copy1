@@ -19,6 +19,12 @@ Why Frankfurt for the copy bot: the launch race is won in milliseconds, close to
 (`docs/03-speed-infra.md`). The long copy holds for minutes, so Ohio's extra latency (about 0.1 s, 2-3 slots) costs
 about 5-10% of its profit (copy2 `03-strategy-A-long-copy/going-live.md`).
 
+**The next box (Oct 28 study, [`box-and-feed-2026-10-28.md`](box-and-feed-2026-10-28.md)):** fra1's provider was never
+recorded here. For a restart: TeraSwitch FRA2 bare metal first (0 ms extra to every sender), else Cherry Servers
+Frankfurt (Equinix FR13, 0.32-0.42 ms from the TeraSwitch building on Oct 28, 1-2 block positions; EPYC 9355 at €599/mo
+or €1.026/h in stock). Never Ohio for the hot path. The feed: Triton Dragon's Mouth with Riptide raced against the
+standard endpoint, Deshred on; Preconfs are the one untested lead. The day-one acceptance checklist is in the study's §6.
+
 ## 2. The code (`crates/`, Rust workspace)
 
 | Crate | What it is |

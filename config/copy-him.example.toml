@@ -102,7 +102,12 @@ quantile = 0.75
 # us among the transactions that reach the leader with ours; the ~90-150 positions are the pipeline (docs/17 section 9,
 # "A bigger tip": 90 -> 45 positions is worth +1.8M a copy, no more). So the bid goes DOWN, not up.
 lamports = 3_000_000                               # copy-him: the live arm that worked; see ab_by_tier for the test of a lower one
-split = { jito_agave = [0.7, 0.3], bam = [1.0, 0.0], harmonic = [1.0, 0.0], other = [1.0, 0.0] }
+# copy-him: the bid is the TIP on every leader class, the priority fee stays at its 10,000 floor: a refused copy (26% of
+# them live) then costs 15,000 lamports, not the bid. That is how the live box ran (every refused copy cost exactly
+# 0.000015; 07-restart/code-review-2026-10-28.md Q3). On the leaders that order by priority fee (BAM, Harmonic, about 73%
+# of slots) the tip buys no position, and the copy's value does not depend on it (docs/17 section 9: 90 -> 45 positions
+# closer is worth +1.8M a copy at most). A priority-fee share on those classes is a separate test, paid on refusals too.
+split = { jito_agave = [0.0, 1.0], bam = [0.0, 1.0], harmonic = [0.0, 1.0], other = [0.0, 1.0] }
 min_priority_lamports = 10_000
 failed_attempt_lamports_max = 1_000_000
 failed_attempt_max_by_class = { jito_agave = 9_000_000, bam = 9_000_000, harmonic = 9_000_000, other = 9_000_000 }
@@ -121,18 +126,18 @@ copy = "on"                                        # copy-him: buy behind follow
 follow_wallet = "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2"   # him
 copy_min_sol = 0.0                                 # any size ...
 copy_min_tip_lamports = 2_000_000                  # ... with a tip of 2M or more (his tips step 1.0, 1.5, 1.8, 2.4, 3.6, 4.8, 7.2, 12M ...; 1.5-2M is his weak bucket): +8.02 SOL over Oct 21-25 against +5.64 at 4M
-copy_big_sol = 2.0                                 # or a buy of 2 SOL or more whatever the tip (his rare big low-tip bets; +1.42 on 6 copies in the backtest, -0.51 on 9 live: thin either way)
+copy_big_sol = 0.0                                 # 2026-10-28: OFF. His 2 SOL+ low-tip bets: the copy made +1.42 on 6 over 5 days, all on Oct 23 (-0.05 without the best 2, -0.01 on Oct 24-25) and -0.47 on 6 live (copy_relook C7). Re-test after a week of his buys journaled; 2.0 turns it back on
 copy_max_premium = 0.05                            # his fill + 5%; above it the buy is refused on chain (pump 6042) for the fee only. 10% / 15% / none lost -1.05 / -1.79 / -2.07 over 5 days (docs/19 section 9)
 copy_late_slots = 2                                # sent until create + 2
 copy_listed_only = true                            # the signer must be in operators_file (that table also gives the hold the copy sells one slot before)
-copy_signer_min_buys = 2                           # and he must have bought the signer's launches twice in copy_signer_window_h, counted live (0 = off). Live Oct 26-27 check.sh printed "< 0 times": verify the running config with `bash ~/check.sh` after the start
-copy_signer_window_h = 24
+copy_signer_min_buys = 2                           # and he must have bought the signer's launches twice in copy_signer_window_h, counted live (0 = off; the live box ran 0, which cost about nothing with the table on: copy_relook C6, -0.06 over 5 days)
+copy_signer_window_h = 24                          # 2026-10-28: now really 24 h (16,000 slots an hour; the old 9,000 made it about 13 h)
 copy_more = []                                     # copy-him: nobody else. The other wallets (S7) lost or made cents; a wallet-4 coin that could not be sold stopped his copies on Oct 27
 operators_file = "/etc/rugsnipe/operators.json"    # rebuilt every 4 h by rugsnipe-operators.timer from his last 24 h on chain (--source rpc); seed it before the first start (07-restart/README.md)
 operators_only = false
 stake_by_tier = [500_000_000, 500_000_000, 500_000_000]   # copy-him: 0.5 SOL a copy (copies are tier 0). It only narrows: the ArmSet's size and [probe] b are the ceilings
 stake_fits_balance = true                          # a buy above the free balance is made at the free balance (down to stake_min_sol) instead of refused
-stake_min_sol = 0.15
+stake_min_sol = 0.35                               # copy-him: below this the buy is refused instead of fitted: the fixed cost a fill (bid + 0.0016) is 1.3% of 0.35 SOL and 3% of 0.15
 # ---- the rule's own gates: idle with rule_buys = false, listed so the file validates like the live one did
 require_bundle = true
 dev_buy_sol = []
@@ -169,7 +174,10 @@ tp_slip_bps = 2500
 trail = { activate = 0.0, retrace_bps = 0 }
 consolidation_pct = 0
 big_buy_lamports = [0, 0]
-sell_retry = { every_slots = 2, max_tries = 15, tip_mult = 2.0 }   # a sell that fails is re-sent every 2 slots with the tip doubled, 15 times at most, within max_sell_spend_lamports
+# a sell that fails is re-sent every 2 slots with the tip doubled, 15 times at most, within max_sell_spend_lamports (at a
+# 0.5M tip: 6 tries); 2026-10-28: an order that gave up is placed again from scratch rearm_after_slots later (about 10
+# minutes), again and again while the position is open, with a CRITICAL journal line each time; it was a dead end before
+sell_retry = { every_slots = 2, max_tries = 15, tip_mult = 2.0, rearm_after_slots = 2_700 }
 hold_to_create_slots = 9                           # copy-him: the fallback for a position without a table hold (the rule's flat +9); a copy of a listed signer sells at its hold - 1
 sell_tip_lamports = 500_000                        # copy-him: his sells cost about 0.5M priority + 1M tip (docs/12 section 2); ours were cut from 2M to 0.5M (docs/14 section 5)
 dump_tip_lamports = 500_000

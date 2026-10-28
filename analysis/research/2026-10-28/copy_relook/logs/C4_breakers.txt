@@ -1,0 +1,22 @@
+
+== 5-day backtest (Oct 21-25 UTC): 298 copies, net +7.771; by day 10-21 +1.50 10-22 +0.91 10-23 +5.16 10-24 +0.25 10-25 -0.04
+   (a) 3 losses >= 15% in a row -> 60 min     skips   0  saves +0.000  forgoes +0.000  net change +0.000  -> +7.771  by day +1.50 +0.91 +5.16 +0.25 -0.04
+   (b) 2 dumps >= 30% in 30 min -> 60 min     skips   3  saves +0.397  forgoes +0.000  net change +0.397  -> +8.168  by day +1.50 +0.91 +5.16 +0.65 -0.04
+   (c) day stop -0.5                          skips   0  saves +0.000  forgoes +0.000  net change +0.000  -> +7.771  by day +1.50 +0.91 +5.16 +0.25 -0.04
+   (c) day stop -1.0                          skips   0  saves +0.000  forgoes +0.000  net change +0.000  -> +7.771  by day +1.50 +0.91 +5.16 +0.25 -0.04
+   (d) operator out 3 h after a dump          skips   8  saves +0.402  forgoes +0.375  net change +0.027  -> +7.798  by day +1.50 +0.55 +5.16 +0.63 -0.04
+
+== live, check.sh him table (Oct 26 13:00 - Oct 27 07:50 UTC): 158 copies, net -0.048; by day 10-26 +0.37 10-27 -0.42
+   (a) 3 losses >= 15% in a row -> 60 min     skips  11  saves +0.513  forgoes +0.863  net change -0.350  -> -0.398  by day +0.37 -0.77
+   (b) 2 dumps >= 30% in 30 min -> 60 min     skips  18  saves +0.816  forgoes +0.946  net change -0.130  -> -0.178  by day +0.39 -0.57
+   (c) day stop -0.5                          skips  35  saves +1.212  forgoes +1.341  net change -0.130  -> -0.178  by day +0.37 -0.55
+   (c) day stop -1.0                          skips  32  saves +0.693  forgoes +1.341  net change -0.648  -> -0.696  by day +0.37 -1.07
+   (d) operator out 3 h after a dump          (no operator in the live table)
+
+== do dumps (a filled copy losing >= 30%) cluster? 5-day backtest
+   filled copies 233, dumps 8 (3.4%); losses >= 15%: 17
+   P(dump | the previous filled copy dumped) 12.5% against the base 3.4%; shuffles: median 0.0%, share of shuffles >= observed 0.22
+   dumps with another dump within 30 min: 3; shuffles median 0.0, share >= observed 0.07
+   dumps on an operator with 2+ dumps: 5; shuffles median 2.0, share >= observed 0.09
+   live: filled 125, dumps 8; P(dump | previous dumped) 4/8; dumps with another within 30 min 7 (shuffles median 3.0, share >= observed 0.015)
+   live dumps (Beirut): 26 20:25 279gq88S -32%, 27 01:24 CSMc5K1u -61%, 27 01:25 7QsUeqFq -54%, 27 03:49 HvjYQ3VW -60%, 27 03:50 4s85HKoM -47%, 27 03:52 DR8or4ud -57%, 27 03:53 3Ye1Wgff -56%, 27 03:57 4q3ser1u -33%

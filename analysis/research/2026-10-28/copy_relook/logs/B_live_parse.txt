@@ -1,0 +1,63 @@
+parsed 377 rows; by the bot: Counter({'skip: tip/size low': 206, 'COPIED': 162, 'not seen': 5, 'copied, not sent': 4})
+filled rows without fees parsed: []
+
+filled copies 125: stake median 0.499 mean 0.492 min 0.151 max 0.567; stakes < 0.45 SOL: 7
+   OUR NET -0.0475 = curve +0.8342 - fees 0.8817
+
+fixed cost (fees column) per filled copy, by our bid:
+   bid 3.0M: n  64 fees 0.2975 mean 0.00465 median 0.0045 (fees - bid: mean 0.00165)  curve +0.7362  net +0.4387  net/copy +0.0069  his +2.2245
+   bid 8.0M: n  61 fees 0.5842 mean 0.00958 median 0.0095 (fees - bid: mean 0.00158)  curve +0.0980  net -0.4862  net/copy -0.0080  his -0.1891
+
+by his tip (filled copies; his = ITS NET on the same coins):
+   a 2-4M         n  32 net +0.4577 curve +0.6858 fees 0.2281 won  18 his +1.5670  by day 10-26 +0.445 10-27 +0.013
+   b 4.8-7.2M     n  41 net -1.4371 curve -1.1391 fees 0.2980 won   5 his -1.6971  by day 10-26 -0.397 10-27 -1.040
+   c 8M+          n  46 net +1.4020 curve +1.7141 fees 0.3121 won  21 his +3.3683  by day 10-26 +1.074 10-27 +0.328
+   z <2M (size key) n   6 net -0.4701 curve -0.4266 fees 0.0435 won   0 his -1.2028  by day 10-26 -0.070 10-27 -0.400
+
+by his size (filled copies; his = ITS NET on the same coins):
+   a <0.7         n  49 net +0.9098 curve +1.2644 fees 0.3546 won  18 his +2.1160  by day 10-26 -0.017 10-27 +0.927
+   b 0.7-1.1      n  41 net -0.0794 curve +0.2002 fees 0.2796 won  15 his +1.0703  by day 10-26 +0.621 10-27 -0.701
+   c 1.1-2        n  26 net -0.3686 curve -0.1841 fees 0.1845 won   9 his +1.4330  by day 10-26 +0.602 10-27 -0.971
+   d 2+           n   9 net -0.5093 curve -0.4463 fees 0.0630 won   2 his -2.5839  by day 10-26 -0.154 10-27 -0.355
+
+by his buy slot (filled copies; his = ITS NET on the same coins):
+   create+0       n  76 net +0.3023 curve +0.8393 fees 0.5370 won  27 his +0.4821  by day 10-26 +0.536 10-27 -0.234
+   create+1       n  49 net -0.3498 curve -0.0051 fees 0.3447 won  17 his +1.5533  by day 10-26 +0.516 10-27 -0.866
+
+by our landing slot (filled copies; his = ITS NET on the same coins):
+   landed +1      n  38 net +0.4101 curve +0.6727 fees 0.2626 won  15 his +1.9703  by day 10-26 +0.339 10-27 +0.071
+   landed +2      n   1 net -0.0019 curve +0.0086 fees 0.0105 won   0 his +0.0595  by day 10-26 +0.000 10-27 -0.002
+   landed its     n  86 net -0.4557 curve +0.1529 fees 0.6086 won  29 his +0.0056  by day 10-26 +0.713 10-27 -1.169
+
+his buy slot x our landing (filled copies; his = ITS NET on the same coins):
+   c+0 / +1       n  23 net +0.1812 curve +0.3442 fees 0.1630 won  10 his +0.8325  by day 10-26 -0.027 10-27 +0.208
+   c+0 / its      n  53 net +0.1211 curve +0.4951 fees 0.3740 won  17 his -0.3504  by day 10-26 +0.563 10-27 -0.442
+   c+1 / +1       n  15 net +0.2289 curve +0.3285 fees 0.0996 won   5 his +1.1378  by day 10-26 +0.366 10-27 -0.137
+   c+1 / +2       n   1 net -0.0019 curve +0.0086 fees 0.0105 won   0 his +0.0595  by day 10-26 +0.000 10-27 -0.002
+   c+1 / its      n  33 net -0.5768 curve -0.3422 fees 0.2346 won  12 his +0.3560  by day 10-26 +0.150 10-27 -0.727
+
+by our bid x landing (filled copies; his = ITS NET on the same coins):
+   3M / +1        n  21 net +0.3489 curve +0.4484 fees 0.0995 won   9 his +1.9463  by day 10-26 +0.345 10-27 +0.004
+   3M / its       n  43 net +0.0898 curve +0.2878 fees 0.1980 won  16 his +0.2782  by day 10-26 +0.250 10-27 -0.160
+   8M / +1        n  17 net +0.0612 curve +0.2243 fees 0.1631 won   6 his +0.0240  by day 10-26 -0.006 10-27 +0.067
+   8M / +2        n   1 net -0.0019 curve +0.0086 fees 0.0105 won   0 his +0.0595  by day 10-26 +0.000 10-27 -0.002
+   8M / its       n  43 net -0.5455 curve -0.1349 fees 0.4106 won  13 his -0.2726  by day 10-26 +0.463 10-27 -1.009
+
+by day (filled copies; his = ITS NET on the same coins):
+   10-26          n  69 net +1.0524 curve +1.5095 fees 0.4571 won  25 his +5.5199  by day 10-26 +1.052 10-27 +0.000
+   10-27          n  56 net -1.0999 curve -0.6753 fees 0.4246 won  19 his -3.4845  by day 10-26 +0.000 10-27 -1.100
+
+slots held: n 121 median 7 distribution [(3, 7), (4, 19), (5, 23), (6, 4), (7, 9), (8, 29), (9, 28), (10, 2)]
+filled copies losing >= 15%: 13, net -2.4781; >= 30%: 8, net -1.9931
+   worst: 10-27 01:24:54 CSMc5K1u ours -0.3047 (-60.9%) his -2.1390 tip 1.0M size 3.556 c+0 landed its held 6 bid 8.0
+   worst: 10-27 03:49:24 HvjYQ3VW ours -0.2978 (-59.6%) his +0.0725 tip 3.6M size 0.889 c+0 landed its held 9 bid 8.0
+   worst: 10-27 03:52:23 DR8or4ud ours -0.2835 (-56.7%) his -0.4829 tip 4.8M size 0.889 c+1 landed its held 8 bid 3.0
+   worst: 10-27 03:53:27 3Ye1Wgff ours -0.2780 (-55.6%) his -0.6445 tip 7.2M size 1.185 c+0 landed +1 held 8 bid 8.0
+   worst: 10-27 01:25:08 7QsUeqFq ours -0.2698 (-54.0%) his -0.6149 tip 18.0M size 1.185 c+1 landed its held 4 bid 8.0
+   worst: 10-27 03:50:35 4s85HKoM ours -0.2350 (-47.0%) his -0.5753 tip 7.2M size 1.185 c+0 landed +1 held 8 bid 8.0
+   worst: 10-27 03:57:35 4q3ser1u ours -0.1670 (-33.4%) his -0.2913 tip 3.6M size 0.889 c+1 landed +1 held 7 bid 3.0
+   worst: 10-26 20:25:05 279gq88S ours -0.1573 (-31.5%) his -0.0249 tip 16.0M size 1.185 c+1 landed its held 8 bid 3.0
+
+refused 33: his +4.6317; by landing Counter({'its': 18, '+1': 15})
+skipped tip/size low 206: his +1.4458; with size >= 1.0 and tip >= 1.5M: 2 his -0.0180; size >= 1.0 any tip: 30 his -2.5318
+   skipped by tip: 0.0M n 5 his +0.094  1.0M n 152 his +1.021  1.5M n 19 his -0.187  1.6M n 9 his -0.345  1.8M n 21 his +0.863

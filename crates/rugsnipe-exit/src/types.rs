@@ -147,6 +147,10 @@ pub enum ExitReason {
     MaxHold,
     /// `hold_to_create_slot`: the slot reached create + H (docs/09).
     HoldTo,
+    /// 2026-10-28: a sell that had given up (`max_tries` or the spend cap)
+    /// placed again from scratch (`sell_retry.rearm_after_slots`, or the
+    /// curve completed behind it); always a dump sell of the whole balance.
+    Rearm,
 }
 
 impl ExitReason {
@@ -170,6 +174,7 @@ impl ExitReason {
             ExitReason::NoActivity => "no_activity".into(),
             ExitReason::MaxHold => "max_hold".into(),
             ExitReason::HoldTo => "hold_to".into(),
+            ExitReason::Rearm => "rearm".into(),
         }
     }
 }
@@ -233,6 +238,10 @@ pub enum Alert {
     SellExhausted { order_id: u32, tries: u32 },
     /// A sell failed 5 times (docs/06 section 13 critical alert).
     SellFailing { order_id: u32, tries: u32 },
+    /// An order that had given up (`SellExhausted`) is placed again from
+    /// scratch (`sell_retry.rearm_after_slots`, or the curve completed
+    /// behind it): the stake is still unsold after `tries` attempts.
+    SellRearmed { order_id: u32, tries: u32 },
 }
 
 /// Output of [`crate::decide`]. Every decision is an action, so recording the

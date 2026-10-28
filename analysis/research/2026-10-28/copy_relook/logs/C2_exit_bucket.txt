@@ -1,0 +1,39 @@
+
+== tip >= 8M: 149 copies; his first sell after the create: median 7, {1: 1, 2: 3, 3: 2, 6: 53, 7: 29, 8: 4, 9: 1, 10: 36, 11: 20}; table H (listed): {1: 1, 3: 1, 6: 72, 7: 8, 8: 1, 9: 1, 10: 50, 11: 10}
+   exit H                                         n  149 total  +1.82 [w/o best2  +0.87]  P1  +2.60 [ +1.65]  P2  -0.78 [ -1.38]  worst day -0.64  by day +0.19 +0.45 +1.95 -0.64 -0.14
+   exit H-1 (live)                                n  149 total  +3.88 [w/o best2  +2.71]  P1  +3.95 [ +2.77]  P2  -0.07 [ -0.85]  worst day -0.09  by day +0.29 +0.77 +2.89 +0.02 -0.09
+   exit H-2                                       n  149 total  +2.76 [w/o best2  +1.52]  P1  +2.52 [ +1.37]  P2  +0.24 [ -0.67]  worst day -0.01  by day +0.08 +0.13 +2.32 +0.24 -0.01
+   exit H-3                                       n  149 total  +2.42 [w/o best2  +1.13]  P1  +2.35 [ +1.06]  P2  +0.07 [ -0.87]  worst day -0.01  by day -0.01 +0.18 +2.18 +0.08 -0.01
+   exit +5                                        n  149 total  +3.63 [w/o best2  +2.52]  P1  +3.67 [ +2.72]  P2  -0.03 [ -0.71]  worst day -0.02  by day +0.30 +0.80 +2.56 -0.02 -0.01
+   exit +7                                        n  149 total  +2.98 [w/o best2  +1.69]  P1  +3.28 [ +1.99]  P2  -0.29 [ -1.23]  worst day -0.25  by day +0.23 +0.32 +2.73 -0.25 -0.05
+   exit +9                                        n  149 total  +2.43 [w/o best2  +1.26]  P1  +2.80 [ +1.63]  P2  -0.37 [ -1.16]  worst day -0.31  by day +0.19 +0.33 +2.28 -0.31 -0.06
+   picked on P1 w/o best 2: H-1 (live) (P1 +3.95 [+2.77]) -> P2 -0.07 [-0.85];  H-1 on P2: -0.07 [-0.85]
+
+== tip 2-8M: 143 copies; his first sell after the create: median 7, {1: 1, 3: 4, 4: 1, 6: 44, 7: 26, 8: 2, 10: 45, 11: 15, 12: 4, 13: 1}; table H (listed): {3: 1, 6: 47, 7: 11, 8: 1, 10: 50, 11: 14, 12: 1}
+   exit H                                         n  143 total  +2.33 [w/o best2  -0.43]  P1  +1.87 [ -0.89]  P2  +0.46 [ -0.14]  worst day -0.46  by day +1.59 -0.46 +0.74 +0.47 -0.01
+   exit H-1 (live)                                n  143 total  +2.47 [w/o best2  +0.17]  P1  +2.18 [ -0.12]  P2  +0.29 [ -0.10]  worst day +0.05  by day +1.22 +0.14 +0.83 +0.24 +0.05
+   exit H-2                                       n  143 total  +2.16 [w/o best2  -0.01]  P1  +2.25 [ +0.08]  P2  -0.08 [ -0.17]  worst day -0.08  by day +0.99 +0.19 +1.07 -0.01 -0.08
+   exit H-3                                       n  143 total  +1.70 [w/o best2  -0.28]  P1  +1.76 [ -0.22]  P2  -0.06 [ -0.16]  worst day -0.10  by day +0.75 +0.01 +1.00 +0.04 -0.10
+   exit +5                                        n  143 total  +1.14 [w/o best2  +0.20]  P1  +0.88 [ -0.06]  P2  +0.26 [ -0.08]  worst day -0.03  by day +0.39 +0.10 +0.39 +0.29 -0.03
+   exit +7                                        n  143 total  +1.38 [w/o best2  -0.60]  P1  +1.11 [ -0.87]  P2  +0.27 [ -0.25]  worst day -0.18  by day +0.53 -0.18 +0.76 +0.39 -0.12
+   exit +9                                        n  143 total  +2.07 [w/o best2  -0.24]  P1  +1.66 [ -0.64]  P2  +0.40 [ -0.12]  worst day -0.19  by day +1.04 -0.19 +0.82 +0.36 +0.04
+   picked on P1 w/o best 2: H-2 (P1 +2.25 [+0.08]) -> P2 -0.08 [-0.17];  H-1 on P2: +0.29 [-0.10]
+
+== size key, tip < 2M: 6 copies; his first sell after the create: median 10.0, {6: 1, 7: 1, 10: 4}; table H (listed): {6: 1, 7: 1, 10: 4}
+   exit H                                         n    6 total  +0.92 [w/o best2  -0.16]  P1  +1.01 [ -0.08]  P2  -0.08 [ -0.08]  worst day -0.08  by day +0.00 +0.00 +1.01 -0.08 +0.00
+   exit H-1 (live)                                n    6 total  +1.42 [w/o best2  -0.05]  P1  +1.43 [ -0.04]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +1.43 -0.01 +0.00
+   exit H-2                                       n    6 total  +0.84 [w/o best2  -0.05]  P1  +0.85 [ -0.04]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +0.85 -0.01 +0.00
+   exit H-3                                       n    6 total  +0.55 [w/o best2  -0.04]  P1  +0.56 [ -0.02]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +0.56 -0.01 +0.00
+   exit +5                                        n    6 total  +0.27 [w/o best2  -0.03]  P1  +0.29 [ -0.02]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +0.29 -0.01 +0.00
+   exit +7                                        n    6 total  +0.69 [w/o best2  -0.03]  P1  +0.71 [ -0.02]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +0.71 -0.01 +0.00
+   exit +9                                        n    6 total  +1.34 [w/o best2  -0.05]  P1  +1.35 [ -0.04]  P2  -0.01 [ -0.01]  worst day -0.01  by day +0.00 +0.00 +1.35 -0.01 +0.00
+   picked on P1 w/o best 2: H-3 (P1 +0.56 [-0.02]) -> P2 -0.01 [-0.01];  H-1 on P2: -0.01 [-0.01]
+
+== combined: each bucket's P1 pick against H-1 everywhere
+   picks: tip >= 8M: H-1 (live), tip 2-8M: H-2, size key, tip < 2M: +5
+   per-bucket P1 picks                            n  298 total  +6.32 [w/o best2  +4.15]  P1  +6.48 [ +4.31]  P2  -0.17 [ -0.95]  worst day -0.17  by day +1.28 +0.96 +4.25 +0.00 -0.17
+   H-1 everywhere (live)                          n  298 total  +7.77 [w/o best2  +4.84]  P1  +7.56 [ +4.64]  P2  +0.21 [ -0.58]  worst day -0.04  by day +1.50 +0.91 +5.16 +0.25 -0.04
+   hot (>= 8M) +5, others H-1 (live)              n  298 total  +7.52 [w/o best2  +4.60]  P1  +7.28 [ +4.36]  P2  +0.24 [ -0.51]  worst day +0.04  by day +1.52 +0.94 +4.83 +0.20 +0.04
+   hot (>= 8M) H-2, others H-1 (live)             n  298 total  +6.65 [w/o best2  +3.72]  P1  +6.14 [ +3.22]  P2  +0.51 [ -0.39]  worst day +0.04  by day +1.29 +0.26 +4.59 +0.47 +0.04
+   hot (>= 8M) H-1 (live), others +7              n  298 total  +5.95 [w/o best2  +3.98]  P1  +5.76 [ +3.78]  P2  +0.19 [ -0.60]  worst day -0.21  by day +0.82 +0.59 +4.35 +0.40 -0.21
+   hot (>= 8M) H-1 (live), others +9              n  298 total  +7.28 [w/o best2  +4.36]  P1  +6.96 [ +4.04]  P2  +0.32 [ -0.47]  worst day -0.05  by day +1.32 +0.58 +5.06 +0.37 -0.05

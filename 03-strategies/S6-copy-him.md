@@ -92,6 +92,11 @@ Times: the docs use UTC. check.sh prints Beirut time, which was UTC+2 on these d
 | exit | Oct 21-25 | H / H - 2 / flat + 5 / + 9 (4M key) | +2.98 / +3.95 / +4.43 / +3.91 (H - 1: +5.64) | | docs/17 §9, `ablate.py` |
 | stake | Oct 21-25 | 0.25 / 0.75 / 1.0 SOL | +2.50 / +8.83 / +12.05 | | docs/17 §9, `ablate.py` |
 | landing closer | Oct 21-25 | measured / 45 / 20 / 10 / 0 positions | +5.64 / +5.97 / +6.49 / +7.17 / +10.08 | | docs/17 §9, `tipworth.py` |
+| **the +8.02 by period** (Oct 28 re-run) | Oct 21-23 / Oct 24-25 | 2M key, as published | **+7.75 / +0.27** (without each period's best 2: +4.82 / −0.52) | 298 | [copy_relook](../analysis/research/2026-10-28/copy_relook/report.md) §B, `recon.py` |
+| live rebuilt step by step (Oct 28) | Oct 24-25 | + live costs, landing, late sells, bid mix | net −0.0004 a fill (live: −0.0004) | | copy_relook §B |
+| bid at its own landing (Oct 28) | Oct 21-25 | 3.0M / 8.0M / 1.0M assumed / 1.5M assumed | +7.30 / +6.29 / +7.79 / +7.68 | 298 | copy_relook C8, `c8_bid.py` |
+| stake ladders by his tip or size (Oct 28) | picked Oct 21-23, scored Oct 24-25 | best ladder 0.5/1.0/1.5 by tip | +17.28 over 5 days, Oct 24-25 +0.73 (−1.69 without the best 2) | | copy_relook C1 |
+| exits by tip bucket, breakers, a second copy after a refusal, the low-tip buys, the operator count (Oct 28) | picked Oct 21-23, scored Oct 24-25 | | none beats H − 1 / none / −0.08 (−0.49) / −2.17 / −0.06 | | copy_relook C2-C6 |
 | copy replay (real hot loop) | Oct 23 00:00 - Oct 25 17:58 | `copy = "on"`, H - 1 / H | +4.51 / +2.55 | 122 with a tape | docs/17 §9, `replay_days.rs` |
 | fire at the create instead | Oct 23 00:00 - Oct 25 18:00 | copy alone / every hot listed create | +5.50 / +2.69 | 176 copies | docs/17 §10, `speed/prefire.py` |
 | copy his failed key attempts | not stated (the 5-day data) | his key coins with no landed buy at create + 0/1 | -0.30 | 19 | docs/17 §10, `speed/failcopy.py` |
@@ -204,17 +209,22 @@ either. The daily stop, which never bound in the backtest, bound live. It counts
 every copied wallet: S6 itself lost only -0.0479. The copy of him is not a loss maker on this sample. It is also far
 from the backtest's +8.02 SOL over 5 days, most of which came on one day (Oct 23: +5.24, docs/17 §9).
 
-## Open questions
+## Open questions (as of Oct 28; the review is [07-restart](../07-restart/README.md))
 
-- **Operator rule live?** The status line prints "operator he bought < 0 times in 24 h 0". That reads as
-  `copy_signer_min_buys = 0` in the running process, not 2. No row of the 377 is skipped as unlisted or too few. Check
-  the box's config.
-- **Unkill or not.** The kill counts all wallets; S7's removed wallets lost money (S7 page). Whether to restart with him
-  only is not decided in the sources.
+- **Operator rule live?** Settled by the code review: the box ran `copy_signer_min_buys = 0` (check.sh reads the config
+  file the service loads, and a missing key would print 2). With `copy_listed_only` on, the count is worth −0.06 over
+  the 5 days (copy_relook C6). The owner's paste of the backup's config confirms it (07-restart §6.0). The window was
+  also about 13 h, not 24 (a 400 ms slot constant; fixed).
+- **Unkill or not.** The review's answer: a restart as a measured small test, him alone in his own wallet, 0.5 SOL,
+  bid 3.0M with a 1.5M A/B (07-restart §6). Expected at the backtest's last two days: about zero.
 - **Data mismatch.** docs/19 §9 lists 9387oQyF as landed at create + 3 and refused. check.sh lists it as "not landed".
-- **Landing closer.** No way found on these boxes. A box near NA leaders would add about 0.1 SOL over 5 days
-  (docs/17 §10).
-- **Bid.** Keep 3.0M per the TIP TEST rule, or test a bid between 3.0M and 8.0M. The sources do not say.
+  Still open.
+- **Landing closer.** Nothing on these boxes; Cherry FRA is 1-2 positions behind the old building (box study). The one
+  untested feed is Triton Preconfs (box study §5).
+- **Bid.** 8.0M fails its own rule: +6.29 over 5 days at its landing against +7.30 for 3.0M, about 0.1 of curve for
+  1.16 of cost (copy_relook C8). The restart runs 3.0M against 1.5M.
+- **The bucket that lost live.** His 4.8-7.2M tips: −1.44 on 41 fills (5 won) in two bursts, where the 5 days give about
+  zero (copy_relook C7). The next window's split answers whether it was noise.
 
 ## Sources
 

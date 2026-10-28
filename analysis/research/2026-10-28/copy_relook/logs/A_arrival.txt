@@ -1,0 +1,31 @@
+by day: 10-21 10-22 10-23 10-24 10-25
+== old count (history only from Oct 21) vs the count with the month's history
+   old: >= 2 (the ablation's live set)                    n  298 his +32.61  copy  +8.02  /copy +0.0269  +1.53 +0.98 +5.24 +0.29 -0.02
+   new: >= 2 (A)                                          n  308 his +33.57  copy  +8.13  /copy +0.0264  +1.53 +0.98 +5.24 +0.40 -0.02
+   moved into A by the history (Oct 21 mostly)            n   10 his  +0.96  copy  +0.11  /copy +0.0112  +0.00 +0.00 +0.00 +0.11 +0.00
+== A  >= 2 in 24 h (live rule): 308 key buys, listed in the backtest's 24 h tables 284
+   copy, live exit (table hold - 1, else modal - 1, else +9) n  308 his +33.57  copy  +8.13  /copy +0.0264  +1.53 +0.98 +5.24 +0.40 -0.02
+   copy, flat create + 5                                  n  308 his +33.57  copy  +5.43  /copy +0.0176  +0.73 +0.97 +3.32 +0.43 -0.02
+   copy, flat create + 9                                  n  308 his +33.57  copy  +6.15  /copy +0.0200  +1.22 +0.21 +4.53 +0.19 -0.00
+== B  < 2, traded within 7 d of the last refresh: 100 key buys, listed in the backtest's 24 h tables 24
+   copy, live exit (table hold - 1, else modal - 1, else +9) n  100 his  +5.39  copy  +0.13  /copy +0.0013  +0.49 -0.43 +0.14 -0.04 -0.04
+   copy, flat create + 5                                  n  100 his  +5.39  copy  +0.83  /copy +0.0083  +0.42 -0.18 +0.58 +0.02 -0.02
+   copy, flat create + 9                                  n  100 his  +5.39  copy  -0.08  /copy -0.0008  +0.36 -0.44 +0.30 -0.21 -0.09
+== C  < 2, back after > 7 days: 16 key buys, listed in the backtest's 24 h tables 0
+   copy, live exit (table hold - 1, else modal - 1, else +9) n   16 his  -0.53  copy  -0.36  /copy -0.0225  -0.29 +0.03 -0.10 +0.00 -0.00
+   copy, flat create + 5                                  n   16 his  -0.53  copy  -0.58  /copy -0.0361  -0.24 +0.03 -0.38 +0.00 +0.01
+   copy, flat create + 9                                  n   16 his  -0.53  copy  -0.86  /copy -0.0539  -0.34 -0.08 -0.43 +0.00 -0.00
+== D  brand new this month: 151 key buys, listed in the backtest's 24 h tables 0
+   copy, live exit (table hold - 1, else modal - 1, else +9) n  151 his  +4.75  copy  -0.72  /copy -0.0047  -0.57 -0.99 +0.20 +0.02 +0.63
+   copy, flat create + 5                                  n  151 his  +4.75  copy  -1.25  /copy -0.0083  -0.33 -0.62 -0.04 -0.15 -0.11
+   copy, flat create + 9                                  n  151 his  +4.75  copy  -0.72  /copy -0.0047  -0.57 -0.99 +0.20 +0.02 +0.63
+== the rule, with the arrival timed
+   A only (live)                                          n  308 his +33.57  copy  +8.13  /copy +0.0264  +1.53 +0.98 +5.24 +0.40 -0.02
+   A + B (drop the count, keep the 7-day table)           n  408 his +38.96  copy  +8.25  /copy +0.0202  +2.02 +0.55 +5.38 +0.36 -0.06
+   A + B + C                                              n  424 his +38.42  copy  +7.89  /copy +0.0186  +1.73 +0.59 +5.28 +0.36 -0.06
+   all (no operator rule)                                 n  575 his +43.17  copy  +7.18  /copy +0.0125  +1.16 -0.41 +5.48 +0.38 +0.57
+== Oct 23 (his big day): his key buys by class
+   A:  87 buys, his net +17.72, copy  +5.24; top his coins: BbBT6wmG +5.92, D3o4p9Wd +1.27, 9Hp96URQ +1.23, AXjGazJb +1.15
+   B:  37 buys, his net  +2.99, copy  +0.14; top his coins: JB7eVQ73 +0.88, BaasxWbo +0.60, 3kY2WqEt +0.36, BNxCEXum +0.29
+   C:   5 buys, his net  -0.60, copy  -0.10; top his coins: 7VAJJE54 -0.01, 6G8LkwfS -0.02, 3NN9rE8B -0.05, 5gtphA4u -0.16
+   D:  38 buys, his net  +1.80, copy  +0.20; top his coins: AmZuyFhJ +0.94, 4WooUQuJ +0.59, 8KiBHhR5 +0.38, 5ciPMzVX +0.37

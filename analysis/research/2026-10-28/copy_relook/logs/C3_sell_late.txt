@@ -1,0 +1,19 @@
+== 1. our live sells against a fixed target (filled copies with a tape): slot landed - slot targeted
+   JBokzLFR  target + 5: +0:68 +1:11 +2:1 +4:1 sell not on the tape:20   -> late by >= 1 slot 13/81 = 16%
+   CxyKYmQo  target +12: -7:1 +0:2 sell not on the tape:10   -> late by >= 1 slot 0/3 = 0%
+   3yrJE1A8  target +29: +0:13 +1:3 sell not on the tape:21   -> late by >= 1 slot 3/16 = 19%
+   all: 100 sells, on target 83, early 1, one slot late 14, two or more 2: p(late) = 16%
+
+   his coins (calib_live.json, 72 filled copies with a tape): our sell against his first sell
+      before his first sell's slot              35  our net +0.2970
+      he did not sell on the tape               22  our net -0.0533
+      a slot or more after his first sell       14  our net -0.1664
+      in his sell's slot, before it              1  our net +0.0099
+
+== 2. the 5-day backtest (2M set, 0.5 SOL, live 3M costs): the sell one slot late
+   sold at H - 1 as sent (the backtest)           n  298 total  +7.77 [w/o best2  +4.84]  P1  +7.56 [ +4.64]  P2  +0.21 [ -0.58]  worst day -0.04  by day +1.50 +0.91 +5.16 +0.25 -0.04
+   every sell one slot late (at H)                n  298 total  +5.07 [w/o best2  +2.03]  P1  +5.47 [ +2.43]  P2  -0.40 [ -1.04]  worst day -0.25  by day +1.78 -0.01 +3.70 -0.25 -0.15
+   every sell two slots late (at H + 1)           n  298 total  +3.60 [w/o best2  +0.47]  P1  +4.35 [ +1.23]  P2  -0.76 [ -1.35]  worst day -0.53  by day +1.81 -0.48 +3.03 -0.53 -0.22
+   a share p = 16% lands one slot late            n  298 total  +7.34 [w/o best2  +4.40]  P1  +7.23 [ +4.29]  P2  +0.11 [ -0.65]  worst day -0.06  by day +1.55 +0.76 +4.92 +0.17 -0.06
+   in the backtest, the H - 1 sell is at or after his first sell on 60 of 298 copies (20%); at H on 211 (71%)
+   one slot late costs -2.70 SOL over 5 days on 298 copies (-0.0091 a copy); at p = 16%: -0.43

@@ -1,0 +1,54 @@
+our trigger-to-landing positions, decile mids: [32, 45, 58, 71, 84, 101, 125, 158, 200, 322]
+by day: 10-21 10-22 10-23 10-24 10-25
+== 0. the live copy
+   live (all rules)                                   n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+== 2. the tip / size key (operator rule kept)
+   tip >= 0M or size >= 2                             n  829 total  +6.36  /copy +0.0077  days+ 3/5  +2.34 +0.65 +4.71 -0.77 -0.56
+   tip >= 1M or size >= 2                             n  809 total  +6.72  /copy +0.0083  days+ 3/5  +2.59 +0.69 +4.53 -0.56 -0.53
+   tip >= 2M or size >= 2                             n  298 total  +8.02  /copy +0.0269  days+ 4/5  +1.53 +0.98 +5.24 +0.29 -0.02
+   tip >= 3M or size >= 2                             n  262 total  +7.85  /copy +0.0300  days+ 4/5  +1.77 +1.02 +4.85 +0.26 -0.06
+   tip >= 4M or size >= 2                             n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+   tip >= 6M or size >= 2                             n  194 total  +5.83  /copy +0.0300  days+ 4/5  +0.33 +0.66 +4.90 +0.07 -0.13
+   tip >= 8M or size >= 2                             n  155 total  +5.42  /copy +0.0349  days+ 4/5  +0.30 +0.80 +4.37 +0.04 -0.08
+   tip >= 4M or size >= 1.0                           n  298 total  +4.48  /copy +0.0150  days+ 3/5  +0.21 +0.21 +4.79 -0.46 -0.26
+   tip >= 4M or size >= 1.5                           n  255 total  +5.11  /copy +0.0200  days+ 3/5  +0.19 +0.34 +4.84 -0.11 -0.15
+   tip >= 4M or size >= 2.0                           n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+   tip >= 4M or size >= 3.0                           n  228 total  +4.20  /copy +0.0184  days+ 4/5  +0.20 +0.41 +3.41 +0.27 -0.09
+   tip >= 4M or size >= 99                            n  226 total  +4.22  /copy +0.0187  days+ 4/5  +0.20 +0.41 +3.41 +0.28 -0.09
+== 3. the operator rule: his buys on the signer before this one (key kept)
+   >= 0 in 24 h                                       n  429 total  +4.04  /copy +0.0094  days+ 3/5  +0.32 -0.87 +4.37 +0.28 -0.06
+   >= 1 in 24 h                                       n  272 total  +5.35  /copy +0.0197  days+ 4/5  +0.17 +0.37 +4.70 +0.19 -0.07
+   >= 2 in 6 h                                        n  171 total  +3.90  /copy +0.0228  days+ 2/5  -0.16 +0.32 +4.49 -0.63 -0.12
+   >= 2 in 12 h                                       n  186 total  +4.00  /copy +0.0215  days+ 2/5  -0.18 +0.38 +4.56 -0.65 -0.11
+   >= 2 in 24 h                                       n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+   >= 2 in 48 h                                       n  251 total  +5.50  /copy +0.0219  days+ 4/5  +0.20 +0.41 +4.71 +0.26 -0.09
+   >= 3 in 24 h                                       n  205 total  +5.73  /copy +0.0279  days+ 3/5  -0.09 +0.41 +4.90 +0.56 -0.06
+   >= 4 in 24 h                                       n  178 total  +5.77  /copy +0.0324  days+ 3/5  -0.15 +0.41 +4.95 +0.63 -0.08
+== 4. the table (key and operator rule kept)
+   listed in the backtest's 24 h tables only          n  221 total  +5.79  /copy +0.0262  days+ 4/5  +0.29 +0.43 +4.87 +0.27 -0.07
+   not listed there (hold: his modal first sell - 1)  n   11 total  -0.15  /copy -0.0133  days+ 0/5  -0.09 -0.02 -0.03 +0.00 -0.02
+   all, hold +9 flat for the unlisted                 n  232 total  +5.67  /copy +0.0244  days+ 4/5  +0.16 +0.39 +4.95 +0.27 -0.11
+== 5. the price limit
+   price <= his + 2.0%                                n  232 total  +2.32  /copy +0.0100  days+ 3/5  +0.21 -0.08 +1.60 +0.59 -0.00
+   price <= his + 3.0%                                n  232 total  +3.36  /copy +0.0145  days+ 4/5  +0.21 +0.06 +2.40 +0.75 -0.05
+   price <= his + 5.0%                                n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+   price <= his + 7.5%                                n  232 total  +6.18  /copy +0.0266  days+ 4/5  +0.15 +0.55 +4.94 +0.64 -0.09
+   price <= his + 10.0%                               n  232 total  +5.77  /copy +0.0249  days+ 4/5  +0.14 +0.31 +4.92 +0.49 -0.09
+   price <= his + 15.0%                               n  232 total  +5.81  /copy +0.0250  days+ 4/5  +0.16 +0.25 +5.00 +0.46 -0.06
+   no limit                                           n  232 total  +5.86  /copy +0.0252  days+ 4/5  +0.01 +0.46 +5.00 +0.45 -0.06
+== 6. the exit
+   H - 0 (listed), modal - 0 (unlisted)               n  232 total  +2.98  /copy +0.0129  days+ 1/5  -0.01 -0.08 +3.47 -0.21 -0.19
+   H - 1 (listed), modal - 1 (unlisted)               n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+   H - 2 (listed), modal - 2 (unlisted)               n  232 total  +3.95  /copy +0.0170  days+ 3/5  +0.07 -0.13 +3.87 +0.24 -0.10
+   H - 3 (listed), modal - 3 (unlisted)               n  232 total  +3.53  /copy +0.0152  days+ 3/5  -0.05 +0.10 +3.49 +0.11 -0.12
+   flat create + 5                                    n  232 total  +4.43  /copy +0.0191  days+ 4/5  +0.25 +0.63 +3.30 +0.26 -0.01
+   flat create + 7                                    n  232 total  +4.05  /copy +0.0175  days+ 2/5  -0.03 -0.04 +4.16 +0.15 -0.18
+   flat create + 9                                    n  232 total  +3.91  /copy +0.0169  days+ 2/5  -0.07 -0.17 +4.14 +0.08 -0.07
+   flat create + 10                                   n  232 total  +2.06  /copy +0.0089  days+ 1/5  -0.10 -0.58 +3.30 -0.42 -0.15
+   flat create + 12                                   n  232 total  +1.22  /copy +0.0053  days+ 1/5  -0.10 -0.66 +2.81 -0.59 -0.25
+== 8. the stake
+   stake 0.25 SOL                                     n  232 total  +2.50  /copy +0.0108  days+ 4/5  +0.07 +0.13 +2.31 +0.07 -0.07
+   stake 0.5 SOL                                      n  232 total  +5.64  /copy +0.0243  days+ 4/5  +0.20 +0.41 +4.84 +0.27 -0.09
+   stake 0.75 SOL                                     n  232 total  +8.83  /copy +0.0380  days+ 4/5  +0.35 +0.71 +7.40 +0.48 -0.11
+   stake 1.0 SOL                                      n  232 total +12.05  /copy +0.0519  days+ 4/5  +0.49 +1.01 +9.98 +0.69 -0.12
+== 1. his first buy on a coin: at create + 0/1 1684, later 0

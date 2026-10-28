@@ -193,7 +193,7 @@ pub fn decision_label(c: u8) -> &'static str {
 }
 
 /// Exit reason labels (index = [`crate::msgs::reason_index`]).
-pub const EXIT_REASONS: [&str; 9] = [
+pub const EXIT_REASONS: [&str; 10] = [
     "bundle_sell",
     "consolidation",
     "big_buy",
@@ -203,6 +203,7 @@ pub const EXIT_REASONS: [&str; 9] = [
     "no_activity",
     "max_hold",
     "hold_to",
+    "rearm",
 ];
 
 /// Every metric of the hot box.

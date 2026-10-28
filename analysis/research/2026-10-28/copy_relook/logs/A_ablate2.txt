@@ -1,0 +1,24 @@
+our trigger-to-landing positions, decile mids: [32, 45, 58, 71, 84, 101, 125, 158, 200, 322]
+by day: 10-21 10-22 10-23 10-24 10-25
+== tip >= 2M or size >= 2: the operator rule again
+   >= 1 in 24 h                                       n  356 total  +7.78  /copy +0.0219  days+ 4/5  +1.43 +0.93 +5.25 +0.20 -0.02
+   >= 2 in 24 h                                       n  298 total  +8.02  /copy +0.0269  days+ 4/5  +1.53 +0.98 +5.24 +0.29 -0.02
+   >= 2 in 48 h                                       n  325 total  +8.00  /copy +0.0246  days+ 4/5  +1.53 +0.92 +5.28 +0.27 -0.01
+   >= 3 in 24 h                                       n  264 total  +8.04  /copy +0.0305  days+ 5/5  +1.23 +0.94 +5.28 +0.58 +0.01
+== tip >= 2M or size >= 2: the price limit and the exit again
+   price <= his + 3.0%                                n  298 total  +5.82  /copy +0.0195  days+ 4/5  +1.56 +0.68 +2.81 +0.77 -0.01
+   price <= his + 5.0%                                n  298 total  +8.02  /copy +0.0269  days+ 4/5  +1.53 +0.98 +5.24 +0.29 -0.02
+   price <= his + 7.5%                                n  298 total  +8.37  /copy +0.0281  days+ 4/5  +1.42 +0.99 +5.31 +0.66 -0.02
+   price <= his + 10.0%                               n  298 total  +7.94  /copy +0.0266  days+ 4/5  +1.41 +0.75 +5.27 +0.52 -0.02
+   H - 0                                              n  298 total  +5.32  /copy +0.0178  days+ 3/5  +1.81 +0.07 +3.78 -0.20 -0.13
+   H - 1                                              n  298 total  +8.02  /copy +0.0269  days+ 4/5  +1.53 +0.98 +5.24 +0.29 -0.02
+   H - 2                                              n  298 total  +6.00  /copy +0.0201  days+ 4/5  +1.10 +0.39 +4.32 +0.27 -0.07
+   listed in the 24 h tables only                     n  275 total  +8.03  /copy +0.0292  days+ 4/5  +1.61 +1.04 +5.09 +0.30 -0.01
+   not listed there                                   n   23 total  -0.01  /copy -0.0004  days+ 1/5  -0.07 -0.06 +0.15 -0.00 -0.02
+== tip >= 2M or size >= 2, 2M-4M tips alone (what lowering the floor adds)
+   2M <= tip < 4M, size < 2                           n   66 total  +2.37  /copy +0.0360  days+ 5/5  +1.33 +0.57 +0.39 +0.02 +0.07
+   tip in [1.5M, 2M), size < 2 (just under the floor) n  145 total  -0.40  /copy -0.0028  days+ 2/5  +0.55 -0.38 -0.49 +0.00 -0.07
+   tip < 1.5M, size < 2                               n  386 total  -1.25  /copy -0.0032  days+ 2/5  +0.26 +0.05 -0.03 -1.06 -0.47
+== caps: most copies open at once 2; copies a cap of 2 open would block 0, a cap of 1 4; copies a day 60 (cap 300)
+   worst running loss inside each day (the 1 SOL stop): -0.11 -0.00 -0.01 -0.17 -0.06
+== class filter: his launch buys with a tape Oct 23 00:00 - Oct 25 17:58: 899 (the replay's hot loop saw 871 past the class filter)

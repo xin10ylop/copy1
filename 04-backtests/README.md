@@ -145,6 +145,23 @@ return per trade after costs unless stated. [a, b] is a 95% interval.
 | conditional wider limit (picked Oct 21-23, scored Oct 24-25) | −0.009 / −0.027 added | `fails/condlimit.py` |
 | **live** (Oct 26 15:00 → Oct 27 11:45 Beirut) | **he +8.9099, our 162 copies −0.0479** | `05-live/check-sh-2026-10-27.txt` |
 
+**Oct 28 re-run and extension** ([`analysis/research/2026-10-28/copy_relook/`](../analysis/research/2026-10-28/copy_relook/README.md), picked on Oct 21-23, scored on Oct 24-25, [without the best 2 copies]):
+
+| Test | Result | Source |
+|---|---|---|
+| every published number above (ablate, scratch D table, prem5/prem5b, options, tipworth) | reproduced | `report.md` §A |
+| the +8.02 by period | Oct 21-23 +7.75 [+4.82]; Oct 24-25 +0.27 [−0.52] | §B, `recon.py` |
+| live rebuilt step by step (3M cost, 31% next-slot landing, 16% late sells, the bid mix) on Oct 24-25 | net −0.0004 a fill, as live | §B |
+| stake × bid, 5 days | 3M: +3.32 / +7.77 / +16.85 / +26.17 at 0.25 / 0.5 / 1.0 / 1.5; Oct 24-25 [x] negative at every stake | §B |
+| stake ladder by his tip 0.5/1.0/1.5 | +17.28 [+13.54]; Oct 24-25 +0.73 [−1.69]; capital 2.5 SOL | C1 |
+| exits by tip bucket | the per-bucket picks −0.17 on Oct 24-25 against +0.21 for H − 1 everywhere | C2 |
+| sells one slot late (16% measured live) | −0.43 over 5 days (−2.70 if every sell) | C3 |
+| circuit breakers (4 kinds) | 0 to +0.40 over 5 days, −0.13 to −0.65 live | C4 |
+| a second copy after a refusal; the low-tip buys | −0.08 [−0.49]; all 531 low-tip buys −2.17 | C5 |
+| the operator count with the table kept | −0.06 over 5 days; the table alone +1.71 | C6 |
+| the bid at its own landing | 3.0M +7.30, 8.0M +6.29; 1.5M +7.68 if it lands as 3M (untested) | C8 |
+| a key on his tip + priority fee (from the on-chain re-check) | the 130 added copies −0.83 [−1.41], 4 of 5 days negative; the whole key +6.94 against +7.77 | C9, `c9_bidkey.py` |
+
 ## S7: other copy targets
 
 | Test | Period | Result (SOL) | Source |

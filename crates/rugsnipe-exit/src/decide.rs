@@ -66,7 +66,9 @@ pub fn decide_into(pos: &mut Position, ev: &ExitEvent, now: Now, out: &mut Vec<E
         pos.cur_slot = slot;
     }
 
-    // 2. retries due (an attempt that never left the box: every slot)
+    // 2. retries due (an attempt that never left the box: every slot); an
+    //    order that gave up is placed again from scratch after
+    //    `rearm_after_slots` (2026-10-28: never a dead end)
     for i in 0..pos.pending.len() {
         let Some(p) = pos.pending[i] else { continue };
         let due = if p.unsent {
@@ -76,6 +78,11 @@ pub fn decide_into(pos: &mut Position, ev: &ExitEvent, now: Now, out: &mut Vec<E
         };
         if !p.exhausted && due {
             reissue(pos, i, slot, None, out);
+        } else if p.exhausted
+            && pos.policy.retry_rearm_after_slots > 0
+            && slot >= p.sent_slot.saturating_add(pos.policy.retry_rearm_after_slots)
+        {
+            rearm(pos, i, slot, out);
         }
     }
 
@@ -291,12 +298,39 @@ fn on_complete(pos: &mut Position, slot: u64, out: &mut Vec<ExitAction>) {
     out.push(ExitAction::VenueChanged {
         venue: Venue::PumpSwap,
     });
-    // curve orders in flight can no longer execute: re-send them on the pool now
+    // the curve's sell budget was spent on a dead venue (its tips reverted
+    // with the failed sells): the pool starts with the whole cap
+    pos.sell_spend = 0;
+    // curve orders in flight can no longer execute: re-send them on the pool
+    // now; one that had already given up (2026-10-28: the report of the
+    // completed curve can come after the 4 tries of a 2M dump tip, about 8
+    // slots) is placed again from scratch, else nothing would ever sell
     for i in 0..pos.pending.len() {
-        if pos.pending[i].is_some_and(|p| !p.exhausted) {
-            reissue(pos, i, slot, None, out);
+        match pos.pending[i] {
+            Some(p) if !p.exhausted => reissue(pos, i, slot, None, out),
+            Some(_) => rearm(pos, i, slot, out),
+            None => {}
         }
     }
+}
+
+/// Place the order in `pending[i]`, which gave up, again from scratch: a
+/// fresh order at the base dump tip with a full try count and spend budget,
+/// bound on the current venue (`rearm_after_slots`, and a venue change
+/// behind an exhausted order).
+fn rearm(pos: &mut Position, i: usize, slot: u64, out: &mut Vec<ExitAction>) {
+    let Some(p) = pos.pending[i] else { return };
+    pos.pending[i] = None;
+    pos.sell_spend = 0;
+    let tokens = p.order.tokens.min(pos.available_tokens());
+    if tokens == 0 {
+        return;
+    }
+    out.push(ExitAction::Alert(Alert::SellRearmed {
+        order_id: p.order.order_id,
+        tries: p.order.try_no,
+    }));
+    new_order(pos, ExitReason::Rearm, SellKind::Dump, tokens, slot, slot, out);
 }
 
 // ---------------------------------------------------------------- triggers

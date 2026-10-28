@@ -1,0 +1,534 @@
+{
+ "49Fr9YPNgzeFHDVrdwhqcfamV5YnmWbpjGtZq6uFGA9e": {
+  "addr": "49Fr9YPNgzeFHDVrdwhqcfamV5YnmWbpjGtZq6uFGA9e",
+  "n": 2,
+  "capped": false,
+  "first_bt": 1737018222,
+  "last_bt": 1737018228,
+  "bal": 0,
+  "errs": 0,
+  "sample": 2,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "49Fr9YPN",
+    1
+   ],
+   [
+    "2vQv4MSo",
+    1
+   ]
+  ],
+  "funder": [
+   "2vQv4MSouYFdzBhPwGZJ3LhS5amLX9Rk3ucqvxNY5d4b",
+   22974749000,
+   1737018222
+  ],
+  "progs": [
+   [
+    "11111111",
+    2
+   ]
+  ]
+ },
+ "Hr9ejPfdkTWP2Qp6B9EkhTr694BTgz62rafsCvdQpcH1": {
+  "addr": "Hr9ejPfdkTWP2Qp6B9EkhTr694BTgz62rafsCvdQpcH1",
+  "n": 2,
+  "capped": false,
+  "first_bt": 1737167217,
+  "last_bt": 1737167225,
+  "bal": 0,
+  "errs": 0,
+  "sample": 2,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "Hr9ejPfd",
+    1
+   ],
+   [
+    "AHwJSnFN",
+    1
+   ]
+  ],
+  "funder": [
+   "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+   24077494000,
+   1737167217
+  ],
+  "progs": [
+   [
+    "11111111",
+    2
+   ],
+   [
+    "ComputeB",
+    1
+   ]
+  ]
+ },
+ "4b4jxeXkxM4g3qpQ4nxeTu8xULNyS9RJAiHrCnQBq8He": {
+  "addr": "4b4jxeXkxM4g3qpQ4nxeTu8xULNyS9RJAiHrCnQBq8He",
+  "n": 3000,
+  "capped": true,
+  "first_bt": 1744336716,
+  "last_bt": 1793078250,
+  "bal": 1136872800,
+  "errs": 104,
+  "sample": 8,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 0,
+  "payers": [
+   [
+    "FPKF1GUk",
+    2
+   ],
+   [
+    "6zojSZQZ",
+    1
+   ],
+   [
+    "2feXm19F",
+    1
+   ]
+  ],
+  "funder": [
+   "FPKF1GUk8E3dAguze1AJ6xKfeCAcv84JthqUBvTbzkFh",
+   4000000,
+   1744336716
+  ],
+  "progs": [
+   [
+    "ComputeB",
+    8
+   ],
+   [
+    "11111111",
+    8
+   ]
+  ]
+ },
+ "Gj9srqLhRMtmasG1zxbHdw86ymDHdmVEvCV3Cs9SYBWy": {
+  "addr": "Gj9srqLhRMtmasG1zxbHdw86ymDHdmVEvCV3Cs9SYBWy",
+  "n": 3000,
+  "capped": true,
+  "first_bt": 1744265813,
+  "last_bt": 1791532724,
+  "bal": 999557549,
+  "errs": 26,
+  "sample": 8,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 0,
+  "payers": [
+   [
+    "ChGA1Wbh",
+    4
+   ],
+   [
+    "GHMq6tkV",
+    2
+   ],
+   [
+    "GHMqiWJK",
+    1
+   ]
+  ],
+  "funder": null,
+  "progs": [
+   [
+    "ComputeB",
+    8
+   ],
+   [
+    "11111111",
+    6
+   ],
+   [
+    "ATokenGP",
+    2
+   ],
+   [
+    "Tokenkeg",
+    2
+   ],
+   [
+    "So1endDq",
+    1
+   ]
+  ]
+ },
+ "4yN2vFSi9kFW2wwz5konV83QAao2rEJcpyTijgkh1Aea": {
+  "addr": "4yN2vFSi9kFW2wwz5konV83QAao2rEJcpyTijgkh1Aea",
+  "n": 781,
+  "capped": false,
+  "first_bt": 1787489139,
+  "last_bt": 1792636338,
+  "bal": 2966922840,
+  "errs": 6,
+  "sample": 8,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "4yN2vFSi",
+    5
+   ],
+   [
+    "9zsFwe8n",
+    1
+   ],
+   [
+    "AHw1QKsB",
+    1
+   ]
+  ],
+  "funder": [
+   "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+   4000000000,
+   1787489139
+  ],
+  "progs": [
+   [
+    "11111111",
+    7
+   ],
+   [
+    "ComputeB",
+    5
+   ],
+   [
+    "MemoSq4g",
+    3
+   ]
+  ]
+ },
+ "H2KbeD7HvNcpVMo1uTJvyaLxmHCGsTqvJZrNZHrzp9h3": {
+  "addr": "H2KbeD7HvNcpVMo1uTJvyaLxmHCGsTqvJZrNZHrzp9h3",
+  "n": 1168,
+  "capped": false,
+  "first_bt": 1735579108,
+  "last_bt": 1792235222,
+  "bal": 0,
+  "errs": 28,
+  "sample": 8,
+  "pump_trades": 2,
+  "pump_any": 2,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "H2KbeD7H",
+    4
+   ],
+   [
+    "GC56BPTq",
+    1
+   ],
+   [
+    "5Hr7wZg7",
+    1
+   ]
+  ],
+  "funder": [
+   "3Z4V1r7c83rwAmeyZSFMvGVZzAHQKMe9HgFpggP1tLKY",
+   2141173157,
+   1735579108
+  ],
+  "progs": [
+   [
+    "ComputeB",
+    7
+   ],
+   [
+    "11111111",
+    4
+   ],
+   [
+    "BGUMAp9G",
+    2
+   ],
+   [
+    "TokenzQd",
+    2
+   ],
+   [
+    "6EF8rrec",
+    2
+   ],
+   [
+    "MemoSq4g",
+    1
+   ],
+   [
+    "675kPX9M",
+    1
+   ],
+   [
+    "ATokenGP",
+    1
+   ]
+  ]
+ },
+ "BN96er1fcb4NdiwXypggt8LWHTX8nHEi1FLHdCkxuLJG": {
+  "addr": "BN96er1fcb4NdiwXypggt8LWHTX8nHEi1FLHdCkxuLJG",
+  "n": 5,
+  "capped": false,
+  "first_bt": 1788335964,
+  "last_bt": 1788338332,
+  "bal": 890880,
+  "errs": 0,
+  "sample": 5,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 2,
+  "payers": [
+   [
+    "BN96er1f",
+    2
+   ],
+   [
+    "GGac6uYT",
+    1
+   ],
+   [
+    "AHwJToCx",
+    1
+   ]
+  ],
+  "funder": [
+   "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+   67781449579,
+   1788335964
+  ],
+  "progs": [
+   [
+    "11111111",
+    5
+   ],
+   [
+    "ComputeB",
+    3
+   ]
+  ]
+ },
+ "A545bgZx132e8rXjfWb7SNVzV2NjV9BKYB8t5BzD3xKx": {
+  "addr": "A545bgZx132e8rXjfWb7SNVzV2NjV9BKYB8t5BzD3xKx",
+  "n": 2,
+  "capped": false,
+  "first_bt": 1788440637,
+  "last_bt": 1788440637,
+  "bal": 0,
+  "errs": 0,
+  "sample": 2,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "A545bgZx",
+    1
+   ],
+   [
+    "AHwJSnFN",
+    1
+   ]
+  ],
+  "funder": [
+   "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+   34224030600,
+   1788440637
+  ],
+  "progs": [
+   [
+    "ComputeB",
+    2
+   ],
+   [
+    "11111111",
+    2
+   ]
+  ]
+ },
+ "CfuJSYcgFDv23yh6ytBu4ivuLtkFxFELQPHGBswF5a2m": {
+  "addr": "CfuJSYcgFDv23yh6ytBu4ivuLtkFxFELQPHGBswF5a2m",
+  "n": 2,
+  "capped": false,
+  "first_bt": 1788442768,
+  "last_bt": 1788442768,
+  "bal": 0,
+  "errs": 0,
+  "sample": 2,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "CfuJSYcg",
+    1
+   ],
+   [
+    "AHwJSnFN",
+    1
+   ]
+  ],
+  "funder": [
+   "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+   34021029800,
+   1788442768
+  ],
+  "progs": [
+   [
+    "ComputeB",
+    2
+   ],
+   [
+    "11111111",
+    2
+   ]
+  ]
+ },
+ "58aEWX4hX7z6nQ2z3uS8TTLdorRnKftLatYPsYHMYN9y": {
+  "addr": "58aEWX4hX7z6nQ2z3uS8TTLdorRnKftLatYPsYHMYN9y",
+  "n": 39,
+  "capped": false,
+  "first_bt": 1736766253,
+  "last_bt": 1788438467,
+  "bal": 0,
+  "errs": 1,
+  "sample": 8,
+  "pump_trades": 3,
+  "pump_any": 3,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "58aEWX4h",
+    5
+   ],
+   [
+    "3jEYUE1h",
+    2
+   ],
+   [
+    "A53Z7Gws",
+    1
+   ]
+  ],
+  "funder": [
+   "3jEYUE1hNtCnmL1YpPxwCC45rt4YP3tCZQ3ddrxRPhBD",
+   532000000,
+   1736766353
+  ],
+  "progs": [
+   [
+    "ComputeB",
+    8
+   ],
+   [
+    "11111111",
+    4
+   ],
+   [
+    "6EF8rrec",
+    3
+   ],
+   [
+    "TokenzQd",
+    2
+   ],
+   [
+    "ATokenGP",
+    2
+   ],
+   [
+    "DeJBGdMF",
+    1
+   ],
+   [
+    "Tokenkeg",
+    1
+   ]
+  ]
+ },
+ "AGuw5wPhCNmTqE77jmbrGcdDnmn4mJokpcZqrN4Y1nHK": {
+  "addr": "AGuw5wPhCNmTqE77jmbrGcdDnmn4mJokpcZqrN4Y1nHK",
+  "n": 2,
+  "capped": false,
+  "first_bt": 1788005074,
+  "last_bt": 1788005074,
+  "bal": 0,
+  "errs": 0,
+  "sample": 2,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 1,
+  "payers": [
+   [
+    "AGuw5wPh",
+    1
+   ],
+   [
+    "AHwJSnFN",
+    1
+   ]
+  ],
+  "funder": [
+   "AHwJSnFNUiAU9FfT5ewW2osqMo938WtL7KhfsJyfpaN2",
+   11101258764,
+   1788005074
+  ],
+  "progs": [
+   [
+    "ComputeB",
+    2
+   ],
+   [
+    "11111111",
+    2
+   ]
+  ]
+ },
+ "DeFG8i8zoJ3hN155nmvLq266ZVxWmNgRaTz5KQVHfe2S": {
+  "addr": "DeFG8i8zoJ3hN155nmvLq266ZVxWmNgRaTz5KQVHfe2S",
+  "n": 3000,
+  "capped": true,
+  "first_bt": 1793199469,
+  "last_bt": 1793200496,
+  "bal": 7925066420,
+  "errs": 218,
+  "sample": 8,
+  "pump_trades": 0,
+  "pump_any": 0,
+  "guard": 0,
+  "with_him": 0,
+  "payers": [
+   [
+    "DeFG8i8z",
+    8
+   ]
+  ],
+  "funder": null,
+  "progs": [
+   [
+    "BYdq7NJX",
+    8
+   ]
+  ]
+ }
+}

@@ -375,6 +375,7 @@ pub fn reason_code(r: ExitReason) -> u8 {
         ExitReason::NoActivity => 7,
         ExitReason::MaxHold => 8,
         ExitReason::HoldTo => 9,
+        ExitReason::Rearm => 10,
         ExitReason::TakeProfit(i) => 0x10 + i.min(15),
     }
 }
@@ -391,5 +392,6 @@ pub fn reason_index(r: ExitReason) -> usize {
         ExitReason::NoActivity => 6,
         ExitReason::MaxHold => 7,
         ExitReason::HoldTo => 8,
+        ExitReason::Rearm => 9,
     }
 }

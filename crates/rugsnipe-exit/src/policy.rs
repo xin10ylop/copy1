@@ -203,6 +203,14 @@ pub struct ExitPolicy {
     pub retry_max_tries: u32,
     /// Tip multiplier per retry (`sell_retry.tip_mult`, 2.0 = 20_000).
     pub retry_tip_mult_bps: u32,
+    /// An order that gave up (`max_tries` or the spend cap) is placed again
+    /// from scratch this many slots after its last attempt, for as long as
+    /// the position is open (`sell_retry.rearm_after_slots`; 0 = never:
+    /// the 2026-10-27 dead end, 05-live/stuck-coin-2RR6sfbi.md). A policy
+    /// serialized before 2026-10-28 (the tape fixtures, a snapshot) reads
+    /// the default.
+    #[serde(default = "d_rearm")]
+    pub retry_rearm_after_slots: u64,
     /// First-attempt tip of a normal sell.
     pub sell_tip_lamports: u64,
     /// First-attempt tip of a dump sell.
@@ -370,12 +378,23 @@ impl PhantomCfg {
     }
 }
 
-/// `sell_retry = { every_slots, max_tries, tip_mult }`.
+/// `sell_retry = { every_slots, max_tries, tip_mult, rearm_after_slots }`.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct RetryCfg {
     pub every_slots: u64,
     pub max_tries: u32,
     pub tip_mult: f64,
+    /// 2026-10-28: a sell that gave up is placed again this many slots
+    /// later (base tip, a fresh try count and spend budget), again and
+    /// again while the position is open; a journal CRITICAL line each time.
+    /// 2,700 slots is about 10 minutes at 220 ms slots. 0 = never (the old
+    /// behaviour: the stake sat unsold until a restart).
+    #[serde(default = "d_rearm")]
+    pub rearm_after_slots: u64,
+}
+
+fn d_rearm() -> u64 {
+    2_700
 }
 
 /// `[exit.default]` exactly as written in `config/rugsnipe.example.toml`
@@ -485,6 +504,7 @@ impl Default for ExitConfig {
                 every_slots: 2,
                 max_tries: 15,
                 tip_mult: 2.0,
+                rearm_after_slots: d_rearm(),
             },
             consolidation_window_slots: d_window(),
             sell_tip_lamports: d_sell_tip(),
@@ -547,6 +567,7 @@ impl ExitConfig {
             retry_every_slots: self.sell_retry.every_slots,
             retry_max_tries: self.sell_retry.max_tries,
             retry_tip_mult_bps: to_bps(self.sell_retry.tip_mult, "sell_retry.tip_mult")?,
+            retry_rearm_after_slots: self.sell_retry.rearm_after_slots,
             sell_tip_lamports: self.sell_tip_lamports,
             dump_tip_lamports: self.dump_tip_lamports,
             max_sell_spend_lamports,
@@ -597,6 +618,7 @@ impl ExitConfig {
                 every_slots: p.retry_every_slots,
                 max_tries: p.retry_max_tries,
                 tip_mult: p.retry_tip_mult_bps as f64 / b,
+                rearm_after_slots: p.retry_rearm_after_slots,
             },
             consolidation_window_slots: p.consolidation_window_slots,
             sell_tip_lamports: p.sell_tip_lamports,

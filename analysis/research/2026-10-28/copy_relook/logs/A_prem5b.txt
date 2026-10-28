@@ -1,0 +1,24 @@
+what filling the refused copies adds (no limit minus 5%), by group:
+   premium  10-20%   coins  41   -0.96 SOL  by day 21 -0.42 22 +0.09 23 -0.27 24 -0.38 25 +0.02
+   premium  5-10%    coins  99   -0.86 SOL  by day 21 -0.18 22 -0.20 23 -0.15 24 +0.02 25 -0.35
+   premium  >=20%    coins   6   -0.25 SOL  by day 21 -0.12 22 -0.05 23 -0.09
+   size     0.7-1.1  coins  54   -0.96 SOL  by day 21 +0.05 22 -0.25 23 -0.32 24 -0.41 25 -0.03
+   size     <0.7     coins  40   -0.79 SOL  by day 21 -0.27 22 -0.12 23 -0.23 24 +0.13 25 -0.30
+   size     >=1.1    coins  52   -0.32 SOL  by day 21 -0.49 22 +0.21 23 +0.03 24 -0.07 25 +0.00
+   tip      2-4M     coins  18   -0.80 SOL  by day 21 -0.07 22 -0.12 23 -0.05 24 -0.23 25 -0.33
+   tip      4-8M     coins  39   -0.53 SOL  by day 21 -0.15 22 -0.02 23 -0.25 24 -0.11 25 +0.00
+   tip      8-12M    coins  15   +0.14 SOL  by day 21 +0.03 23 +0.02 24 +0.09
+   tip      >=12M    coins  74   -0.89 SOL  by day 21 -0.53 22 -0.02 23 -0.24 24 -0.11 25 +0.00
+
+landing closer behind him (a fixed distance D for every copy), 5% limit, his tip >= 2M:
+   D =   0: +11.97 SOL over 558 copies
+   D =   1: +11.25 SOL over 558 copies
+   D =   3:  +9.83 SOL over 558 copies
+   D =  10:  +8.07 SOL over 558 copies
+   D =  20:  +7.30 SOL over 558 copies
+   D =  40:  +6.88 SOL over 558 copies
+   D =  60:  +6.53 SOL over 558 copies
+   D =  90:  +5.23 SOL over 558 copies
+   D = 150:  +4.69 SOL over 558 copies
+   D = 240:  +4.49 SOL over 558 copies
+   (our measured distances, deciles: [32, 45, 58, 71, 84, 101, 125, 158, 200, 322] )

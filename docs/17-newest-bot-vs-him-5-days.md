@@ -463,7 +463,12 @@ in steps (1.0, 1.5, 1.8, 2.4, 3.6, 4.8M ...), so a floor at 2M sits between 1.8M
   0. The risk caps apply.
 - **Exit.** One slot before his table hold, whatever `operator_holds` says. The tweet check's exit cut leaves copies alone.
 - **Journal and status line.** Each launch buy of his the bot sees journals `copy <mint> his <SOL> tip <M> at create+<k>
-  -> <act>`: `buy`, `log`, or why it was not copied (`skip_small`, `skip_unlisted`, `skip_few`). `bash ~/check.sh him`
+  -> <act>`: `buy`, `log`, or why it was not copied (`skip_small`, `skip_unlisted`, `skip_few`; 2026-10-28:
+  `skip_short_hold`, a listed signer whose table hold is under 4, which a copy could not sell before his own sell,
+  counted with the unlisted ones). A `buy` that the gates behind the send then drop (the kill, a cap, no nonce, a
+  stale slot ...) journals `copy <mint> not sent: <reason>` (2026-10-28; before, check.sh showed "copied, not sent"
+  with no cause). The signer window `copy_signer_window_h` counts 16,000 slots an hour since 2026-10-28 (it counted
+  9,000, 400 ms slots, so 24 h was about 13 h live). `bash ~/check.sh him`
   (`deploy/bin/rugsnipe-vs-him`) sets his coins since the start, from the chain, beside ours and that line. The status line adds
   `copy <mode> his small unlisted few seen buy log passed`: his landed launch buys, the ones not copied for their size
   or tip, an unlisted signer or too few of his buys on the signer, then the candidates copied, journaled or passed over.

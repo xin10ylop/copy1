@@ -27,6 +27,7 @@ WHY = {
     "skip_small": "not copied: his tip under the floor (or his size)",
     "skip_unlisted": "not copied: operator not in the table",
     "skip_few": "not copied: operator he bought < 2 times in 24 h",
+    "skip_short_hold": "not copied: his hold on the signer is under 4 slots (a copy could not sell before him)",
 }
 SYSTEM = "11111111111111111111111111111111"
 WHY_W = {
