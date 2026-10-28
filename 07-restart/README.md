@@ -15,7 +15,7 @@
 > - **What costs money and is now fixed in the code:** the 8M bid arm (−0.30 SOL over the window for 7 positions
 >   closer), a graduated coin whose sell had given up stayed unsold for ever, a sell that gives up was a dead end, a
 >   lease-loss edge case, the signer window was 13 h not 24 h, and signers with a hold under 4 could not be sold before
->   him. Every fix has a test; 273 tests pass.
+>   him. Every fix has a test; 317 tests pass.
 > - **Nothing new passes out of sample**: stake ladders by his tip, exits by bucket, circuit breakers, a second copy
 >   after a refusal, the low-tip buys, the operator count, and the one angle the chain offered (a fifth of his bids
 >   sit in the priority fee, which the tip key does not see: the 130 coins a tip + priority key adds lose −0.83 SOL
@@ -204,7 +204,7 @@ review, the live decomposition.
 | **the ArmSet's size is a flag** | `analysis/scripts/make_paper_armset.py --size-sol` | the copy's stake is min(ArmSet size, `[probe] b.max_probe_lamports`, `entry.stake_by_tier[0]`); stage b's default size is 0.25, the live copies staked 0.5 |
 | **check.sh reconciles the wallet** | `deploy/bin/rugsnipe-check` | "results since the start" counted closed trades only (-0.76 while the wallet lost 1.41). It now prints the open positions at cost and the rest (failed sells' fees, nonce rent), and warns when more than 0.02 SOL left the wallet outside trades |
 
-Tests: `cargo test -p rugsnipe -p rugsnipe-core -p rugsnipe-exit`: 273 passed, 0 failed (40 binaries), on the pinned
+Tests: `cargo test -p rugsnipe -p rugsnipe-core -p rugsnipe-exit`: 317 passed, 0 failed (47 binaries), on the pinned
 1.97.1 toolchain. Not changed, and worth knowing (code review): graduation is detected only from a failed sell (one
 failed sell per graduation; Q5.2); his tip is read from his top-level System transfers and reads 0 when the logs are
 truncated (Q8.2); one nonce per mint by hash with no fallback (Q8.4); the 4-hourly restarts miss his buys for 5-20 s
