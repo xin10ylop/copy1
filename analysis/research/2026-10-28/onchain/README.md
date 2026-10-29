@@ -23,6 +23,7 @@ activity; `q3b.json`: the guard programs' signers; `q3c.json`: the programs' upg
 | Q1 the trader by day; Q2 the hold (create slot from his slot guard, checked on 80 creates) | `q1.py`, `q1b.py`, `tables.py`, `relays.py`, `balance.py`, `createslot.py` |
 | Q3 the wallet's links: flows, counterparties, chains, the fleet, the guards' users, the upgrade authority, co-signers, tokens, the dev wallet | `q3flows.py`, `flowtable.py`, `q3late.py`, `q3cp.py`, `q3nonce.py`, `q3hops.py`, `q3chain.py`, `q3fleetnow.py`, `q3origin.py`, `q3far.py`, `q3treasury.py`, `q3dev.py`, `q3prog7.py`, `q3defg.py`, `q3b.py`, `q3c.py`, `q3d.py`, `profile_w.py`, `oct1deep.py` |
 | Q4 his coins in the live window against the copy key, and the priority-fee finding | `q4.py`, `q4b.py` |
+| "how much did he make today, and what would we have made?" (Oct 29 00:36 UTC): his day by window and the copy's estimate from the live ratio (0.127 of his per-SOL result on the key coins, fixed cost 0.0031 a fill); `data/today_2026-10-29_0036utc.txt` | `today.py` (after `sigs.py`, `fetch.py recent`, `fetch1.py`, `parse.py`) |
 
 ## Headlines
 

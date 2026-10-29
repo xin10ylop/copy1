@@ -1,0 +1,25 @@
+rows 4000; signatures not fetched 0
+
+== UTC day Oct 28: 10-28 00:00 - 10-29 00:00 UTC
+   him: landed buys 316 (at create+0/1 316), failed 951, net +6.673 SOL, wins 163/316, median stake 0.593
+   copy key (tip >= 2M at create+0/1): 131 coins, his net on them +5.824 (without his best 2: +3.819), wins 70/131
+   our copy at 0.5 SOL (estimate): curve +0.62, fixed cost 0.31 on 131 copies -> net +0.31 (without his best 2: +0.10)
+   our copy at 1.0 SOL (estimate): curve +1.25, fixed cost 0.31 on 131 copies -> net +0.93 (without his best 2: +0.50)
+
+== Beirut day Oct 28 (UTC+2): 10-27 22:00 - 10-28 22:00 UTC
+   him: landed buys 309 (at create+0/1 309), failed 971, net +4.630 SOL, wins 154/309, median stake 0.593
+   copy key (tip >= 2M at create+0/1): 128 coins, his net on them +4.717 (without his best 2: +2.712), wins 66/128
+   our copy at 0.5 SOL (estimate): curve +0.51, fixed cost 0.31 on 128 copies -> net +0.20 (without his best 2: -0.02)
+   our copy at 1.0 SOL (estimate): curve +1.01, fixed cost 0.31 on 128 copies -> net +0.70 (without his best 2: +0.27)
+
+== Beirut Oct 29 so far: 10-28 22:00 - 02-20 00:36 UTC
+   him: landed buys 24 (at create+0/1 24), failed 78, net +1.321 SOL, wins 15/24, median stake 0.593
+   copy key (tip >= 2M at create+0/1): 9 coins, his net on them +1.234 (without his best 2: +0.351), wins 7/9
+   our copy at 0.5 SOL (estimate): curve +0.13, fixed cost 0.02 on 9 copies -> net +0.11 (without his best 2: +0.02)
+   our copy at 1.0 SOL (estimate): curve +0.26, fixed cost 0.02 on 9 copies -> net +0.24 (without his best 2: +0.05)
+
+== UTC day Oct 27 (for scale): 10-27 00:00 - 10-28 00:00 UTC
+   him: landed buys 305 (at create+0/1 305), failed 1005, net +5.763 SOL, wins 141/305, median stake 0.593
+   copy key (tip >= 2M at create+0/1): 118 coins, his net on them -0.489 (without his best 2: -2.518), wins 55/118
+   our copy at 0.5 SOL (estimate): curve -0.05, fixed cost 0.28 on 118 copies -> net -0.33 (without his best 2: -0.55)
+   our copy at 1.0 SOL (estimate): curve -0.10, fixed cost 0.28 on 118 copies -> net -0.39 (without his best 2: -0.82)
